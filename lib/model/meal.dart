@@ -6,20 +6,33 @@ class Meal {
   List<Ingredient> _ingredients = [];
   List<Ingredient> get ingredients => _ingredients;
 
-  Stopwatch _timer = Stopwatch();
+  final Stopwatch _timer = Stopwatch();
 
   void addIngredient(Ingredient item) {
     _ingredients.add(item);
+
+    updateTimers();
+  }
+
+  void updateTimers() {
+    // Sort items by duration, assign start delay
+    _ingredients.sort((a, b) => b.totalTime.compareTo(a.totalTime));
+    Duration max = getTotalTime();
+    for (Ingredient i in _ingredients) {
+      i.setDelay(max);
+    }
   }
 
   Duration getTotalTime() {
+    /*
     Duration t = Duration.zero;
 
     for (Ingredient ingredient in _ingredients) {
       t += ingredient.totalTime;
     }
-
-    return t;
+    */
+    //return max time from first item as sorted to be highest
+    return _ingredients[0].totalTime;
   }
 
   Duration getTotalTimeLeft() {
@@ -27,11 +40,16 @@ class Meal {
   }
 
   void StartTimer(Function(Meal _meal) callBack) {
+    _timer.reset();
     _timer.start();
 
     Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
       // THROW UPDATE
-      print(_timer.elapsed.toString());
+
+      for (Ingredient i in _ingredients) {
+        i.updateTimer(_timer.elapsed);
+      }
+
       callBack(this);
       if (_timer.elapsed > getTotalTime()) {
         timer.cancel();

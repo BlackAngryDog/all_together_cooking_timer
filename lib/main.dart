@@ -45,9 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _initState() {
     _currMeal.addIngredient(Ingredient(
-        "Sausages", const Duration(minutes: 1, seconds: 30), Duration.zero));
+        "Sausages", const Duration(minutes: 1, seconds: 0), Duration.zero));
     _currMeal.addIngredient(Ingredient(
-        "Chips", const Duration(minutes: 0, seconds: 15), Duration.zero));
+        "Chips",
+        const Duration(minutes: 0, seconds: 15),
+        const Duration(minutes: 0, seconds: 15)));
   }
 
   void _incrementCounter() {
@@ -119,6 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ListTile(
                             title: Text(
                               _currMeal.ingredients[index].title,
+                            ),
+                            subtitle: Text(
+                              _currMeal.ingredients[index].getTimerText(),
                             ),
                           ),
                         );
