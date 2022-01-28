@@ -7,6 +7,7 @@ class TimerGroup {
   List<TimerItem> get ingredients => _ingredients;
 
   final Stopwatch _timer = Stopwatch();
+  Timer _runTimer = Timer(Duration.zero, () {});
 
   bool get isRunning => _timer.isRunning;
 
@@ -47,8 +48,13 @@ class TimerGroup {
     _timer.start();
     print("start");
     Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
+
+      if (!_timer.isRunning) {
+        timer.cancel();
+        return;
+      }
+
       // THROW UPDATE
-      print("timer");
       for (TimerItem i in _ingredients) {
         i.updateTimer(_timer.elapsed);
       }
@@ -56,8 +62,8 @@ class TimerGroup {
       callBack(this);
       if (_timer.elapsed > getTotalTime()) {
         timer.cancel();
-        print('timer finished');
       }
+
     });
   }
 
@@ -68,5 +74,6 @@ class TimerGroup {
   void StopTimer() {
     _timer.stop();
     _timer.reset();
+
   }
 }
