@@ -1,8 +1,8 @@
 enum CookStatus { waiting, cooking, resting }
 
-class Ingredient {
+class TimerItem {
   Duration get totalTime {
-    return _time + _rest;
+    return runTime + _rest;
   }
 
   CookStatus status = CookStatus.waiting;
@@ -10,7 +10,8 @@ class Ingredient {
   final String _title;
   get title => _title;
 
-  final Duration _time;
+  Duration runTime = Duration.zero;
+
   final Duration _rest;
   Duration _delayStart = Duration.zero;
   get delayStart => _delayStart;
@@ -18,7 +19,7 @@ class Ingredient {
   Duration _totalTime = Duration.zero;
   Duration _elapsed = Duration.zero;
 
-  Ingredient(this._title, this._time, this._rest);
+  TimerItem(this._title, this.runTime, this._rest);
 
   num get remainingTime => 0;
 
@@ -28,9 +29,9 @@ class Ingredient {
 
   void setDelay(Duration totalTime) {
     _totalTime = totalTime;
-    _delayStart = totalTime - (_time + _rest);
+    _delayStart = totalTime - (runTime + _rest);
     print(
-        "$title starts in $delayStart as total is $totalTime - ${_time + _rest}");
+        "$title starts in $delayStart as total is $totalTime - ${runTime + _rest}");
   }
 
   void updateTimer(Duration currTime) {
@@ -51,10 +52,10 @@ class Ingredient {
         return "Time to Start : ${_delayStart - _elapsed}";
         break;
       case CookStatus.cooking:
-        return "Cooking : ${(_delayStart + _time) - _elapsed}";
+        return "Cooking : ${(_delayStart + runTime) - _elapsed}";
         break;
       case CookStatus.resting:
-        return "Resting : ${(_delayStart + _time + _rest) - _elapsed}";
+        return "Resting : ${(_delayStart + runTime + _rest) - _elapsed}";
         break;
     }
   }

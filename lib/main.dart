@@ -1,8 +1,9 @@
-import 'package:all_together_cooking_timer/model/ingredient.dart';
+import 'package:all_together_cooking_timer/model/timer.dart';
+import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 
 import 'package:flutter/material.dart';
 
-import 'model/meal.dart';
+import 'model/timer_group.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,16 +38,16 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String _timer = '';
 
-  final Meal _currMeal = Meal();
+  final TimerGroup _currMeal = TimerGroup();
 
   _MyHomePageState() {
     _initState();
   }
 
   void _initState() {
-    _currMeal.addIngredient(Ingredient(
+    _currMeal.addTimer(TimerItem(
         "Sausages", const Duration(minutes: 1, seconds: 0), Duration.zero));
-    _currMeal.addIngredient(Ingredient(
+    _currMeal.addTimer(TimerItem(
         "Chips",
         const Duration(minutes: 0, seconds: 15),
         const Duration(minutes: 0, seconds: 15)));
@@ -60,9 +61,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _timerUpdate(Meal meal) {
+  void _timerUpdate(TimerGroup meal) {
     setState(() {
       _timer = meal.getTotalTimeLeft().toString();
+    });
+  }
+
+  void _addItemPressed(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            child: EditTimer(_onTimerAdded, _currMeal.ingredients[0]),
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
+
+  void _onTimerAdded(TimerItem newTimer) {
+    _currMeal.updateTimers();
+    setState(() {
+      // TODO - add new time or update timer
+      _timer = _currMeal.getTotalTimeLeft().toString();
     });
   }
 
@@ -134,10 +155,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Visibility(
+            visible: !_currMeal.isRunning,
+            child: FloatingActionButton(
+              onPressed: () => _addItemPressed(context),
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            ),
+          ),
+          FloatingActionButton(
+            onPressed: () => {
+              if (!_currMeal.isRunning)
+                {_currMeal.StartTimer(_timerUpdate)}
+              else
+                {_currMeal.PauseTimer()}
+            },
+            tooltip: 'Start',
+            child: _currMeal.isRunning
+                ? const Icon(Icons.pause)
+                : const Icon(Icons.play_arrow),
+          ),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

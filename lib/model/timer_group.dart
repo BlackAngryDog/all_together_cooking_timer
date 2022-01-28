@@ -1,15 +1,19 @@
 import 'dart:async';
 
-import 'package:all_together_cooking_timer/model/ingredient.dart';
+import 'package:all_together_cooking_timer/model/timer.dart';
 
-class Meal {
-  List<Ingredient> _ingredients = [];
-  List<Ingredient> get ingredients => _ingredients;
+class TimerGroup {
+  List<TimerItem> _ingredients = [];
+  List<TimerItem> get ingredients => _ingredients;
 
   final Stopwatch _timer = Stopwatch();
 
-  void addIngredient(Ingredient item) {
-    _ingredients.add(item);
+  bool get isRunning => _timer.isRunning;
+
+  void addTimer(TimerItem item) {
+    if (!_ingredients.contains(item)) {
+      _ingredients.add(item);
+    }
 
     updateTimers();
   }
@@ -18,7 +22,7 @@ class Meal {
     // Sort items by duration, assign start delay
     _ingredients.sort((a, b) => b.totalTime.compareTo(a.totalTime));
     Duration max = getTotalTime();
-    for (Ingredient i in _ingredients) {
+    for (TimerItem i in _ingredients) {
       i.setDelay(max);
     }
   }
@@ -39,14 +43,13 @@ class Meal {
     return _timer.elapsed - getTotalTime();
   }
 
-  void StartTimer(Function(Meal _meal) callBack) {
-    _timer.reset();
+  void StartTimer(Function(TimerGroup _meal) callBack) {
     _timer.start();
-
+    print("start");
     Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
       // THROW UPDATE
-
-      for (Ingredient i in _ingredients) {
+      print("timer");
+      for (TimerItem i in _ingredients) {
         i.updateTimer(_timer.elapsed);
       }
 
@@ -56,5 +59,14 @@ class Meal {
         print('timer finished');
       }
     });
+  }
+
+  void PauseTimer() {
+    _timer.stop();
+  }
+
+  void StopTimer() {
+    _timer.stop();
+    _timer.reset();
   }
 }
