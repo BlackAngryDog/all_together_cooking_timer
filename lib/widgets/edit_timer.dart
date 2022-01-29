@@ -13,13 +13,25 @@ class EditTimer extends StatefulWidget {
 }
 
 class _EditTimerState extends State<EditTimer> {
+  late TextEditingController titleController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.item.title);
+  }
+
   void _onSubmit() {
     print(widget.item.runTime);
+
+    widget.item.title = titleController.text;
+
     widget.onAddTimer(widget.item);
     Navigator.of(context).pop();
   }
 
   void _onSetTime(Duration time, String type) {
+    // TODO - setup which time - maybe 2 funcs ?
     widget.item.runTime = time;
   }
 
@@ -62,11 +74,21 @@ class _EditTimerState extends State<EditTimer> {
       child: Container(
           child: Column(
         children: [
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Name'),
+            controller: titleController,
+          ),
           TextButton(
             onPressed: () {
               _showTimerPicker(widget.item.runTime);
             },
-            child: Text('Pick Time'),
+            child: Text('Cook Time ${widget.item.runTime}'),
+          ),
+          TextButton(
+            onPressed: () {
+              _showTimerPicker(widget.item.restTime);
+            },
+            child: Text('Rest Time ${widget.item.restTime}'),
           ),
           TextButton(
             onPressed: _onSubmit,

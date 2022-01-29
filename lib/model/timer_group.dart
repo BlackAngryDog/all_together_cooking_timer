@@ -19,6 +19,11 @@ class TimerGroup {
     updateTimers();
   }
 
+  void removeTimer(TimerItem timer) {
+    _ingredients.removeWhere((t) => t == timer);
+    updateTimers();
+  }
+
   void updateTimers() {
     // Sort items by duration, assign start delay
     _ingredients.sort((a, b) => b.totalTime.compareTo(a.totalTime));
@@ -48,7 +53,6 @@ class TimerGroup {
     _timer.start();
     print("start");
     Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
-
       if (!_timer.isRunning) {
         timer.cancel();
         return;
@@ -63,7 +67,6 @@ class TimerGroup {
       if (_timer.elapsed > getTotalTime()) {
         timer.cancel();
       }
-
     });
   }
 
@@ -74,6 +77,5 @@ class TimerGroup {
   void StopTimer() {
     _timer.stop();
     _timer.reset();
-
   }
 }

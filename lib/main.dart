@@ -67,20 +67,27 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _addItemPressed(BuildContext ctx) {
+  void _addItemPressed(BuildContext ctx, TimerItem timer) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
           return GestureDetector(
-            child: EditTimer(_onTimerAdded, _currMeal.ingredients[0]),
+            child: EditTimer(_onTimerAdded, timer),
             onTap: () {},
             behavior: HitTestBehavior.opaque,
           );
         });
   }
 
+  void _onDeletePressed(TimerItem timer) {
+    setState(() {
+      // TODO - add new time or update timer
+      _currMeal.removeTimer(timer);
+    });
+  }
+
   void _onTimerAdded(TimerItem newTimer) {
-    _currMeal.updateTimers();
+    _currMeal.addTimer(newTimer);
     setState(() {
       // TODO - add new time or update timer
       _timer = _currMeal.getTotalTimeLeft().toString();
@@ -146,6 +153,30 @@ class _MyHomePageState extends State<MyHomePage> {
                             subtitle: Text(
                               _currMeal.ingredients[index].getTimerText(),
                             ),
+                            trailing: SizedBox(
+                              width: 100,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      _addItemPressed(
+                                        ctx,
+                                        _currMeal.ingredients[index],
+                                      );
+                                    },
+                                    icon: const Icon(Icons.timer),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      _onDeletePressed(
+                                        _currMeal.ingredients[index],
+                                      );
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         );
                       },
@@ -161,7 +192,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Visibility(
             visible: !_currMeal.isRunning,
             child: FloatingActionButton(
-              onPressed: () => _addItemPressed(context),
+              onPressed: () => _addItemPressed(
+                context,
+                TimerItem('_title', Duration.zero, Duration.zero),
+              ),
               tooltip: 'Increment',
               child: const Icon(Icons.add),
             ),

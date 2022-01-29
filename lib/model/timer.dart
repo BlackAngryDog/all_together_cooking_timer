@@ -2,24 +2,23 @@ enum CookStatus { waiting, cooking, resting }
 
 class TimerItem {
   Duration get totalTime {
-    return runTime + _rest;
+    return runTime + restTime;
   }
 
   CookStatus status = CookStatus.waiting;
 
-  final String _title;
-  get title => _title;
+  String title;
 
   Duration runTime = Duration.zero;
+  Duration restTime = Duration.zero;
 
-  final Duration _rest;
   Duration _delayStart = Duration.zero;
   get delayStart => _delayStart;
 
   Duration _totalTime = Duration.zero;
   Duration _elapsed = Duration.zero;
 
-  TimerItem(this._title, this.runTime, this._rest);
+  TimerItem(this.title, this.runTime, this.restTime);
 
   num get remainingTime => 0;
 
@@ -29,9 +28,9 @@ class TimerItem {
 
   void setDelay(Duration totalTime) {
     _totalTime = totalTime;
-    _delayStart = totalTime - (runTime + _rest);
+    _delayStart = totalTime - (runTime + restTime);
     print(
-        "$title starts in $delayStart as total is $totalTime - ${runTime + _rest}");
+        "$title starts in $delayStart as total is $totalTime - ${runTime + restTime}");
   }
 
   void updateTimer(Duration currTime) {
@@ -55,7 +54,7 @@ class TimerItem {
         return "Cooking : ${(_delayStart + runTime) - _elapsed}";
         break;
       case CookStatus.resting:
-        return "Resting : ${(_delayStart + runTime + _rest) - _elapsed}";
+        return "Resting : ${(_delayStart + runTime + restTime) - _elapsed}";
         break;
     }
   }
@@ -63,7 +62,7 @@ class TimerItem {
   CookStatus _getState() {
     CookStatus state = _elapsed < _delayStart
         ? CookStatus.waiting
-        : _elapsed > _totalTime - _rest
+        : _elapsed > _totalTime - restTime
             ? CookStatus.resting
             : CookStatus.cooking;
     return state;
