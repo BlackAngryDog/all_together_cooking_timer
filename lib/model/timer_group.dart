@@ -49,7 +49,7 @@ class TimerGroup {
     return _timer.elapsed - getTotalTime();
   }
 
-  void StartTimer(Function(TimerGroup _meal) callBack) {
+  void StartTimer(Function(TimerGroup _meal)? callBack) {
     _timer.start();
     print("start");
     Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
@@ -63,7 +63,8 @@ class TimerGroup {
         i.updateTimer(_timer.elapsed);
       }
 
-      callBack(this);
+      if (callBack != null) callBack(this);
+
       if (_timer.elapsed > getTotalTime()) {
         timer.cancel();
       }
