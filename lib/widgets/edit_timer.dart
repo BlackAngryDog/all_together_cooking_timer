@@ -1,6 +1,7 @@
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 
 class EditTimer extends StatefulWidget {
   final Function(TimerItem timer) onAddTimer;
@@ -35,6 +36,35 @@ class _EditTimerState extends State<EditTimer> {
     widget.item.runTime = time;
   }
 
+  showPickerNumber(BuildContext context) {
+    Picker(
+        squeeze: 1,
+        adapter: NumberPickerAdapter(data: [
+          NumberPickerColumn(
+            begin: 0,
+            end: 12,
+            suffix: Text(' h'),
+          ),
+          NumberPickerColumn(
+            begin: 0,
+            end: 60,
+            suffix: Text(' m'),
+          ),
+          NumberPickerColumn(
+            begin: 0,
+            end: 60,
+            suffix: Text(' s'),
+          ),
+        ]),
+        hideHeader: true,
+        title: Text("Please Select"),
+        selectedTextStyle: TextStyle(color: Colors.blue),
+        onConfirm: (Picker picker, List value) {
+          print(value.toString());
+          print(picker.getSelectedValues());
+        }).showModal(context);
+  }
+
   void _showTimerPicker(Duration duration) {
     showCupertinoModalPopup(
         context: context,
@@ -61,7 +91,7 @@ class _EditTimerState extends State<EditTimer> {
                     Navigator.of(context).pop();
                   },
                   child: Text('Finished'),
-                ),
+                )
               ],
             ),
           );
@@ -77,10 +107,19 @@ class _EditTimerState extends State<EditTimer> {
           TextFormField(
             decoration: const InputDecoration(labelText: 'Name'),
             controller: titleController,
+            keyboardType: TextInputType.datetime,
+          ),
+          CupertinoTimerPicker(
+            initialTimerDuration: widget.item.runTime,
+            onTimerDurationChanged: (Duration value) {
+              widget.item.runTime = value;
+              // TODO - update duration for timer (how to link which duration is setting)
+            },
           ),
           TextButton(
             onPressed: () {
-              _showTimerPicker(widget.item.runTime);
+              //_showTimerPicker(widget.item.runTime);
+              showPickerNumber(context);
             },
             child: Text('Cook Time ${widget.item.runTime}'),
           ),
