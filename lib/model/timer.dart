@@ -1,3 +1,5 @@
+import 'package:all_together_cooking_timer/utils/format_duration.dart';
+
 enum CookStatus { waiting, cooking, resting }
 
 class TimerItem {
@@ -48,13 +50,13 @@ class TimerItem {
   String getTimerText() {
     switch (status) {
       case CookStatus.waiting:
-        return "Time to Start : ${_delayStart - _elapsed}";
+        return "Time to Start : ${FormatDuration.format(_delayStart - _elapsed)}";
         break;
       case CookStatus.cooking:
-        return "Cooking : ${(_delayStart + runTime) - _elapsed}";
+        return "Cooking : ${FormatDuration.format((_delayStart + runTime) - _elapsed)}";
         break;
       case CookStatus.resting:
-        return "Resting : ${(_delayStart + runTime + restTime) - _elapsed}";
+        return "Resting : ${FormatDuration.format((_delayStart + runTime + restTime) - _elapsed)}";
         break;
     }
   }

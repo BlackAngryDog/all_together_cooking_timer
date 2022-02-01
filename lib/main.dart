@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'All Together - Cooking Timer'),
     );
   }
 }
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: TimerHome(_currMeal),
+      body: TimerHome(_currMeal, key: timerHomeKey),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -84,10 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           FloatingActionButton(
             onPressed: () => {
-              if (!_currMeal.isRunning)
-                {_currMeal.StartTimer(timerHomeKey.currentState!.timerUpdate)}
-              else
-                {_currMeal.PauseTimer()}
+              setState(() {
+                if (!_currMeal.isRunning) {
+                  _currMeal.StartTimer(timerHomeKey.currentState!.timerUpdate);
+                } else {
+                  _currMeal.PauseTimer();
+                }
+              }),
             },
             tooltip: 'Start',
             child: _currMeal.isRunning

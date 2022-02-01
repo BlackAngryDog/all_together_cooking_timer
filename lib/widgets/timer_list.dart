@@ -1,5 +1,6 @@
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
+import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,11 @@ class TimerHome extends StatefulWidget {
 }
 
 class TimerHomeState extends State<TimerHome> {
-  String _timer = '';
+  String _timer = '00:00:00';
 
   void timerUpdate(TimerGroup meal) {
     setState(() {
-      _timer = meal.getTotalTimeLeft().toString();
+      _timer = FormatDuration.format(meal.getTotalTimeLeft());
     });
   }
 
@@ -30,10 +31,7 @@ class TimerHomeState extends State<TimerHome> {
 
   void onTimerAdded(TimerItem newTimer) {
     widget._currMeal.addTimer(newTimer);
-    setState(() {
-      // TODO - add new time or update timer
-      _timer = widget._currMeal.getTotalTimeLeft().toString();
-    });
+    timerUpdate(widget._currMeal);
   }
 
   void addItemPressed(BuildContext ctx, TimerItem timer) {
@@ -50,10 +48,37 @@ class TimerHomeState extends State<TimerHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          Card(
+            elevation: 8,
+            margin: const EdgeInsets.all(20),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget._currMeal.title),
+                  Text(
+                    _timer,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  // TODO : get time to next action
+                  Text("Up next: ${widget._currMeal.getNextAction()}")
+                ],
+              ),
+            ),
+          ),
+          const Divider(
+            height: 20,
+            thickness: 1,
+            indent: 40,
+            endIndent: 40,
+            color: Colors.lightBlue,
+          ),
           Container(
             height: 400,
             child: widget._currMeal.ingredients.isEmpty

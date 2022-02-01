@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:all_together_cooking_timer/model/timer.dart';
 
 class TimerGroup {
+  String title = "Timer Group";
+
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
 
@@ -34,19 +36,16 @@ class TimerGroup {
   }
 
   Duration getTotalTime() {
-    /*
-    Duration t = Duration.zero;
-
-    for (Ingredient ingredient in _ingredients) {
-      t += ingredient.totalTime;
-    }
-    */
-    //return max time from first item as sorted to be highest
     return _ingredients[0].totalTime;
   }
 
   Duration getTotalTimeLeft() {
-    return _timer.elapsed - getTotalTime();
+    return getTotalTime() - _timer.elapsed;
+  }
+
+  String getNextAction() {
+    // TODO : Work out what action is coming next and return action and duration
+    return "next action";
   }
 
   void StartTimer(Function(TimerGroup _meal)? callBack) {
