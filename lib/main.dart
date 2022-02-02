@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 
 import 'model/timer_group.dart';
 
+// git token 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
+
 void main() {
   runApp(const MyApp());
 }
@@ -36,14 +38,15 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   static bool isInForeground = true;
-  static Future<void> displayNotification(String title, String body) async {
+  static Future<void> displayNotification(
+      String title, String body, int _percent) async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
 
     if (isInForeground) return;
 
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('bad1', 'bad',
             channelDescription: 'your channel description',
             importance: Importance.max,
@@ -53,15 +56,13 @@ class MyHomePage extends StatefulWidget {
             sound: null,
             ongoing: true,
             maxProgress: 100,
-            progress: 50,
+            progress: _percent,
             showProgress: true,
+            onlyAlertOnce: true,
             icon: null);
-    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
-    var pendingNotificationRequests =
-        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    var pendingNotificationdetails =
-        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
     await flutterLocalNotificationsPlugin
         .show(0, title, body, platformChannelSpecifics, payload: 'item x');
   }

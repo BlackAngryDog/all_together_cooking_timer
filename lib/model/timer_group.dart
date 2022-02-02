@@ -44,6 +44,12 @@ class TimerGroup {
     }
   }
 
+  int getProgress() {
+    int total = getTotalTime().inMilliseconds;
+    print('$total , ${_timer.elapsed.inMilliseconds}');
+    return ((_timer.elapsed.inMilliseconds / total) * 100).round();
+  }
+
   Duration getTotalTime() {
     return _ingredients[0].totalTime;
   }

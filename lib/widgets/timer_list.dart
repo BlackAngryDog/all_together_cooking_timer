@@ -21,8 +21,12 @@ class TimerHomeState extends State<TimerHome> {
     setState(() {
       _timer = FormatDuration.format(meal.getTotalTimeLeft());
     });
-
-    MyHomePage.displayNotification("Cooking", _timer);
+    print(widget._currMeal.getProgress());
+    MyHomePage.displayNotification(
+      "Cooking",
+      _timer,
+      widget._currMeal.getProgress(),
+    );
   }
 
   void _onDeletePressed(TimerItem timer) {
