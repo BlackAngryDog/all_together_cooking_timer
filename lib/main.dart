@@ -2,6 +2,10 @@ import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:flutter/material.dart';
 
 import 'model/timer_group.dart';
@@ -31,27 +35,115 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  static bool isInForeground = true;
+  static Future<void> displayNotification(String title, String body) async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    // await flutterLocalNotificationsPlugin.cancel(0);
+
+    if (isInForeground) return;
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('bad1', 'bad',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker',
+            playSound: false,
+            sound: null,
+            ongoing: true,
+            maxProgress: 100,
+            progress: 50,
+            showProgress: true,
+            icon: null);
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    var pendingNotificationRequests =
+        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+    var pendingNotificationdetails =
+        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, platformChannelSpecifics, payload: 'item x');
+  }
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final TimerGroup _currMeal = TimerGroup();
   final timerHomeKey = GlobalKey<TimerHomeState>();
 
-  _MyHomePageState() {
-    _initState();
-  }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
 
-  void _initState() {
     _currMeal.addTimer(TimerItem(
         "Sausages", const Duration(minutes: 1, seconds: 0), Duration.zero));
     _currMeal.addTimer(TimerItem(
         "Chips",
         const Duration(minutes: 0, seconds: 15),
         const Duration(minutes: 0, seconds: 15)));
+
+    initNotifications();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    MyHomePage.isInForeground = state == AppLifecycleState.resumed;
+    //print("app is in F G ${MyHomePage.isInForeground}");
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  void _initState() {
+    //FlutterRingtonePlayer.playNotification();
+  }
+
+  Future<void> initNotifications() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    final IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings();
+    final MacOSInitializationSettings initializationSettingsMacOS =
+        MacOSInitializationSettings();
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS,
+            macOS: initializationSettingsMacOS);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    bool? result = await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            MacOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: false,
+        );
+  }
+
+/*
+  void selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
+    );
+  }
+*/
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -62,42 +154,93 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: TimerHome(_currMeal, key: timerHomeKey),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+      body: Column(
         children: [
-          Visibility(
-            visible: !_currMeal.isRunning,
-            child: FloatingActionButton(
-              onPressed: () => timerHomeKey.currentState!.addItemPressed(
-                context,
-                TimerItem('_title', Duration.zero, Duration.zero),
-              ),
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            ),
-          ),
-          FloatingActionButton(
-            onPressed: () => {
-              setState(() {
-                if (!_currMeal.isRunning) {
-                  _currMeal.StartTimer(timerHomeKey.currentState!.timerUpdate);
-                } else {
-                  _currMeal.PauseTimer();
-                }
-              }),
-            },
-            tooltip: 'Start',
-            child: _currMeal.isRunning
-                ? const Icon(Icons.pause)
-                : const Icon(Icons.play_arrow),
-          ),
+          TimerHome(_currMeal, key: timerHomeKey),
         ],
+      ),
+      floatingActionButton: Card(
+        elevation: 55,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Visibility(
+                visible: false,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: FloatingActionButton(
+                  onPressed: () => timerHomeKey.currentState!.addItemPressed(
+                    context,
+                    TimerItem('_title', Duration.zero, Duration.zero),
+                  ),
+                  tooltip: 'Increment',
+                  child: const Icon(
+                    Icons.add,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 65,
+                height: 65,
+                child: FloatingActionButton(
+                  onPressed: () => {
+                    setState(() {
+                      if (_currMeal.isFinished) {
+                        _currMeal.restartTimer();
+                      } else if (!_currMeal.isRunning) {
+                        _currMeal.StartTimer(
+                            timerHomeKey.currentState!.timerUpdate);
+                      } else {
+                        _currMeal.pauseTimer();
+                      }
+                    }),
+                  },
+                  tooltip: 'Start',
+                  child: _currMeal.isRunning
+                      ? (_currMeal.isFinished
+                          ? const Icon(Icons.restart_alt_rounded)
+                          : const Icon(Icons.pause))
+                      : const Icon(Icons.play_arrow),
+                ),
+              ),
+              Visibility(
+                visible: !_currMeal.isRunning,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: FloatingActionButton(
+                  onPressed: () => {
+                    setState(() {
+                      if (_currMeal.hasStarted) {
+                        _currMeal.restartTimer();
+                      } else {
+                        timerHomeKey.currentState!.addItemPressed(
+                          context,
+                          TimerItem('_title', Duration.zero, Duration.zero),
+                        );
+                      }
+                    }),
+                  },
+                  tooltip: 'Increment',
+                  child: _currMeal.hasStarted
+                      ? const Icon(Icons.restart_alt_rounded)
+                      : const Icon(Icons.add),
+                ),
+              ),
+            ],
+          ),
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

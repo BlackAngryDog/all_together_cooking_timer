@@ -1,3 +1,4 @@
+import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
@@ -20,6 +21,8 @@ class TimerHomeState extends State<TimerHome> {
     setState(() {
       _timer = FormatDuration.format(meal.getTotalTimeLeft());
     });
+
+    MyHomePage.displayNotification("Cooking", _timer);
   }
 
   void _onDeletePressed(TimerItem timer) {
@@ -36,14 +39,57 @@ class TimerHomeState extends State<TimerHome> {
 
   void addItemPressed(BuildContext ctx, TimerItem timer) {
     showModalBottomSheet(
-        context: ctx,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+        context: context,
+        isScrollControlled: true,
         builder: (_) {
           return GestureDetector(
-            child: EditTimer(onTimerAdded, timer),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: EditTimer(onTimerAdded, timer),
+            ),
             onTap: () {},
             behavior: HitTestBehavior.opaque,
           );
         });
+  }
+
+  void testSheet() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+        backgroundColor: Colors.black,
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      'Enter your address',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: TextField(
+                      decoration: InputDecoration(hintText: 'adddrss'),
+                      autofocus: true,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ));
   }
 
   @override
@@ -51,7 +97,7 @@ class TimerHomeState extends State<TimerHome> {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
             elevation: 8,
@@ -93,28 +139,31 @@ class TimerHomeState extends State<TimerHome> {
                           subtitle: Text(
                             widget._currMeal.ingredients[index].getTimerText(),
                           ),
-                          trailing: SizedBox(
-                            width: 100,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    addItemPressed(
-                                      ctx,
-                                      widget._currMeal.ingredients[index],
-                                    );
-                                  },
-                                  icon: const Icon(Icons.timer),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    _onDeletePressed(
-                                      widget._currMeal.ingredients[index],
-                                    );
-                                  },
-                                  icon: const Icon(Icons.delete),
-                                ),
-                              ],
+                          trailing: Visibility(
+                            visible: !widget._currMeal.hasStarted,
+                            child: SizedBox(
+                              width: 100,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      addItemPressed(
+                                        ctx,
+                                        widget._currMeal.ingredients[index],
+                                      );
+                                    },
+                                    icon: const Icon(Icons.timer),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      _onDeletePressed(
+                                        widget._currMeal.ingredients[index],
+                                      );
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -122,7 +171,14 @@ class TimerHomeState extends State<TimerHome> {
                     },
                     itemCount: widget._currMeal.ingredients.length,
                   ),
-          )
+          ),
+          const Divider(
+            height: 20,
+            thickness: 1,
+            indent: 40,
+            endIndent: 40,
+            color: Colors.lightBlue,
+          ),
         ],
       ),
     );

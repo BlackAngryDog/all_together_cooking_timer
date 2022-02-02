@@ -11,7 +11,16 @@ class TimerGroup {
   final Stopwatch _timer = Stopwatch();
   Timer _runTimer = Timer(Duration.zero, () {});
 
+  Function(TimerGroup _meal)? _callBack;
+
   bool get isRunning => _timer.isRunning;
+  bool get isFinished {
+    return getTotalTimeLeft() <= Duration.zero;
+  }
+
+  bool get hasStarted {
+    return _timer.elapsed > Duration.zero;
+  }
 
   void addTimer(TimerItem item) {
     if (!_ingredients.contains(item)) {
@@ -45,24 +54,33 @@ class TimerGroup {
 
   String getNextAction() {
     // TODO : Work out what action is coming next and return action and duration
-    return "next action";
+    List<TimerItem> nextTimers = List<TimerItem>.from(_ingredients);
+    //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
+    nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
+
+    /*
+    print('-----');
+    for (TimerItem i in nextTimers) {
+      print('Debug ${i.getNextTimerEvent()} next time ${i.getNextTime()}');
+    }
+    */
+    String nextText = nextTimers[0].getNextTimerEvent();
+
+    return nextText;
   }
 
   void StartTimer(Function(TimerGroup _meal)? callBack) {
     _timer.start();
+    _callBack = callBack;
     print("start");
-    Timer.periodic(const Duration(microseconds: 100), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (!_timer.isRunning) {
         timer.cancel();
         return;
       }
 
       // THROW UPDATE
-      for (TimerItem i in _ingredients) {
-        i.updateTimer(_timer.elapsed);
-      }
-
-      if (callBack != null) callBack(this);
+      _updateTimers();
 
       if (_timer.elapsed > getTotalTime()) {
         timer.cancel();
@@ -70,12 +88,21 @@ class TimerGroup {
     });
   }
 
-  void PauseTimer() {
+  void _updateTimers() {
+    for (TimerItem i in _ingredients) {
+      i.updateTimer(_timer.elapsed);
+    }
+
+    _callBack!(this);
+  }
+
+  void pauseTimer() {
     _timer.stop();
   }
 
-  void StopTimer() {
+  void restartTimer() {
     _timer.stop();
     _timer.reset();
+    _updateTimers();
   }
 }
