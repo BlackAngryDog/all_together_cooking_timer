@@ -1,16 +1,13 @@
 import 'package:all_together_cooking_timer/model/timer.dart';
+import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import 'package:flutter/material.dart';
 
 import 'model/timer_group.dart';
-
-// git token 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
 
 void main() {
   runApp(const MyApp());
@@ -37,36 +34,6 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  static bool isInForeground = true;
-  static Future<void> displayNotification(
-      String title, String body, int _percent) async {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-    // await flutterLocalNotificationsPlugin.cancel(0);
-
-    if (isInForeground) return;
-
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('bad1', 'bad',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker',
-            playSound: false,
-            sound: null,
-            ongoing: true,
-            maxProgress: 100,
-            progress: _percent,
-            showProgress: true,
-            onlyAlertOnce: true,
-            icon: null);
-    NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    await flutterLocalNotificationsPlugin
-        .show(0, title, body, platformChannelSpecifics, payload: 'item x');
-  }
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -87,13 +54,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         const Duration(minutes: 0, seconds: 15),
         const Duration(minutes: 0, seconds: 15)));
 
-    initNotifications();
+    NotificationManager.initNotifications();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    MyHomePage.isInForeground = state == AppLifecycleState.resumed;
+    NotificationManager.isInForeground = state == AppLifecycleState.resumed;
     //print("app is in F G ${MyHomePage.isInForeground}");
   }
 
@@ -105,33 +72,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   void _initState() {
     //FlutterRingtonePlayer.playNotification();
-  }
-
-  Future<void> initNotifications() async {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings();
-    final MacOSInitializationSettings initializationSettingsMacOS =
-        MacOSInitializationSettings();
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: initializationSettingsMacOS);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-    bool? result = await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            MacOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: false,
-        );
   }
 
 /*

@@ -9,6 +9,9 @@ class TimerGroup {
   List<TimerItem> get ingredients => _ingredients;
 
   final Stopwatch _timer = Stopwatch();
+
+  DateTime _startTime = DateTime.now();
+
   Timer _runTimer = Timer(Duration.zero, () {});
 
   Function(TimerGroup _meal)? _callBack;
@@ -77,6 +80,7 @@ class TimerGroup {
 
   void StartTimer(Function(TimerGroup _meal)? callBack) {
     _timer.start();
+    _startTime = DateTime.now();
     _callBack = callBack;
     print("start");
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
@@ -95,6 +99,9 @@ class TimerGroup {
   }
 
   void _updateTimers() {
+    Duration elapsed = DateTime.now().difference(_startTime);
+    print('Elapsed is ${_timer.elapsed} and datetime is $elapsed');
+
     for (TimerItem i in _ingredients) {
       i.updateTimer(_timer.elapsed);
     }

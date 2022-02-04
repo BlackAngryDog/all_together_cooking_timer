@@ -1,5 +1,6 @@
 import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
+import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 enum CookStatus { waiting, cooking, resting, finished }
@@ -45,7 +46,7 @@ class TimerItem {
     if (nextStatus != status) {
       // TODO - trigger event
 
-      // MyHomePage.displayNotification(title, getNextTimerEvent());
+      NotificationManager.displayUpdate(title, getNextTimerEvent());
       status = nextStatus;
 /*
       FlutterRingtonePlayer.play(

@@ -2,6 +2,7 @@ import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
+import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,8 @@ class TimerHomeState extends State<TimerHome> {
     setState(() {
       _timer = FormatDuration.format(meal.getTotalTimeLeft());
     });
-    print(widget._currMeal.getProgress());
-    MyHomePage.displayNotification(
+
+    NotificationManager.displayProgress(
       "Cooking",
       _timer,
       widget._currMeal.getProgress(),
