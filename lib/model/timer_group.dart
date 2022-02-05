@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:all_together_cooking_timer/model/timer.dart';
+import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 
 class TimerGroup {
   String title = "Timer Group";
@@ -8,21 +9,24 @@ class TimerGroup {
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
 
-  final Stopwatch _timer = Stopwatch();
+  //final Stopwatch _timer = Stopwatch();
 
   DateTime _startTime = DateTime.now();
 
   Timer _runTimer = Timer(Duration.zero, () {});
 
+  Duration elapsed = Duration.zero;
+
   Function(TimerGroup _meal)? _callBack;
 
-  bool get isRunning => _timer.isRunning;
+  bool _isRunning = false;
+  bool get isRunning => _isRunning;
   bool get isFinished {
     return getTotalTimeLeft() <= Duration.zero;
   }
 
   bool get hasStarted {
-    return _timer.elapsed > Duration.zero;
+    return elapsed > Duration.zero;
   }
 
   void addTimer(TimerItem item) {
@@ -49,8 +53,8 @@ class TimerGroup {
 
   int getProgress() {
     int total = getTotalTime().inMilliseconds;
-    print('$total , ${_timer.elapsed.inMilliseconds}');
-    return ((_timer.elapsed.inMilliseconds / total) * 100).round();
+
+    return ((elapsed.inMilliseconds / total) * 100).round();
   }
 
   Duration getTotalTime() {
@@ -58,7 +62,7 @@ class TimerGroup {
   }
 
   Duration getTotalTimeLeft() {
-    return getTotalTime() - _timer.elapsed;
+    return getTotalTime() - elapsed;
   }
 
   String getNextAction() {
@@ -79,43 +83,58 @@ class TimerGroup {
   }
 
   void StartTimer(Function(TimerGroup _meal)? callBack) {
-    _timer.start();
+    //_timer.start();
     _startTime = DateTime.now();
     _callBack = callBack;
+    _isRunning = true;
     print("start");
+
+    for (TimerItem i in _ingredients) {
+      i.startTimer();
+    }
+
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (!_timer.isRunning) {
+      if (!_isRunning) {
         timer.cancel();
+        _isRunning = false;
         return;
       }
 
       // THROW UPDATE
       _updateTimers();
 
-      if (_timer.elapsed > getTotalTime()) {
+      if (elapsed > getTotalTime()) {
         timer.cancel();
+        _isRunning = false;
       }
     });
   }
 
   void _updateTimers() {
-    Duration elapsed = DateTime.now().difference(_startTime);
-    print('Elapsed is ${_timer.elapsed} and datetime is $elapsed');
+    elapsed = DateTime.now().difference(_startTime);
 
     for (TimerItem i in _ingredients) {
-      i.updateTimer(_timer.elapsed);
+      i.updateTimer(elapsed);
     }
 
     _callBack!(this);
   }
 
   void pauseTimer() {
-    _timer.stop();
+    for (TimerItem i in _ingredients) {
+      i.stopTimer();
+    }
+    _isRunning = false;
+    //_timer.stop();
   }
 
   void restartTimer() {
-    _timer.stop();
-    _timer.reset();
+    for (TimerItem i in _ingredients) {
+      i.stopTimer();
+    }
+    //_timer.stop();
+    //_timer.reset();
+    _isRunning = false;
     _updateTimers();
   }
 }

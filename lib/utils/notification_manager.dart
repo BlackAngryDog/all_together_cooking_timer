@@ -1,4 +1,8 @@
+import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class NotificationManager {
   static Future<void> initNotifications() async {
@@ -28,10 +32,13 @@ class NotificationManager {
         );
   }
 
+  static int channel = 0;
   static bool isInForeground = true;
 
   static Future<void> displayProgress(
       String title, String body, int _percent) async {
+    return;
+
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
@@ -60,11 +67,15 @@ class NotificationManager {
   }
 
   static Future<void> displayUpdate(String title, String body) async {
+    //return;
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
 
-    // if (isInForeground) return;
+    //if (!isInForeground) {
+    displayFullscreen(title, body);
+    return;
+    //  }
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('bad2', 'update',
@@ -73,11 +84,88 @@ class NotificationManager {
             priority: Priority.high,
             ticker: 'ticker',
             playSound: true,
+            fullScreenIntent: true,
             icon: null);
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin
         .show(1, title, body, platformChannelSpecifics, payload: 'item x');
+  }
+
+  static Future<void> displayFullscreen(String title, String message) async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    print("setting notification for $title to $message");
+
+    tz.initializeTimeZones();
+    final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+    channel++;
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        channel,
+        title,
+        message,
+        tz.TZDateTime.now(tz.local).add(Duration(seconds: 1)),
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+          'full screen channel id',
+          'full screen channel name',
+          channelDescription: 'full screen channel description',
+          priority: Priority.high,
+          importance: Importance.high,
+          fullScreenIntent: true,
+          groupKey: "delayed",
+          groupAlertBehavior: GroupAlertBehavior.all,
+          setAsGroupSummary: true,
+          showWhen: false,
+        )),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  static Future<void> displayDelayedFullscreen(
+      Duration delay, String title, String message) async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    return;
+
+    print(
+        "setting notification for $title to $message in ${FormatDuration.format(delay)}");
+
+    tz.initializeTimeZones();
+    final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+    channel++;
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        channel,
+        title,
+        message,
+        tz.TZDateTime.now(tz.local).add(delay),
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+          'full screen channel id',
+          'full screen channel name',
+          channelDescription: 'full screen channel description',
+          priority: Priority.high,
+          importance: Importance.high,
+          fullScreenIntent: true,
+          groupKey: "delayed",
+          groupAlertBehavior: GroupAlertBehavior.all,
+          setAsGroupSummary: true,
+          showWhen: false,
+        )),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  static void stopAllNotifications() {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.cancelAll();
   }
 }

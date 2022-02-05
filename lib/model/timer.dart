@@ -38,6 +38,24 @@ class TimerItem {
         "$title starts in $delayStart as total is $totalTime - ${runTime + restTime}");
   }
 
+  void startTimer() {
+    Duration timeToStart = _delayStart - _elapsed;
+    Duration timeToEnd = _delayStart + runTime - _elapsed;
+
+    if (timeToStart > Duration.zero) {
+      NotificationManager.displayDelayedFullscreen(
+          _delayStart - _elapsed, title, "Start $title");
+    }
+    if (timeToEnd > Duration.zero) {
+      NotificationManager.displayDelayedFullscreen(
+          _delayStart + runTime - _elapsed, title, "End $title");
+    }
+  }
+
+  void stopTimer() {
+    NotificationManager.stopAllNotifications();
+  }
+
   void updateTimer(Duration currTime) {
     _elapsed = currTime;
     // TODO - set state and fire evens on state changed
