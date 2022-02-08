@@ -15,7 +15,7 @@ class SoundManager {
   }
 
   static void stop() {
-    isPlaying = true;
+    isPlaying = false;
     FlutterRingtonePlayer.stop();
   }
 }

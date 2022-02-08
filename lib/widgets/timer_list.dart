@@ -5,6 +5,7 @@ import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
 class TimerHome extends StatefulWidget {
   final TimerGroup _currMeal;
@@ -17,11 +18,19 @@ class TimerHome extends StatefulWidget {
 
 class TimerHomeState extends State<TimerHome> {
   String _timer = '00:00:00';
+  bool _sfxOpen = false;
 
   void timerUpdate(TimerGroup meal) {
     setState(() {
       _timer = FormatDuration.format(meal.getTotalTimeLeft());
     });
+
+    if (SoundManager.isPlaying && !_sfxOpen) {
+      openSoundPlaying();
+      _sfxOpen = true;
+    }
+
+    if (_sfxOpen == true && !SoundManager.isPlaying) _sfxOpen = false;
 
     NotificationManager.displayProgress(
       "Cooking",
@@ -56,6 +65,33 @@ class TimerHomeState extends State<TimerHome> {
               child: EditTimer(onTimerAdded, timer),
             ),
             onTap: () {},
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
+
+  void openSoundPlaying() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+        context: context,
+        isScrollControlled: true,
+        builder: (_) {
+          return GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: TextButton(
+                  child: const Text('Dismiss'),
+                  onPressed: () {
+                    SoundManager.stop();
+                    Navigator.of(context).pop();
+                  }),
+            ),
+            onTap: () {
+              SoundManager.stop();
+              Navigator.of(context).pop();
+            },
             behavior: HitTestBehavior.opaque,
           );
         });

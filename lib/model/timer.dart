@@ -32,12 +32,19 @@ class TimerItem {
   num get remainingTime => 0;
 
   bool paused = false;
+  bool isStandAlone = false;
 
   void ShowTime() {
     print(totalTime);
   }
 
   void setDelay(Duration totalTime) {
+    if (isStandAlone) {
+      _delayStart = Duration.zero;
+      paused = true;
+      return;
+    }
+    paused = false;
     _totalTime = totalTime;
     _delayStart = totalTime - (runTime + restTime);
     print(
@@ -54,10 +61,17 @@ class TimerItem {
       NotificationManager.displayDelayedFullscreen(
           _delayStart - _elapsed, title, "Start $title");
     }
+
+/*
+    if (timeToStart > Duration.zero) {
+      NotificationManager.displayDelayedFullscreen(
+          _delayStart - _elapsed, title, "Start $title");
+    }
     if (timeToEnd > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
           _delayStart + runTime - _elapsed, title, "End $title");
     }
+*/
   }
 
   void stopTimer() {
@@ -83,15 +97,21 @@ class TimerItem {
       // TODO - trigger event
 
       // TODO - pause this timer if set to do so and show continue button.
-      if (nextStatus == CookStatus.cooking) {
-        paused = true;
-        return;
-      }
+      //if (nextStatus == CookStatus.cooking) {
+      //  paused = true;
+      //  return;
+      //}
 
       NotificationManager.displayUpdate(title, getNextTimerEvent());
       status = nextStatus;
       // TODO - WORK OUT HOW TO LOOP SOUND UNTIL STOPPED
       SoundManager.play();
+
+      print(
+          'setup notification - ${getNextTime()}, $title, ${getNextTimerEvent()}');
+      // DISPATCH UPDATE FOR NEXT STATE
+      NotificationManager.displayDelayedFullscreen(
+          getNextTime(), title, getNextTimerEvent());
     }
   }
 

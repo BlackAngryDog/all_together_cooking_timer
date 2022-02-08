@@ -106,7 +106,7 @@ class _EditTimerState extends State<EditTimer> {
                     Navigator.of(context).pop();
                   },
                   child: Text("Finished"),
-                )
+                ),
               ],
             ),
           );
@@ -189,6 +189,14 @@ class _EditTimerState extends State<EditTimer> {
         TextButton(
           onPressed: _onSubmit,
           child: Text('Finish'),
+        ),
+        Switch(
+          value: widget.item.isStandAlone,
+          onChanged: (value) {
+            setState(() {
+              widget.item.isStandAlone = value;
+            });
+          },
         ),
       ],
     );

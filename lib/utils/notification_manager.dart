@@ -5,6 +5,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class NotificationManager {
+  static Duration reminderTime = Duration(seconds: 10);
+
   static Future<void> initNotifications() async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
@@ -131,7 +133,7 @@ class NotificationManager {
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  static Future<void> displayDelayedFullscreen(
+  static Future<int> displayDelayedFullscreen(
       Duration delay, String title, String message) async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
@@ -144,12 +146,17 @@ class NotificationManager {
     tz.initializeTimeZones();
     final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timeZoneName!));
+
+    var whenTime = tz.TZDateTime.now(tz.local).add(delay);
+    delay = delay - reminderTime;
+    var fireTime = tz.TZDateTime.now(tz.local).add(delay);
+
     channel++;
     await flutterLocalNotificationsPlugin.zonedSchedule(
         channel,
         title,
         message,
-        tz.TZDateTime.now(tz.local).add(delay),
+        fireTime,
         NotificationDetails(
             android: AndroidNotificationDetails(
           'full screen channel id',
@@ -162,13 +169,16 @@ class NotificationManager {
           groupAlertBehavior: GroupAlertBehavior.all,
           setAsGroupSummary: true,
           showWhen: true,
+          when: whenTime.millisecondsSinceEpoch,
           usesChronometer: true,
           ongoing: true,
-          timeoutAfter: 1000 * 10,
+          timeoutAfter: reminderTime.inMilliseconds,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+
+    return channel;
   }
 
   static void stopAllNotifications() {
