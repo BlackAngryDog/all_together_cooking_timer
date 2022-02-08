@@ -144,33 +144,47 @@ class TimerHomeState extends State<TimerHome> {
                           subtitle: Text(
                             widget._currMeal.ingredients[index].getTimerText(),
                           ),
-                          trailing: Visibility(
-                            visible: !widget._currMeal.hasStarted,
-                            child: SizedBox(
-                              width: 100,
-                              child: Row(
-                                children: [
-                                  IconButton(
+                          trailing: widget._currMeal.hasStarted
+                              ? Visibility(
+                                  visible: widget
+                                      ._currMeal.ingredients[index].paused,
+                                  child: IconButton(
                                     onPressed: () {
-                                      addItemPressed(
-                                        ctx,
-                                        widget._currMeal.ingredients[index],
-                                      );
+                                      widget._currMeal.ingredients[index]
+                                          .resume();
                                     },
-                                    icon: const Icon(Icons.timer),
+                                    icon: const Icon(Icons.play_arrow),
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      _onDeletePressed(
-                                        widget._currMeal.ingredients[index],
-                                      );
-                                    },
-                                    icon: const Icon(Icons.delete),
+                                )
+                              : Visibility(
+                                  visible: !widget._currMeal.hasStarted,
+                                  child: SizedBox(
+                                    width: 100,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            addItemPressed(
+                                              ctx,
+                                              widget
+                                                  ._currMeal.ingredients[index],
+                                            );
+                                          },
+                                          icon: const Icon(Icons.timer),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            _onDeletePressed(
+                                              widget
+                                                  ._currMeal.ingredients[index],
+                                            );
+                                          },
+                                          icon: const Icon(Icons.delete),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
+                                ),
                         ),
                       );
                     },

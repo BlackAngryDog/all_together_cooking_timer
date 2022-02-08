@@ -1,7 +1,7 @@
 import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
 enum CookStatus { waiting, cooking, resting, finished }
 
@@ -21,11 +21,17 @@ class TimerItem {
   get delayStart => _delayStart;
 
   Duration _totalTime = Duration.zero;
+
   Duration _elapsed = Duration.zero;
+  Duration get elapsed => _elapsed;
+
+  DateTime _dateTime = DateTime.now();
 
   TimerItem(this.title, this.runTime, this.restTime);
 
   num get remainingTime => 0;
+
+  bool paused = false;
 
   void ShowTime() {
     print(totalTime);
@@ -39,6 +45,8 @@ class TimerItem {
   }
 
   void startTimer() {
+    _dateTime = DateTime.now();
+
     Duration timeToStart = _delayStart - _elapsed;
     Duration timeToEnd = _delayStart + runTime - _elapsed;
 
@@ -53,31 +61,44 @@ class TimerItem {
   }
 
   void stopTimer() {
+    // TODO - STOP ONLY FOR THIS TIMER ID!
     NotificationManager.stopAllNotifications();
   }
 
-  void updateTimer(Duration currTime) {
-    _elapsed = currTime;
+  void resetTimer() {
+    NotificationManager.stopAllNotifications();
+    _elapsed = Duration.zero;
+    _delayStart = Duration.zero;
+  }
+
+  void updateTimer() {
+    Duration increment = DateTime.now().difference(_dateTime);
+    if (!paused) _elapsed += increment;
+    _dateTime = DateTime.now();
+
     // TODO - set state and fire evens on state changed
 
     CookStatus nextStatus = _getState();
     if (nextStatus != status) {
       // TODO - trigger event
 
+      // TODO - pause this timer if set to do so and show continue button.
+      if (nextStatus == CookStatus.cooking) {
+        paused = true;
+        return;
+      }
+
       NotificationManager.displayUpdate(title, getNextTimerEvent());
       status = nextStatus;
-/*
-      FlutterRingtonePlayer.play(
-        android: AndroidSounds.notification,
-        ios: IosSounds.glass,
-        looping: false, // Android only - API >= 28
-        volume: 0.1, // Android only - API >= 28
-        asAlarm: false, // Android only - all APIs
-      );
-
- */
-
+      // TODO - WORK OUT HOW TO LOOP SOUND UNTIL STOPPED
+      SoundManager.play();
     }
+  }
+
+  void resume() {
+    paused = false;
+    status = _getState();
+    SoundManager.stop();
   }
 
   String getTimerText() {
@@ -150,7 +171,7 @@ class TimerItem {
     if (_elapsed < _delayStart) return CookStatus.waiting;
     if (_elapsed > _delayStart && _elapsed < _totalTime - restTime)
       return CookStatus.cooking;
-    if (_elapsed < _totalTime - restTime) return CookStatus.resting;
+    if (_elapsed < _totalTime) return CookStatus.resting;
     return CookStatus.finished;
   }
 

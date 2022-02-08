@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
+import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
 class TimerGroup {
   String title = "Timer Group";
@@ -9,13 +10,7 @@ class TimerGroup {
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
 
-  //final Stopwatch _timer = Stopwatch();
-
-  DateTime _startTime = DateTime.now();
-
-  Timer _runTimer = Timer(Duration.zero, () {});
-
-  Duration elapsed = Duration.zero;
+  Duration get elapsed => getElapsedTime();
 
   Function(TimerGroup _meal)? _callBack;
 
@@ -61,6 +56,10 @@ class TimerGroup {
     return _ingredients[0].totalTime;
   }
 
+  Duration getElapsedTime() {
+    return _ingredients[0].elapsed;
+  }
+
   Duration getTotalTimeLeft() {
     return getTotalTime() - elapsed;
   }
@@ -83,15 +82,13 @@ class TimerGroup {
   }
 
   void StartTimer(Function(TimerGroup _meal)? callBack) {
-    //_timer.start();
-    _startTime = DateTime.now();
     _callBack = callBack;
     _isRunning = true;
-    print("start");
 
     for (TimerItem i in _ingredients) {
       i.startTimer();
     }
+    _updateTimers();
 
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (!_isRunning) {
@@ -111,12 +108,9 @@ class TimerGroup {
   }
 
   void _updateTimers() {
-    elapsed = DateTime.now().difference(_startTime);
-
     for (TimerItem i in _ingredients) {
-      i.updateTimer(elapsed);
+      i.updateTimer();
     }
-
     _callBack!(this);
   }
 
@@ -124,17 +118,18 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.stopTimer();
     }
+    _callBack!(this);
     _isRunning = false;
-    //_timer.stop();
+    SoundManager.stop();
   }
 
   void restartTimer() {
     for (TimerItem i in _ingredients) {
-      i.stopTimer();
+      i.resetTimer();
     }
-    //_timer.stop();
-    //_timer.reset();
+    updateTimers();
+    _callBack!(this);
     _isRunning = false;
-    _updateTimers();
+    SoundManager.stop();
   }
 }

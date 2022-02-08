@@ -20,7 +20,8 @@ class NotificationManager {
             android: initializationSettingsAndroid,
             iOS: initializationSettingsIOS,
             macOS: initializationSettingsMacOS);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectedNotification);
 
     bool? result = await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -30,6 +31,10 @@ class NotificationManager {
           badge: true,
           sound: true,
         );
+  }
+
+  static void onSelectedNotification(String? payload) {
+    print('received notification $payload');
   }
 
   static int channel = 0;
@@ -71,10 +76,10 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
-
+    return;
     //if (!isInForeground) {
     displayFullscreen(title, body);
-    return;
+
     //  }
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
@@ -131,7 +136,7 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    return;
+    //return;
 
     print(
         "setting notification for $title to $message in ${FormatDuration.format(delay)}");
@@ -156,7 +161,10 @@ class NotificationManager {
           groupKey: "delayed",
           groupAlertBehavior: GroupAlertBehavior.all,
           setAsGroupSummary: true,
-          showWhen: false,
+          showWhen: true,
+          usesChronometer: true,
+          ongoing: true,
+          timeoutAfter: 1000 * 10,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
