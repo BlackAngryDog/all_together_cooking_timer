@@ -1,6 +1,7 @@
 import 'package:all_together_cooking_timer/firebase_config.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
+import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
+
+    _currMeal.onTimerAdded = () {
+      setState(() {});
+    };
 
     //TimerDao().saveMessage(TimerItem(
     //    "Sausages", const Duration(minutes: 8, seconds: 0), Duration.zero));
@@ -148,6 +153,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: const Icon(
                     Icons.add,
                   ),
+                  heroTag: "btn1",
                 ),
               ),
               SizedBox(
@@ -172,6 +178,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           ? const Icon(Icons.restart_alt_rounded)
                           : const Icon(Icons.pause))
                       : const Icon(Icons.play_arrow),
+                  heroTag: "btn2",
                 ),
               ),
               Visibility(
@@ -185,14 +192,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       if (_currMeal.hasStarted) {
                         _currMeal.restartTimer();
                       } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TimerSelector(_currMeal)),
+                        );
+
+                        /*
                         timerHomeKey.currentState!.addItemPressed(
                           context,
                           TimerItem('_title', Duration.zero, Duration.zero),
                         );
+
+                        */
                       }
                     }),
                   },
                   tooltip: 'Increment',
+                  heroTag: "btn3",
                   child: _currMeal.hasStarted
                       ? const Icon(Icons.restart_alt_rounded)
                       : const Icon(Icons.add),

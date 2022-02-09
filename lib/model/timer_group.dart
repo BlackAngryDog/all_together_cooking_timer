@@ -14,6 +14,8 @@ class TimerGroup {
 
   Function(TimerGroup _meal)? _callBack;
 
+  Function()? onTimerAdded;
+
   bool _isRunning = false;
   bool get isRunning => _isRunning;
   bool get isFinished {
@@ -28,7 +30,7 @@ class TimerGroup {
     if (!_ingredients.contains(item)) {
       _ingredients.add(item);
     }
-
+    onTimerAdded!();
     updateTimers();
   }
 
