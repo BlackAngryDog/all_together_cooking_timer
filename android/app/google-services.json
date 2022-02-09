@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "755183037009",
+    "firebase_url": "https://alltogethertimer-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "alltogethertimer",
+    "storage_bucket": "alltogethertimer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755183037009:android:b6e2b03120891ac31a2670",
+        "android_client_info": {
+          "package_name": "com.blackAngryDog.allTogetherTimer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755183037009-8an2dsurj1fb0lsl3er6eadv29a5e9v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk7pTDEH9-xfND89NrQ3fnjPgmlKwKyik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755183037009-8an2dsurj1fb0lsl3er6eadv29a5e9v7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

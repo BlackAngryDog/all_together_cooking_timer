@@ -34,6 +34,18 @@ class TimerItem {
   bool paused = false;
   bool isStandAlone = false;
 
+  // PERSISTANCE
+  TimerItem.fromJson(Map<dynamic, dynamic> json)
+      : title = json['title'] as String,
+        runTime = Duration(seconds: json['runTime']),
+        restTime = Duration(seconds: json['restTime']);
+
+  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+        'title': title,
+        'runTime': runTime.inSeconds,
+        'restTime': restTime.inSeconds,
+      };
+
   void ShowTime() {
     print(totalTime);
   }
@@ -196,4 +208,5 @@ class TimerItem {
   }
 
   //TODO - notify start, turn and rest events.
+
 }

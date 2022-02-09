@@ -1,15 +1,21 @@
+import 'package:all_together_cooking_timer/firebase_config.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
+import 'package:all_together_cooking_timer/model/timer_dao.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
-import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
-
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
-
 import 'package:flutter/material.dart';
-
 import 'model/timer_group.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+        name: 'att', options: DefaultFirebaseConfig.platformOptions);
+  } else {
+    Firebase.app();
+  }
+
   runApp(const MyApp());
 }
 
@@ -47,6 +53,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
 
+    //TimerDao().saveMessage(TimerItem(
+    //    "Sausages", const Duration(minutes: 8, seconds: 0), Duration.zero));
+    loadData();
     _currMeal.addTimer(TimerItem(
         "Sausages", const Duration(minutes: 1, seconds: 0), Duration.zero));
     _currMeal.addTimer(TimerItem(
@@ -55,6 +64,16 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         const Duration(minutes: 0, seconds: 15)));
 
     NotificationManager.initNotifications();
+  }
+
+  Future<void> loadData() async {
+    var data = await TimerDao().getTimerQuery().get();
+    var dataList = data.children.toList();
+
+    var test = dataList[0];
+    var item = TimerItem.fromJson(test.value as Map<dynamic, dynamic>);
+    _currMeal.addTimer(item);
+    print('got list');
   }
 
   @override

@@ -81,12 +81,16 @@ class TimerHomeState extends State<TimerHome> {
             child: Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: TextButton(
-                  child: const Text('Dismiss'),
-                  onPressed: () {
-                    SoundManager.stop();
-                    Navigator.of(context).pop();
-                  }),
+              child: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: TextButton(
+                    child: const Text('Dismiss'),
+                    onPressed: () {
+                      SoundManager.stop();
+                      Navigator.of(context).pop();
+                    }),
+              ),
             ),
             onTap: () {
               SoundManager.stop();
