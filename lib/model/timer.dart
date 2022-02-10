@@ -12,6 +12,7 @@ class TimerItem {
 
   CookStatus status = CookStatus.waiting;
 
+  String id = '';
   String title;
 
   Duration runTime = Duration.zero;
@@ -36,11 +37,13 @@ class TimerItem {
 
   // PERSISTANCE
   TimerItem.fromJson(Map<dynamic, dynamic> json)
-      : title = json['title'] as String,
+      : id = json['id'] as String,
+        title = json['title'] as String,
         runTime = Duration(seconds: json['runTime']),
         restTime = Duration(seconds: json['restTime']);
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+        'id': id,
         'title': title,
         'runTime': runTime.inSeconds,
         'restTime': restTime.inSeconds,

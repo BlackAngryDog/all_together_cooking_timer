@@ -7,11 +7,15 @@ class TimerDao {
   final DatabaseReference _timerRef =
       FirebaseDatabase.instance.ref().child('timers');
 
+  final String userID = "0001";
+
   void saveTimer(TimerItem item) {
-    _timerRef.push().set(item.toJson());
+    DatabaseReference ref = FirebaseDatabase.instance.ref("timers/$userID");
+    ref.push().set(item.toJson());
   }
 
   Query getTimerQuery() {
-    return _timerRef.orderByChild('name');
+    DatabaseReference ref = FirebaseDatabase.instance.ref("timers/$userID");
+    return ref.orderByChild('name');
   }
 }
