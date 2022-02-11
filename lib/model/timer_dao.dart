@@ -1,21 +1,35 @@
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_list.dart';
-import 'package:flutterfire_ui/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TimerDao {
   final DatabaseReference _timerRef =
       FirebaseDatabase.instance.ref().child('timers');
 
-  final String userID = "0001";
-
   void saveTimer(TimerItem item) {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("timers/$userID");
-    ref.push().set(item.toJson());
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("timers/${getUserID()}");
+    if (item.id != null) {
+      ref.update({
+        item.id as String: item.toJson(),
+      });
+    } else {
+      ref.push().set(item.toJson());
+    }
   }
 
   Query getTimerQuery() {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("timers/$userID");
-    return ref.orderByChild('name');
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("timers/${getUserID()}");
+    return ref.orderByChild('title');
+  }
+
+  String getUserID() {
+    String uid = 'default';
+    if (FirebaseAuth.instance.currentUser != null &&
+        FirebaseAuth.instance.currentUser?.uid != null) {
+      uid = FirebaseAuth.instance.currentUser?.uid as String;
+    }
+    return uid;
   }
 }

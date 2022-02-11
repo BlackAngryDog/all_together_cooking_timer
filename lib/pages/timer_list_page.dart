@@ -38,14 +38,22 @@ class TimerSelector extends StatelessWidget {
         child: FirebaseDatabaseListView(
           query: TimerDao().getTimerQuery(),
           itemBuilder: (context, snapshot) {
-            TimerItem timer =
-                TimerItem.fromJson(snapshot.value as Map<dynamic, dynamic>);
+            print(snapshot.value);
+            TimerItem timer = TimerItem.fromJson(
+                snapshot.key, snapshot.value as Map<dynamic, dynamic>);
             return GestureDetector(
               child: Card(
                 child: ListTile(
                   title: Text(timer.title),
                   subtitle: Text(
                     timer.getTimerText(),
+                  ),
+                  trailing: TextButton(
+                    child: Text("update"),
+                    onPressed: () {
+                      timer.runTime += const Duration(minutes: 1);
+                      TimerDao().saveTimer(timer);
+                    },
                   ),
                 ),
               ),

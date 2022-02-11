@@ -5,8 +5,10 @@ import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'model/timer_group.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,33 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'All Together - Cooking Timer'),
+      home: const AuthGate(),
+    );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        // User is not signed in
+        if (!snapshot.hasData) {
+          return SignInScreen(providerConfigs: [
+            EmailProviderConfiguration(),
+            GoogleProviderConfiguration(
+              clientId:
+                  '755183037009-8an2dsurj1fb0lsl3er6eadv29a5e9v7.apps.googleusercontent.com',
+            ),
+          ]);
+        }
+
+        // Render your application if authenticated
+        return const MyHomePage(title: 'All Together - Cooking Timer');
+      },
     );
   }
 }
@@ -76,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     var dataList = data.children.toList();
 
     var test = dataList[0];
-    var item = TimerItem.fromJson(test.value as Map<dynamic, dynamic>);
+    var item = TimerItem.fromJson(null, test.value as Map<dynamic, dynamic>);
     _currMeal.addTimer(item);
     print('got list');
   }
