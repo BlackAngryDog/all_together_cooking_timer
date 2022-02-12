@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,39 +78,100 @@ class _AddTimerPageState extends State<AddTimerPage> {
     Navigator.of(context).pop();
   }
 
+  void _onCancel() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          TextFormField(
-            decoration: InputDecoration(hintText: 'Name'),
-            autofocus: true,
-            controller: titleController,
-          ),
-          TextButton(
-            onPressed: () {
-              //_showTimerPicker(widget.item.runTime);
-              //showPickerNumber(context);
-              _showTimerPicker(widget.item.runTime,
-                  (Duration duration) => {widget.item.runTime = duration});
-            },
-            child: Text('Cook Time ${widget.item.runTime}'),
-          ),
-          TextButton(
-            onPressed: () {
-              _showTimerPicker(widget.item.restTime,
-                  (Duration duration) => {widget.item.restTime = duration});
-            },
-            child: Text('Rest Time ${widget.item.restTime}'),
-          ),
-          TextButton(
-            onPressed: () {
-              _onSubmit();
-            },
-            child: Text('Finish'),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextFormField(
+              decoration: InputDecoration(hintText: 'Name'),
+              controller: titleController,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Cooking Time',
+                  style: Theme.of(context).textTheme.headline4,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).copyWith().size.height * 0.15,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                child: CupertinoTimerPicker(
+                  initialTimerDuration: widget.item.runTime,
+                  onTimerDurationChanged: (Duration value) {
+                    widget.item.runTime = value;
+                    // TODO - update duration for timer (how to link which duration is setting)
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Rest Time',
+                  style: Theme.of(context).textTheme.headline4,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).copyWith().size.height * 0.15,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                child: CupertinoTimerPicker(
+                  initialTimerDuration: widget.item.restTime,
+                  onTimerDurationChanged: (Duration value) {
+                    widget.item.restTime = value;
+                    // TODO - update duration for timer (how to link which duration is setting)
+                  },
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    _onSubmit();
+                  },
+                  child: Text(
+                    'Finish',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _onCancel();
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
