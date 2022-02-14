@@ -4,6 +4,7 @@ import 'package:all_together_cooking_timer/model/timer_dao.dart';
 import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'model/timer_group.dart';
@@ -18,6 +19,8 @@ Future<void> main() async {
   } else {
     Firebase.app();
   }
+
+  FirebaseDatabase.instance.goOffline();
 
   runApp(const MyApp());
 }
