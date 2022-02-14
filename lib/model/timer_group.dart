@@ -3,8 +3,14 @@ import 'dart:convert';
 
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
+import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/utils/sound_manager.dart';
+
+// to Control our Stream
+StreamController timerGroupEventStream =
+    StreamController<TimerGroup>.broadcast();
+// this is our stream
 
 class TimerGroup {
   String title = "Timer Group";
@@ -13,6 +19,8 @@ class TimerGroup {
   List<String> _timersIds = [];
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
+  Stream stream = timerGroupEventStream.stream;
+  //final StreamController<int> updateStream = StreamController<int>.broadcast();
 
   TimerGroup() {
     loadTimers();
@@ -62,6 +70,7 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.setDelay(max);
     }
+    _onUpdate();
   }
 
   int getProgress() {
@@ -91,6 +100,20 @@ class TimerGroup {
 
     String nextText =
         nextTimers.isEmpty ? "" : nextTimers[0].getNextTimerEvent();
+
+    return nextText;
+  }
+
+  String getNextActionTime() {
+    // Work out what action is coming next and return action and duration
+    List<TimerItem> nextTimers = List<TimerItem>.from(_ingredients);
+
+    //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
+    nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
+
+    String nextText = nextTimers.isEmpty
+        ? ""
+        : FormatDuration.format(nextTimers[0].getNextTime());
 
     return nextText;
   }
@@ -125,7 +148,8 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.updateTimer();
     }
-    _callBack!(this);
+    // _callBack!(this);
+    _onUpdate();
   }
 
   void pauseTimer() {
@@ -135,6 +159,7 @@ class TimerGroup {
     _callBack!(this);
     _isRunning = false;
     SoundManager.stop();
+    _onUpdate();
   }
 
   void restartTimer() {
@@ -145,8 +170,12 @@ class TimerGroup {
     _callBack!(this);
     _isRunning = false;
     SoundManager.stop();
-
+    _onUpdate();
     print(toJson());
+  }
+
+  void _onUpdate() {
+    timerGroupEventStream.add(this);
   }
 
   // PERSISTANCE
