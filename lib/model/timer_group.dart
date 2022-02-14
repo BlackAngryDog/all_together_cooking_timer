@@ -1,14 +1,22 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:all_together_cooking_timer/model/timer.dart';
+import 'package:all_together_cooking_timer/model/timer_dao.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
 class TimerGroup {
   String title = "Timer Group";
 
+  String? id;
+  List<String> _timersIds = [];
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
+
+  TimerGroup() {
+    loadTimers();
+  }
 
   Duration get elapsed => getElapsedTime();
 
@@ -26,7 +34,14 @@ class TimerGroup {
     return elapsed > Duration.zero;
   }
 
+  Future<void> loadTimers() async {
+    for (var key in _timersIds) {
+      addTimer(await TimerDao().getTimer(key));
+    }
+  }
+
   void addTimer(TimerItem item) {
+    // TODO - consider adding async load funtion that accepts a key for persistance rather than init function.
     if (!_ingredients.contains(item)) {
       _ingredients.add(item);
     }
@@ -35,7 +50,8 @@ class TimerGroup {
   }
 
   void removeTimer(TimerItem timer) {
-    _ingredients.removeWhere((t) => t == timer);
+    _ingredients.removeWhere((t) => t.id == timer.id);
+    onTimerAdded!();
     updateTimers();
   }
 
@@ -55,11 +71,11 @@ class TimerGroup {
   }
 
   Duration getTotalTime() {
-    return _ingredients[0].totalTime;
+    return _ingredients.isEmpty ? Duration.zero : _ingredients[0].totalTime;
   }
 
   Duration getElapsedTime() {
-    return _ingredients[0].elapsed;
+    return _ingredients.isEmpty ? Duration.zero : _ingredients[0].elapsed;
   }
 
   Duration getTotalTimeLeft() {
@@ -67,18 +83,14 @@ class TimerGroup {
   }
 
   String getNextAction() {
-    // TODO : Work out what action is coming next and return action and duration
+    // Work out what action is coming next and return action and duration
     List<TimerItem> nextTimers = List<TimerItem>.from(_ingredients);
+
     //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
     nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
 
-    /*
-    print('-----');
-    for (TimerItem i in nextTimers) {
-      print('Debug ${i.getNextTimerEvent()} next time ${i.getNextTime()}');
-    }
-    */
-    String nextText = nextTimers[0].getNextTimerEvent();
+    String nextText =
+        nextTimers.isEmpty ? "" : nextTimers[0].getNextTimerEvent();
 
     return nextText;
   }
@@ -133,5 +145,25 @@ class TimerGroup {
     _callBack!(this);
     _isRunning = false;
     SoundManager.stop();
+
+    print(toJson());
+  }
+
+  // PERSISTANCE
+
+  TimerGroup.fromJson(String? key, Map<dynamic, dynamic> json)
+      : id = key,
+        title = json['title'] as String,
+        _timersIds =
+            (jsonDecode(json['timers']) as List<dynamic>).cast<String>();
+
+  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+        'title': title,
+        'timers':
+            jsonEncode(_ingredients.map((entry) => "${entry.id}").toList()),
+      };
+
+  bool hasTimer(TimerItem timer) {
+    return _ingredients.where((element) => timer.id == element.id).isNotEmpty;
   }
 }

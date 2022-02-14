@@ -1,6 +1,8 @@
 import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
+import 'package:all_together_cooking_timer/pages/add_timer_page.dart';
+import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
@@ -43,6 +45,7 @@ class TimerHomeState extends State<TimerHome> {
     setState(() {
       // TODO - add new time or update timer
       widget._currMeal.removeTimer(timer);
+      timerUpdate(widget._currMeal);
     });
   }
 
@@ -52,6 +55,11 @@ class TimerHomeState extends State<TimerHome> {
   }
 
   void addItemPressed(BuildContext ctx, TimerItem timer) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddTimerPage(timer)),
+    );
+    /*
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -68,6 +76,8 @@ class TimerHomeState extends State<TimerHome> {
             behavior: HitTestBehavior.opaque,
           );
         });
+
+     */
   }
 
   void openSoundPlaying() {

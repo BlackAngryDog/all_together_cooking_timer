@@ -100,16 +100,21 @@ class TimerItem {
   }
 
   void updateTimer() {
+    // update based on time since last tick
     Duration increment = DateTime.now().difference(_dateTime);
     if (!paused) _elapsed += increment;
     _dateTime = DateTime.now();
 
-    // TODO - set state and fire evens on state changed
-
+    // check status update
     CookStatus nextStatus = _getState();
-    if (nextStatus != status) {
-      // TODO - trigger event
 
+    // Trigger event to activate X seconds before actual event
+    Duration timeToNextEvent = getNextTime() - elapsed;
+    // TODO : Create prewarn global setting
+    int prewarnSeconds = -10;
+    if (timeToNextEvent.inSeconds == prewarnSeconds) SoundManager.play();
+
+    if (nextStatus != status) {
       // TODO - pause this timer if set to do so and show continue button.
       //if (nextStatus == CookStatus.cooking) {
       //  paused = true;
@@ -118,11 +123,7 @@ class TimerItem {
 
       NotificationManager.displayUpdate(title, getNextTimerEvent());
       status = nextStatus;
-      // TODO - WORK OUT HOW TO LOOP SOUND UNTIL STOPPED
-      SoundManager.play();
 
-      print(
-          'setup notification - ${getNextTime()}, $title, ${getNextTimerEvent()}');
       // DISPATCH UPDATE FOR NEXT STATE
       NotificationManager.displayDelayedFullscreen(
           getNextTime(), title, getNextTimerEvent());
@@ -208,7 +209,4 @@ class TimerItem {
     if (_elapsed < _totalTime) return CookStatus.resting;
     return CookStatus.finished;
   }
-
-  //TODO - notify start, turn and rest events.
-
 }

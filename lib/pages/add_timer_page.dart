@@ -18,58 +18,20 @@ class AddTimerPage extends StatefulWidget {
 class _AddTimerPageState extends State<AddTimerPage> {
   late TextEditingController titleController;
 
+  late Duration originalTime;
+  late Duration originalRest;
+
   @override
   void initState() {
     super.initState();
     titleController = TextEditingController(text: widget.item.title);
+    originalTime = widget.item.runTime;
+    originalRest = widget.item.restTime;
   }
 
   //void initState() {
   // titleController = TextEditingController(text: item.title);
   //}
-
-  void _showTimerPicker(
-      Duration duration, Function(Duration duration)? updateTimer) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-            height: MediaQuery.of(context).copyWith().size.height * 0.3,
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Container(
-                    height:
-                        MediaQuery.of(context).copyWith().size.height * 0.15,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: CupertinoTimerPicker(
-                      initialTimerDuration: duration,
-                      onTimerDurationChanged: (Duration value) {
-                        duration = value;
-                        // TODO - update duration for timer (how to link which duration is setting)
-                      },
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    //_onSetTime(duration, "any");
-                    setState(() {
-                      updateTimer!(duration);
-                    });
-
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Finished"),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 
   void _onSubmit() {
     widget.item.title = titleController.text;
@@ -79,6 +41,8 @@ class _AddTimerPageState extends State<AddTimerPage> {
   }
 
   void _onCancel() {
+    widget.item.runTime = originalTime;
+    widget.item.restTime = originalRest;
     Navigator.of(context).pop();
   }
 
@@ -115,7 +79,6 @@ class _AddTimerPageState extends State<AddTimerPage> {
                   initialTimerDuration: widget.item.runTime,
                   onTimerDurationChanged: (Duration value) {
                     widget.item.runTime = value;
-                    // TODO - update duration for timer (how to link which duration is setting)
                   },
                 ),
               ),
@@ -142,7 +105,6 @@ class _AddTimerPageState extends State<AddTimerPage> {
                   initialTimerDuration: widget.item.restTime,
                   onTimerDurationChanged: (Duration value) {
                     widget.item.restTime = value;
-                    // TODO - update duration for timer (how to link which duration is setting)
                   },
                 ),
               ),

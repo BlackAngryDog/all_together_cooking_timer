@@ -74,7 +74,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
-  final TimerGroup _currMeal = TimerGroup();
+  TimerGroup _currMeal = TimerGroup();
   final timerHomeKey = GlobalKey<TimerHomeState>();
 
   @override
@@ -82,30 +82,27 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
 
-    _currMeal.onTimerAdded = () {
-      setState(() {});
-    };
-
-    //TimerDao().saveMessage(TimerItem(
-    //    "Sausages", const Duration(minutes: 8, seconds: 0), Duration.zero));
     loadData();
-    _currMeal.addTimer(TimerItem(
-        "Sausages", const Duration(minutes: 1, seconds: 0), Duration.zero));
-    _currMeal.addTimer(TimerItem(
-        "Chips",
-        const Duration(minutes: 0, seconds: 15),
-        const Duration(minutes: 0, seconds: 15)));
 
     NotificationManager.initNotifications();
   }
 
   Future<void> loadData() async {
-    var data = await TimerDao().getTimerQuery().get();
+    var data = await TimerDao().getTimerGroupQuery().get();
     var dataList = data.children.toList();
 
-    var test = dataList[0];
-    var item = TimerItem.fromJson(null, test.value as Map<dynamic, dynamic>);
-    _currMeal.addTimer(item);
+    _currMeal = dataList.isEmpty
+        ? TimerGroup()
+        : TimerGroup.fromJson(
+            dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
+
+    _currMeal.loadTimers();
+    _currMeal.onTimerAdded = () {
+      setState(() {
+        TimerDao().saveTimerGroup(_currMeal);
+      });
+    };
+
     print('got list');
   }
 
