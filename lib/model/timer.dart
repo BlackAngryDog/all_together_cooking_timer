@@ -210,6 +210,7 @@ class TimerItem {
   }
 
   void initialiseNotification() {
+    return;
     // CALLED WHEN APP GOES INTO BACKGROUND STATE
     // TODO - RETURN A LIST OF EVENT TIMES TO SEND AS NOTIFICATIONS (NEED TO COMBINE DUPLICATES)
     Duration timeToStart = _delayStart - _elapsed;

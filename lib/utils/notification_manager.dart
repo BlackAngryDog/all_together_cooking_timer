@@ -146,8 +146,6 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    return 0;
-
     print(
         "setting notification for $title to $message in ${FormatDuration.format(delay)}");
 

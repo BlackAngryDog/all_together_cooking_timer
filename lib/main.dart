@@ -112,11 +112,16 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     bool nextState = state == AppLifecycleState.resumed;
 
     // TODO - CAN I ADD AND CANCEL NOTIFICATIONS HERE TO STOP POPUPS WHILE APP OPEN
-    if (nextState) {
-      NotificationManager.stopAllNotifications();
-    } else if (!nextState && NotificationManager.isInForeground) {
-      _currMeal.initialiseNotifications();
-    }
+    //if (nextState) {
+    //  NotificationManager.stopAllNotifications();
+    //} else if (!nextState && NotificationManager.isInForeground) {
+    //  _currMeal.initialiseNotifications();
+    //}
+
+    print('state = ${state.toString()}');
+    NotificationManager.stopAllNotifications();
+    NotificationManager.displayDelayedFullscreen(const Duration(seconds: 10),
+        "wake app", "tap to wake ${state.toString()}");
 
     NotificationManager.isInForeground = nextState;
     super.didChangeAppLifecycleState(state);
@@ -124,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    print("disposed");
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }

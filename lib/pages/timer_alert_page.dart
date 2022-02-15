@@ -49,11 +49,11 @@ class _TimerAlertState extends State<TimerAlert> {
             children: [
               Text(
                 nextEvent,
-                style: Theme.of(context).textTheme.displayMedium,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               Text(
                 nextTime,
-                style: Theme.of(context).textTheme.displayMedium,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               TextButton(
                   child: const Text('Dismiss'),
