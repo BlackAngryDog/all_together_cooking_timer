@@ -148,7 +148,6 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.updateTimer();
     }
-    // _callBack!(this);
     _onUpdate();
   }
 
@@ -194,5 +193,11 @@ class TimerGroup {
 
   bool hasTimer(TimerItem timer) {
     return _ingredients.where((element) => timer.id == element.id).isNotEmpty;
+  }
+
+  void initialiseNotifications() {
+    for (TimerItem i in _ingredients) {
+      i.initialiseNotification();
+    }
   }
 }

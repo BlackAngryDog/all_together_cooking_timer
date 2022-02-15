@@ -39,16 +39,20 @@ class NotificationManager {
     print('received notification $payload');
   }
 
-  static int channel = 0;
+  static int channel = 1;
   static bool isInForeground = true;
 
   static Future<void> displayProgress(
       String title, String body, int _percent) async {
-    return;
-
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    // await flutterLocalNotificationsPlugin.cancel(0);
+
+    if (isInForeground) {
+      await flutterLocalNotificationsPlugin.cancel(0);
+      return;
+    }
+
+    //
 
     // if (isInForeground) return;
 
@@ -66,6 +70,7 @@ class NotificationManager {
             showProgress: true,
             onlyAlertOnce: true,
             icon: null);
+
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
@@ -78,9 +83,12 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
-    return;
+    if (isInForeground) {
+      await flutterLocalNotificationsPlugin.cancel(0);
+      return;
+    }
     //if (!isInForeground) {
-    displayFullscreen(title, body);
+    //displayFullscreen(title, body);
 
     //  }
 
@@ -138,7 +146,7 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    //return;
+    return 0;
 
     print(
         "setting notification for $title to $message in ${FormatDuration.format(delay)}");
@@ -172,7 +180,6 @@ class NotificationManager {
           when: whenTime.millisecondsSinceEpoch,
           usesChronometer: true,
           ongoing: true,
-          timeoutAfter: reminderTime.inMilliseconds,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
