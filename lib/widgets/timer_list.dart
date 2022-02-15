@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:all_together_cooking_timer/pages/add_timer_page.dart';
+import 'package:all_together_cooking_timer/pages/timer_alert_page.dart';
 import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
@@ -21,6 +24,17 @@ class TimerHome extends StatefulWidget {
 class TimerHomeState extends State<TimerHome> {
   String _timer = '00:00:00';
   bool _sfxOpen = false;
+
+  late StreamSubscription streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    streamSubscription = timerGroupEventStream.stream.listen((event) {
+      timerUpdate(event);
+    });
+  }
 
   void timerUpdate(TimerGroup meal) {
     setState(() {
@@ -81,34 +95,10 @@ class TimerHomeState extends State<TimerHome> {
   }
 
   void openSoundPlaying() {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
-        context: context,
-        isScrollControlled: true,
-        builder: (_) {
-          return GestureDetector(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: TextButton(
-                    child: const Text('Dismiss'),
-                    onPressed: () {
-                      SoundManager.stop();
-                      Navigator.of(context).pop();
-                    }),
-              ),
-            ),
-            onTap: () {
-              SoundManager.stop();
-              Navigator.of(context).pop();
-            },
-            behavior: HitTestBehavior.opaque,
-          );
-        });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TimerAlert(widget._currMeal)),
+    );
   }
 
   void testSheet() {

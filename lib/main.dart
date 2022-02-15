@@ -20,7 +20,7 @@ Future<void> main() async {
     Firebase.app();
   }
 
-  FirebaseDatabase.instance.goOffline();
+  FirebaseDatabase.instance.goOnline();
 
   runApp(const MyApp());
 }
@@ -51,7 +51,7 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         // User is not signed in
         if (!snapshot.hasData) {
-          return SignInScreen(providerConfigs: [
+          return const SignInScreen(providerConfigs: [
             EmailProviderConfiguration(),
             GoogleProviderConfiguration(
               clientId:
@@ -105,15 +105,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         TimerDao().saveTimerGroup(_currMeal);
       });
     };
-
-    print('got list');
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    bool nextState = state == AppLifecycleState.resumed;
+
+    // TODO - CAN I ADD AND CANCEL NOTIFICATIONS HERE TO STOP POPUPS WHILE APP OPEN
+    if (nextState) {
+      NotificationManager.stopAllNotifications();
+    } else if (!nextState && NotificationManager.isInForeground) {
+      _currMeal.initialiseNotifications();
+    }
+
+    NotificationManager.isInForeground = nextState;
     super.didChangeAppLifecycleState(state);
-    NotificationManager.isInForeground = state == AppLifecycleState.resumed;
-    //print("app is in F G ${MyHomePage.isInForeground}");
   }
 
   @override
@@ -122,21 +128,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  void _initState() {
-    //FlutterRingtonePlayer.playNotification();
-  }
-
-/*
-  void selectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: $payload');
-    }
-    await Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
-    );
-  }
-*/
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -225,14 +216,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           MaterialPageRoute(
                               builder: (context) => TimerSelector(_currMeal)),
                         );
-
-                        /*
-                        timerHomeKey.currentState!.addItemPressed(
-                          context,
-                          TimerItem('_title', Duration.zero, Duration.zero),
-                        );
-
-                        */
                       }
                     }),
                   },

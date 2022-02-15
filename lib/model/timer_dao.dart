@@ -8,8 +8,6 @@ class TimerDao {
   //    FirebaseDatabase.instance.ref().child('timers');
 
   void saveTimer(TimerItem item) {
-    // TODO - CHECK IF TIMER WITH SAME NAME ALREADY IN DB
-
     DatabaseReference ref =
         FirebaseDatabase.instance.ref("timers/${getUserID()}");
     if (item.id != null) {
@@ -17,6 +15,9 @@ class TimerDao {
         item.id as String: item.toJson(),
       });
     } else {
+      // TODO - CHECK IF TIMER WITH SAME NAME ALREADY IN DB
+      // get where title in data?
+
       ref.push().set(item.toJson());
     }
   }

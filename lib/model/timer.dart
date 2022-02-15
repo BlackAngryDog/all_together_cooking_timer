@@ -70,12 +70,12 @@ class TimerItem {
 
     Duration timeToStart = _delayStart - _elapsed;
     Duration timeToEnd = _delayStart + runTime - _elapsed;
-
+/*
     if (timeToStart > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
           _delayStart - _elapsed, title, "Start $title");
     }
-
+*/
 /*
     if (timeToStart > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
@@ -125,8 +125,7 @@ class TimerItem {
       status = nextStatus;
 
       // DISPATCH UPDATE FOR NEXT STATE
-      NotificationManager.displayDelayedFullscreen(
-          getNextTime(), title, getNextTimerEvent());
+
     }
   }
 
@@ -208,5 +207,24 @@ class TimerItem {
       return CookStatus.cooking;
     if (_elapsed < _totalTime) return CookStatus.resting;
     return CookStatus.finished;
+  }
+
+  void initialiseNotification() {
+    // CALLED WHEN APP GOES INTO BACKGROUND STATE
+    // TODO - RETURN A LIST OF EVENT TIMES TO SEND AS NOTIFICATIONS (NEED TO COMBINE DUPLICATES)
+    Duration timeToStart = _delayStart - _elapsed;
+    Duration timeToEnd = _delayStart + runTime - _elapsed;
+
+    if (timeToStart > Duration.zero) {
+      NotificationManager.displayDelayedFullscreen(
+          _delayStart - _elapsed, title, "Start $title");
+    }
+    if (timeToEnd > Duration.zero) {
+      NotificationManager.displayDelayedFullscreen(
+          _delayStart + runTime - _elapsed, title, "End $title");
+    }
+
+    //NotificationManager.displayDelayedFullscreen(
+    //    getNextTime(), title, getNextTimerEvent());
   }
 }
