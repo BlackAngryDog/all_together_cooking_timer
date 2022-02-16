@@ -179,6 +179,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         TimerDao().saveTimerGroup(_currMeal);
       });
     };
+    _currMeal.loadState();
   }
 
   @override

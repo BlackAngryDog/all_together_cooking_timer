@@ -2,6 +2,7 @@ import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/utils/sound_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum CookStatus { waiting, cooking, resting, finished }
 
@@ -48,6 +49,20 @@ class TimerItem {
 
   void ShowTime() {
     print(totalTime);
+  }
+
+  Future<void> loadState() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    _elapsed = Duration(microseconds: prefs.getInt('elapsed') ?? 0);
+    //final int startTime = (prefs.getInt('start_time') ?? 0);
+  }
+
+  Future<void> saveState() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    prefs.setInt('elapsed', _elapsed.inMicroseconds);
+    //final int startTime = (prefs.getInt('start_time') ?? 0);
   }
 
   void setDelay(Duration totalTime) {

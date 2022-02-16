@@ -48,8 +48,34 @@ class TimerGroup {
     for (var key in _timersIds) {
       addTimer(await TimerDao().getTimer(key));
     }
-    bool _running = await _getDate() != null;
-    if (_running) StartTimer();
+  }
+
+  Future<void> loadState() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    final int startTime = (prefs.getInt('start_time') ?? 0);
+
+    _isRunning = prefs.getBool('is_running') ?? false;
+    _dateTime = startTime == 0
+        ? DateTime.now()
+        : DateTime.fromMicrosecondsSinceEpoch(startTime);
+
+    for (TimerItem i in _ingredients) {
+      await i.loadState();
+    }
+
+    if (_isRunning) StartTimer();
+  }
+
+  Future<void> saveState() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool('is_running', _isRunning);
+    prefs.setInt(
+        'start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
+    for (TimerItem i in _ingredients) {
+      await i.saveState();
+    }
   }
 
   void addTimer(TimerItem item) {
@@ -122,28 +148,9 @@ class TimerGroup {
     return nextText;
   }
 
-  Future<DateTime?> _getDate() async {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs;
-    final int startTime = (prefs.getInt('start_time') ?? 0);
-    print('start time = $startTime');
-    return startTime == 0
-        ? null
-        : DateTime.fromMicrosecondsSinceEpoch(startTime);
-  }
-
-  Future<void> _saveDate(DateTime? time) async {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs;
-    prefs.setInt('start_time', time == null ? 0 : time.microsecondsSinceEpoch);
-  }
-
   Future<void> StartTimer() async {
     //_callBack = callBack;
     _isRunning = true;
-
-    _dateTime = await _getDate() ?? DateTime.now();
-
     // TODO - will need to save state so can resume with correct time
     NotificationManager.setNotification(getTotalTime(), "FINISHED", "FINISHED");
     NotificationManager.displayUpdate("update ticker", "update", this);
@@ -176,7 +183,7 @@ class TimerGroup {
       i.updateTimer(increment);
     }
     _dateTime = DateTime.now();
-    if (_isRunning) _saveDate(_dateTime);
+    saveState();
     _onUpdate();
   }
 
@@ -198,7 +205,7 @@ class TimerGroup {
     updateTimers();
     // _callBack!(this);
     _isRunning = false;
-    _saveDate(null);
+    saveState();
     SoundManager.stop();
     _onUpdate();
     print(toJson());
