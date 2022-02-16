@@ -6,7 +6,7 @@ class SoundManager {
   static void play() {
     isPlaying = true;
     FlutterRingtonePlayer.play(
-      android: AndroidSounds.notification,
+      android: AndroidSounds.alarm,
       ios: IosSounds.glass,
       looping: true, // Android only - API >= 28
       volume: 1, // Android only - API >= 28

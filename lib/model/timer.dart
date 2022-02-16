@@ -26,8 +26,6 @@ class TimerItem {
   Duration _elapsed = Duration.zero;
   Duration get elapsed => _elapsed;
 
-  DateTime _dateTime = DateTime.now();
-
   TimerItem(this.title, this.runTime, this.restTime);
 
   num get remainingTime => 0;
@@ -66,8 +64,6 @@ class TimerItem {
   }
 
   void startTimer() {
-    _dateTime = DateTime.now();
-
     Duration timeToStart = _delayStart - _elapsed;
     Duration timeToEnd = _delayStart + runTime - _elapsed;
 /*
@@ -99,11 +95,9 @@ class TimerItem {
     _delayStart = Duration.zero;
   }
 
-  void updateTimer() {
+  void updateTimer(Duration increment) {
     // update based on time since last tick
-    Duration increment = DateTime.now().difference(_dateTime);
     if (!paused) _elapsed += increment;
-    _dateTime = DateTime.now();
 
     // check status update
     CookStatus nextStatus = _getState();
@@ -121,7 +115,7 @@ class TimerItem {
       //  return;
       //}
 
-      NotificationManager.displayUpdate(title, getNextTimerEvent());
+      // NotificationManager.displayUpdate(title, getNextTimerEvent());
       status = nextStatus;
 
       // DISPATCH UPDATE FOR NEXT STATE

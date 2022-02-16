@@ -1,0 +1,901 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+MERGED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:2:1-17:12
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:2:1-19:12
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
+MERGED from [:sign_in_with_apple] /home/driley/StudioProjects/all_together_cooking_timer/build/sign_in_with_apple/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:2:1-28:12
+MERGED from [:flutter_facebook_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_facebook_auth/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_android] /home/driley/StudioProjects/all_together_cooking_timer/build/shared_preferences_android/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:2:1-17:12
+MERGED from [:flutter_ringtone_player] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_ringtone_player/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:android_alarm_manager_plus] /home/driley/StudioProjects/all_together_cooking_timer/build/android_alarm_manager_plus/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_native_timezone] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_native_timezone/intermediates/library_manifest/release/AndroidManifest.xml:2:1-9:12
+MERGED from [:google_sign_in] /home/driley/StudioProjects/all_together_cooking_timer/build/google_sign_in/intermediates/library_manifest/release/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:21:1-52:12
+MERGED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:21:1-60:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/a3b86b42fafb2019c6d99a912992ce19/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.multidex:multidex:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/02d04e6dfdbeb319e115f5728d226784/multidex-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:17:1-83:12
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:15:1-33:12
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:15:1-38:12
+MERGED from [com.google.firebase:firebase-analytics:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/03cb9e804ad623c316df2e4f438e9e7f/jetified-firebase-analytics-20.0.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:17:1-36:12
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c0fc708caaa4589bc487805750ad8901/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/bcec051f8e54234e5df2269db309e5e3/jetified-firebase-appcheck-interop-16.0.0-beta04/AndroidManifest.xml:15:1-26:12
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:2:1-24:12
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:15:1-40:12
+MERGED from [androidx.browser:browser:1.3.0] /home/driley/.gradle/caches/transforms-2/files-2.1/97886f98068bd20bf61f97e326587b04/browser-1.3.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/6534af80ea69458d53cb0dd678c6b311/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/261f9a12cf31eae325b98d4bd1c59132/media-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/e0b07e33c401bd5d85c23fcf600e8610/appcompat-1.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/99918af318d4ffe919410f410117c4c7/jetified-play-services-auth-api-phone-18.0.1/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/2791dd4c86ddc79eabd51101f24ba2c0/jetified-play-services-auth-base-18.0.1/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b9f3ea16de2ef1ca92c5362ec604ec66/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c24d54ef33d65d383b557ca6eddafa0a/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/51a20ee1b7202dae7071318eb86abc38/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/792b83f7598e217a9b6c594e7c245460/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:17:1-46:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/457d23ace388ab143baf9379dbbec2da/jetified-play-services-measurement-sdk-20.0.2/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/f073652a2b0a9b6b460323e1b4f086ac/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:17:1-31:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-base:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/419c9b9a8572f87b85dfd00274684450/jetified-play-services-measurement-base-20.0.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/b13cf1074a4914733f528bf080f92609/jetified-play-services-stats-17.0.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.fragment:fragment:1.3.6] /home/driley/.gradle/caches/transforms-2/files-2.1/6427991806a894864a0e5aa99ff3dca0/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.2.4] /home/driley/.gradle/caches/transforms-2/files-2.1/b47fe61e5edfc5580cb9b3cc697c82d2/jetified-activity-1.2.4/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/c9ee39f381513849aa284493f5a0abf5/jetified-appcompat-resources-1.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/1aaca2244d3852aa3051f6ec5e863d3f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ce3fae280668b0503a293c526ec9328a/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/55efa78fe7dd5340c3b16a9e76ef0926/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e76984245f77d39c38f4d76388592dc0/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.3.2] /home/driley/.gradle/caches/transforms-2/files-2.1/3c410aa6c5f4e392932073a5fb9ebace/jetified-core-ktx-1.3.2/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b4f7568fea2f511d767829dd5b644d2f/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8326c47e01397eb9a2d35c3fa1830738/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2e35710d9bc3dfbe7276716a42af0cbd/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5cf36af8c665794dec2262fc6fa16b40/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/aee3a20ed22eaa6ce58c2a70407c377c/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5f88a748e85d2ef9c8213280277cced9/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8d97c12dfdb8c2847306c37b87aa48f1/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7df58ccd2ccc82bc81039404188d6bbf/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.tracing:tracing:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/3b4820e24d46e21c89efa32f5c2d6e2e/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/driley/.gradle/caches/transforms-2/files-2.1/0bd53d61454f05a360ed50c12e1c0f57/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e8863814c459b83896fb72460c5f5555/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/bfe836fbdf895e44b7f6ff7103bf792d/lifecycle-runtime-2.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c08dcac29cefcadf912758ee4601aef8/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/03faaaf442c9d720483fba49eda29474/jetified-lifecycle-viewmodel-savedstate-2.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b7a7d62cdfec9b5c5710973fabb741e8/jetified-savedstate-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/13ba3a2d390e92c714ad608cae0b18ad/lifecycle-viewmodel-2.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5408995d19686f9d35f8a810d9d7986f/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-components:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d303dc6bb1b59f5c94a63e6083442da7/jetified-firebase-components-17.0.0/AndroidManifest.xml:15:1-23:12
+MERGED from [androidx.cardview:cardview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/933a9e362967939ae202a5413d6d24d1/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ed337045782a87292c529ce55dd5bf4f/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/8a1943dff77cb4b9be347b2342a8106d/lifecycle-livedata-core-2.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/0bde3428b781ba2a04c058142e16310e/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/597222039f0715c7401267f68f1f9e7c/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c5fc0789798e34bd45f9039f964c33eb/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [io.grpc:grpc-android:1.41.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5ee4d160e5fc9e437c7e45a34b511c13/jetified-grpc-android-1.41.0/AndroidManifest.xml:2:1-13:12
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /home/driley/.gradle/caches/transforms-2/files-2.1/f0be151bd9c905293ae08084c4dfc4b8/jetified-threetenabp-1.2.3/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7e5cb6c6f9437da119823e44c35d9b10/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2341977d1a91ba1cfe2b6d080a2fe8a6/jetified-protolite-well-known-types-18.0.0/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:2:1-13:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+	package
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:2:5-49
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:1-66:12
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:4:5-80
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:7:5-81
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:4:22-78
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:5:5-67
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:9:5-68
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:9:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:5:22-65
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:7:5-78
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:10:5-79
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:7:22-76
+application
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:9:4-65:19
+MERGED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:9:5-15:19
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:9:5-15:19
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:11:5-17:19
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:11:5-17:19
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:7:5-13:19
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:12:5-26:19
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:12:5-26:19
+MERGED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:13:5-15:19
+MERGED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:13:5-15:19
+MERGED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:29:5-50:19
+MERGED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:29:5-50:19
+MERGED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:28:5-58:19
+MERGED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:28:5-58:19
+MERGED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:26:5-81:19
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:26:5-81:19
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:23:5-31:19
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:23:5-31:19
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.firebase:firebase-analytics:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/03cb9e804ad623c316df2e4f438e9e7f/jetified-firebase-analytics-20.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/03cb9e804ad623c316df2e4f438e9e7f/jetified-firebase-analytics-20.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c0fc708caaa4589bc487805750ad8901/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c0fc708caaa4589bc487805750ad8901/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/bcec051f8e54234e5df2269db309e5e3/jetified-firebase-appcheck-interop-16.0.0-beta04/AndroidManifest.xml:24:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/bcec051f8e54234e5df2269db309e5e3/jetified-firebase-appcheck-interop-16.0.0-beta04/AndroidManifest.xml:24:5-20
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:25:5-38:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:25:5-38:19
+MERGED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b9f3ea16de2ef1ca92c5362ec604ec66/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b9f3ea16de2ef1ca92c5362ec604ec66/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/792b83f7598e217a9b6c594e7c245460/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/792b83f7598e217a9b6c594e7c245460/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/457d23ace388ab143baf9379dbbec2da/jetified-play-services-measurement-sdk-20.0.2/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/457d23ace388ab143baf9379dbbec2da/jetified-play-services-measurement-sdk-20.0.2/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/f073652a2b0a9b6b460323e1b4f086ac/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/f073652a2b0a9b6b460323e1b4f086ac/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/419c9b9a8572f87b85dfd00274684450/jetified-play-services-measurement-base-20.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/419c9b9a8572f87b85dfd00274684450/jetified-play-services-measurement-base-20.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/b13cf1074a4914733f528bf080f92609/jetified-play-services-stats-17.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/b13cf1074a4914733f528bf080f92609/jetified-play-services-stats-17.0.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/driley/.gradle/caches/transforms-2/files-2.1/0bd53d61454f05a360ed50c12e1c0f57/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/driley/.gradle/caches/transforms-2/files-2.1/0bd53d61454f05a360ed50c12e1c0f57/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /home/driley/.gradle/caches/transforms-2/files-2.1/f0be151bd9c905293ae08084c4dfc4b8/jetified-threetenabp-1.2.3/AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /home/driley/.gradle/caches/transforms-2/files-2.1/f0be151bd9c905293ae08084c4dfc4b8/jetified-threetenabp-1.2.3/AndroidManifest.xml:7:5-20
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:11:5-20
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:11:5-20
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:28:18-44
+	android:label
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:10:9-51
+	android:icon
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:11:9-43
+service#dev.fluttercommunity.plus.androidalarmmanager.AlarmService
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:13:8-16:38
+	android:exported
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:16:12-36
+	android:permission
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:15:12-68
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:14:12-85
+receiver#dev.fluttercommunity.plus.androidalarmmanager.AlarmBroadcastReceiver
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:17:8-19:38
+	android:exported
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:19:12-36
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:18:12-95
+receiver#dev.fluttercommunity.plus.androidalarmmanager.RebootBroadcastReceiver
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:20:8-26:19
+	android:enabled
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:22:12-35
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:21:12-96
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:23:12-25:28
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:24:16-85
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:24:24-75
+activity#com.blackAngryDog.allTogetherTimer.MainActivity
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:29:8-59:20
+	android:turnScreenOn
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:37:13-40
+	android:showWhenLocked
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:36:13-42
+	android:launchMode
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:31:13-43
+	android:hardwareAccelerated
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:34:13-47
+	android:windowSoftInputMode
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:35:13-55
+	android:configChanges
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:33:13-163
+	android:theme
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:32:13-47
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:30:13-41
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:42:13-45:17
+	android:resource
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:44:15-52
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:43:15-70
+meta-data#io.flutter.embedding.android.SplashScreenDrawable
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:51:13-54:17
+	android:resource
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:53:15-61
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:52:15-79
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:55:13-58:29
+action#android.intent.action.MAIN
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:56:17-68
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:56:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:57:17-76
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:57:27-74
+meta-data#flutterEmbedding
+ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:62:9-64:33
+	android:value
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:64:13-30
+	android:name
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml:63:13-44
+uses-sdk
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+MERGED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:sign_in_with_apple] /home/driley/StudioProjects/all_together_cooking_timer/build/sign_in_with_apple/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:sign_in_with_apple] /home/driley/StudioProjects/all_together_cooking_timer/build/sign_in_with_apple/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_facebook_auth/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_facebook_auth/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] /home/driley/StudioProjects/all_together_cooking_timer/build/shared_preferences_android/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] /home/driley/StudioProjects/all_together_cooking_timer/build/shared_preferences_android/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_ringtone_player] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_ringtone_player/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_ringtone_player] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_ringtone_player/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:android_alarm_manager_plus] /home/driley/StudioProjects/all_together_cooking_timer/build/android_alarm_manager_plus/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:android_alarm_manager_plus] /home/driley/StudioProjects/all_together_cooking_timer/build/android_alarm_manager_plus/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_native_timezone] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_native_timezone/intermediates/library_manifest/release/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_timezone] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_native_timezone/intermediates/library_manifest/release/AndroidManifest.xml:5:5-7:41
+MERGED from [:google_sign_in] /home/driley/StudioProjects/all_together_cooking_timer/build/google_sign_in/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in] /home/driley/StudioProjects/all_together_cooking_timer/build/google_sign_in/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/29ddef3817c4f5b226bd550cc5ce08b2/jetified-facebook-login-12.2.0/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:25:5-27:41
+MERGED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:25:5-27:41
+MERGED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/a3b86b42fafb2019c6d99a912992ce19/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/a3b86b42fafb2019c6d99a912992ce19/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.multidex:multidex:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/02d04e6dfdbeb319e115f5728d226784/multidex-2.0.0/AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/02d04e6dfdbeb319e115f5728d226784/multidex-2.0.0/AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-analytics:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/03cb9e804ad623c316df2e4f438e9e7f/jetified-firebase-analytics-20.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-analytics:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/03cb9e804ad623c316df2e4f438e9e7f/jetified-firebase-analytics-20.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c0fc708caaa4589bc487805750ad8901/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c0fc708caaa4589bc487805750ad8901/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/bcec051f8e54234e5df2269db309e5e3/jetified-firebase-appcheck-interop-16.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/bcec051f8e54234e5df2269db309e5e3/jetified-firebase-appcheck-interop-16.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.3.0] /home/driley/.gradle/caches/transforms-2/files-2.1/97886f98068bd20bf61f97e326587b04/browser-1.3.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.3.0] /home/driley/.gradle/caches/transforms-2/files-2.1/97886f98068bd20bf61f97e326587b04/browser-1.3.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/6534af80ea69458d53cb0dd678c6b311/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/6534af80ea69458d53cb0dd678c6b311/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/261f9a12cf31eae325b98d4bd1c59132/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/261f9a12cf31eae325b98d4bd1c59132/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/e0b07e33c401bd5d85c23fcf600e8610/appcompat-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/e0b07e33c401bd5d85c23fcf600e8610/appcompat-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/99918af318d4ffe919410f410117c4c7/jetified-play-services-auth-api-phone-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/99918af318d4ffe919410f410117c4c7/jetified-play-services-auth-api-phone-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/2791dd4c86ddc79eabd51101f24ba2c0/jetified-play-services-auth-base-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/2791dd4c86ddc79eabd51101f24ba2c0/jetified-play-services-auth-base-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b9f3ea16de2ef1ca92c5362ec604ec66/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b9f3ea16de2ef1ca92c5362ec604ec66/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c24d54ef33d65d383b557ca6eddafa0a/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c24d54ef33d65d383b557ca6eddafa0a/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/51a20ee1b7202dae7071318eb86abc38/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/51a20ee1b7202dae7071318eb86abc38/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/792b83f7598e217a9b6c594e7c245460/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/792b83f7598e217a9b6c594e7c245460/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/457d23ace388ab143baf9379dbbec2da/jetified-play-services-measurement-sdk-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/457d23ace388ab143baf9379dbbec2da/jetified-play-services-measurement-sdk-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/f073652a2b0a9b6b460323e1b4f086ac/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/f073652a2b0a9b6b460323e1b4f086ac/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/419c9b9a8572f87b85dfd00274684450/jetified-play-services-measurement-base-20.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/419c9b9a8572f87b85dfd00274684450/jetified-play-services-measurement-base-20.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/b13cf1074a4914733f528bf080f92609/jetified-play-services-stats-17.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/b13cf1074a4914733f528bf080f92609/jetified-play-services-stats-17.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [androidx.fragment:fragment:1.3.6] /home/driley/.gradle/caches/transforms-2/files-2.1/6427991806a894864a0e5aa99ff3dca0/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /home/driley/.gradle/caches/transforms-2/files-2.1/6427991806a894864a0e5aa99ff3dca0/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.2.4] /home/driley/.gradle/caches/transforms-2/files-2.1/b47fe61e5edfc5580cb9b3cc697c82d2/jetified-activity-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.2.4] /home/driley/.gradle/caches/transforms-2/files-2.1/b47fe61e5edfc5580cb9b3cc697c82d2/jetified-activity-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/c9ee39f381513849aa284493f5a0abf5/jetified-appcompat-resources-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/c9ee39f381513849aa284493f5a0abf5/jetified-appcompat-resources-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/1aaca2244d3852aa3051f6ec5e863d3f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/1aaca2244d3852aa3051f6ec5e863d3f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ce3fae280668b0503a293c526ec9328a/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ce3fae280668b0503a293c526ec9328a/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/55efa78fe7dd5340c3b16a9e76ef0926/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/55efa78fe7dd5340c3b16a9e76ef0926/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e76984245f77d39c38f4d76388592dc0/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e76984245f77d39c38f4d76388592dc0/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.3.2] /home/driley/.gradle/caches/transforms-2/files-2.1/3c410aa6c5f4e392932073a5fb9ebace/jetified-core-ktx-1.3.2/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.3.2] /home/driley/.gradle/caches/transforms-2/files-2.1/3c410aa6c5f4e392932073a5fb9ebace/jetified-core-ktx-1.3.2/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b4f7568fea2f511d767829dd5b644d2f/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b4f7568fea2f511d767829dd5b644d2f/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8326c47e01397eb9a2d35c3fa1830738/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8326c47e01397eb9a2d35c3fa1830738/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2e35710d9bc3dfbe7276716a42af0cbd/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2e35710d9bc3dfbe7276716a42af0cbd/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5cf36af8c665794dec2262fc6fa16b40/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5cf36af8c665794dec2262fc6fa16b40/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/aee3a20ed22eaa6ce58c2a70407c377c/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/aee3a20ed22eaa6ce58c2a70407c377c/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5f88a748e85d2ef9c8213280277cced9/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5f88a748e85d2ef9c8213280277cced9/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8d97c12dfdb8c2847306c37b87aa48f1/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/8d97c12dfdb8c2847306c37b87aa48f1/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7df58ccd2ccc82bc81039404188d6bbf/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7df58ccd2ccc82bc81039404188d6bbf/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] /home/driley/.gradle/caches/transforms-2/files-2.1/14b93615368c2249f1830e26ca064ab5/core-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/3b4820e24d46e21c89efa32f5c2d6e2e/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/3b4820e24d46e21c89efa32f5c2d6e2e/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/driley/.gradle/caches/transforms-2/files-2.1/0bd53d61454f05a360ed50c12e1c0f57/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/driley/.gradle/caches/transforms-2/files-2.1/0bd53d61454f05a360ed50c12e1c0f57/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e8863814c459b83896fb72460c5f5555/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e8863814c459b83896fb72460c5f5555/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/bfe836fbdf895e44b7f6ff7103bf792d/lifecycle-runtime-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/bfe836fbdf895e44b7f6ff7103bf792d/lifecycle-runtime-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c08dcac29cefcadf912758ee4601aef8/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c08dcac29cefcadf912758ee4601aef8/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/03faaaf442c9d720483fba49eda29474/jetified-lifecycle-viewmodel-savedstate-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/03faaaf442c9d720483fba49eda29474/jetified-lifecycle-viewmodel-savedstate-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b7a7d62cdfec9b5c5710973fabb741e8/jetified-savedstate-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/b7a7d62cdfec9b5c5710973fabb741e8/jetified-savedstate-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/13ba3a2d390e92c714ad608cae0b18ad/lifecycle-viewmodel-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/13ba3a2d390e92c714ad608cae0b18ad/lifecycle-viewmodel-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5408995d19686f9d35f8a810d9d7986f/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5408995d19686f9d35f8a810d9d7986f/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-components:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d303dc6bb1b59f5c94a63e6083442da7/jetified-firebase-components-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d303dc6bb1b59f5c94a63e6083442da7/jetified-firebase-components-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.cardview:cardview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/933a9e362967939ae202a5413d6d24d1/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/933a9e362967939ae202a5413d6d24d1/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ed337045782a87292c529ce55dd5bf4f/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/ed337045782a87292c529ce55dd5bf4f/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/8a1943dff77cb4b9be347b2342a8106d/lifecycle-livedata-core-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] /home/driley/.gradle/caches/transforms-2/files-2.1/8a1943dff77cb4b9be347b2342a8106d/lifecycle-livedata-core-2.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/0bde3428b781ba2a04c058142e16310e/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/0bde3428b781ba2a04c058142e16310e/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/597222039f0715c7401267f68f1f9e7c/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/597222039f0715c7401267f68f1f9e7c/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c5fc0789798e34bd45f9039f964c33eb/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/c5fc0789798e34bd45f9039f964c33eb/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [io.grpc:grpc-android:1.41.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5ee4d160e5fc9e437c7e45a34b511c13/jetified-grpc-android-1.41.0/AndroidManifest.xml:7:5-9:41
+MERGED from [io.grpc:grpc-android:1.41.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5ee4d160e5fc9e437c7e45a34b511c13/jetified-grpc-android-1.41.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /home/driley/.gradle/caches/transforms-2/files-2.1/f0be151bd9c905293ae08084c4dfc4b8/jetified-threetenabp-1.2.3/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /home/driley/.gradle/caches/transforms-2/files-2.1/f0be151bd9c905293ae08084c4dfc4b8/jetified-threetenabp-1.2.3/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7e5cb6c6f9437da119823e44c35d9b10/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/7e5cb6c6f9437da119823e44c35d9b10/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2341977d1a91ba1cfe2b6d080a2fe8a6/jetified-protolite-well-known-types-18.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/2341977d1a91ba1cfe2b6d080a2fe8a6/jetified-protolite-well-known-types-18.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:5:5-7:41
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/driley/StudioProjects/all_together_cooking_timer/android/app/src/main/AndroidManifest.xml
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:10:9-14:19
+MERGED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:10:9-14:19
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:12:9-16:19
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:12:9-16:19
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:8:9-12:19
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:74:9-80:19
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:74:9-80:19
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:17:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:17:9-23:19
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:24:9-30:19
+MERGED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:24:9-30:19
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
+MERGED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:76:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:37:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:35:13-43
+	android:name
+		ADDED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:8:18-89
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_database] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_database/intermediates/library_manifest/release/AndroidManifest.xml:10:17-127
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar
+ADDED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:cloud_firestore] /home/driley/StudioProjects/all_together_cooking_timer/build/cloud_firestore/intermediates/library_manifest/release/AndroidManifest.xml:10:17-134
+uses-permission#android.permission.INTERNET
+ADDED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:7:5-67
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:8:5-67
+MERGED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:8:5-67
+MERGED from [:google_sign_in] /home/driley/StudioProjects/all_together_cooking_timer/build/google_sign_in/intermediates/library_manifest/release/AndroidManifest.xml:7:5-67
+MERGED from [:google_sign_in] /home/driley/StudioProjects/all_together_cooking_timer/build/google_sign_in/intermediates/library_manifest/release/AndroidManifest.xml:7:5-67
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:14:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:14:5-67
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:26:5-67
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:7:22-64
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.dynamiclinks.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:11:13-13:85
+	android:value
+		ADDED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:13:17-82
+	android:name
+		ADDED from [:firebase_dynamic_links] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_dynamic_links/intermediates/library_manifest/release/AndroidManifest.xml:12:17-131
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:25:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/2f91d11a9f08707d7a80252bc07fba05/jetified-play-services-measurement-sdk-api-20.0.2/AndroidManifest.xml:24:5-79
+MERGED from [io.grpc:grpc-android:1.41.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5ee4d160e5fc9e437c7e45a34b511c13/jetified-grpc-android-1.41.0/AndroidManifest.xml:11:5-79
+MERGED from [io.grpc:grpc-android:1.41.0] /home/driley/.gradle/caches/transforms-2/files-2.1/5ee4d160e5fc9e437c7e45a34b511c13/jetified-grpc-android-1.41.0/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:7:22-76
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.analytics.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:13:13-15:85
+	android:value
+		ADDED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:15:17-82
+	android:name
+		ADDED from [:firebase_analytics] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_analytics/intermediates/library_manifest/release/AndroidManifest.xml:14:17-128
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar
+ADDED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_auth] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_auth/intermediates/library_manifest/release/AndroidManifest.xml:10:17-124
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar
+ADDED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_core] /home/driley/StudioProjects/all_together_cooking_timer/build/firebase_core/intermediates/library_manifest/release/AndroidManifest.xml:10:17-124
+uses-permission#android.permission.VIBRATE
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:8:5-66
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:8:22-63
+uses-permission#android.permission.USE_FULL_SCREEN_INTENT
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:9:22-78
+receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:13:9-15:40
+	android:exported
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:14:13-97
+receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:16:9-25:20
+	android:exported
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:18:13-37
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:17:13-101
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:19:13-24:29
+action#android.intent.action.MY_PACKAGE_REPLACED
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:21:17-84
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:21:25-81
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:22:25-79
+action#com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:23:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] /home/driley/StudioProjects/all_together_cooking_timer/build/flutter_local_notifications/intermediates/library_manifest/release/AndroidManifest.xml:23:25-79
+queries
+ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:7:5-11:15
+intent#action:name:android.support.customtabs.action.CustomTabsService
+ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:8:9-10:18
+action#android.support.customtabs.action.CustomTabsService
+ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:9:13-90
+	android:name
+		ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:9:21-87
+activity#com.maru.twitter_login.chrome_custom_tabs.ChromeCustomTabsActivity
+ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:14:9-103
+	android:name
+		ADDED from [:twitter_login] /home/driley/StudioProjects/all_together_cooking_timer/build/twitter_login/intermediates/library_manifest/release/AndroidManifest.xml:14:19-100
+activity#com.facebook.FacebookActivity
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:30:9-33:66
+	android:configChanges
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:32:13-96
+	android:theme
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:33:13-63
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:31:13-57
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:34:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:34:19-68
+activity#com.facebook.CustomTabActivity
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:35:9-49:20
+	tools:node
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:38:13-31
+	android:exported
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:37:13-36
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:36:13-58
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:cct.${applicationId}+data:scheme:fbconnect
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:39:13-48:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:cct.com.blackAngryDog.allTogetherTimer+data:scheme:fbconnect
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:39:13-48:29
+action#android.intent.action.VIEW
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:40:17-69
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:40:25-66
+category#android.intent.category.DEFAULT
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:42:17-76
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:42:27-73
+category#android.intent.category.BROWSABLE
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:43:17-78
+	android:name
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:43:27-75
+data
+ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:45:17-47:50
+	android:host
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:46:21-56
+	android:scheme
+		ADDED from [com.facebook.android:facebook-common:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/cb4dcf3107243de9e4d6565a84de01db/jetified-facebook-common-12.2.0/AndroidManifest.xml:47:21-47
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:40:13-70
+receiver#com.facebook.CurrentAccessTokenExpirationBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:44:9-50:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:45:13-86
+intent-filter#action:name:com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:47:13-49:29
+action#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:48:17-95
+	android:name
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:48:25-92
+receiver#com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:51:9-57:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:53:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:52:13-118
+intent-filter#action:name:com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:54:13-56:29
+action#com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:55:17-103
+	android:name
+		ADDED from [com.facebook.android:facebook-core:12.2.0] /home/driley/.gradle/caches/transforms-2/files-2.1/d167af4b70e58476863ce2d5b47caa24/jetified-facebook-core-12.2.0/AndroidManifest.xml:55:25-100
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/driley/.gradle/caches/transforms-2/files-2.1/cea45e25bbe77c9713c39e234ccfd7bd/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+activity#com.google.firebase.auth.internal.GenericIdpActivity
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:27:9-44:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:29:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:31:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:30:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:32:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:28:13-80
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:genericidp
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:33:13-43:29
+activity#com.google.firebase.auth.internal.RecaptchaActivity
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:45:9-62:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:47:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:49:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:48:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:50:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:46:13-79
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:recaptcha
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:51:13-61:29
+service#com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:64:9-73:19
+	android:enabled
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:66:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:67:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:65:13-101
+intent-filter#action:name:com.google.firebase.auth.api.gms.service.START+category:name:android.intent.category.DEFAULT
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:68:13-72:29
+action#com.google.firebase.auth.api.gms.service.START
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:17-89
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:25-86
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:77:13-79:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:79:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:21.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/a019e4e63ad7a70d0f2aebf4e86fe327/jetified-firebase-auth-21.0.1/AndroidManifest.xml:78:17-109
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
+ADDED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:20:13-22:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:24.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/b795ec276a2440e5d3c718ecabc4c7d2/jetified-firebase-firestore-24.0.1/AndroidManifest.xml:21:17-111
+meta-data#com.google.firebase.components:com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar
+ADDED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:27:13-29:85
+	android:value
+		ADDED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:29:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-dynamic-links:21.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/527d7da4add6daa4ec956c0f50276091/jetified-firebase-dynamic-links-21.0.0/AndroidManifest.xml:28:17-133
+meta-data#com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar
+ADDED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database:20.0.3] /home/driley/.gradle/caches/transforms-2/files-2.1/7867b154f60011f124da44b73f036811/jetified-firebase-database-20.0.3/AndroidManifest.xml:33:17-109
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/93baf6f55988dc98b6feb7b434e7b046/jetified-play-services-measurement-api-20.0.2/AndroidManifest.xml:31:17-139
+meta-data#com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar
+ADDED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:18:13-20:85
+	android:value
+		ADDED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:20:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-installations:17.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/544bb83cdfcc0c9ba48353730451aa98/jetified-firebase-installations-17.0.0/AndroidManifest.xml:19:17-127
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:26:9-31:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:28:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:30:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:29:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:31:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/e9bee4f77b660f6ff89d0b5e41260363/jetified-firebase-common-20.0.0/AndroidManifest.xml:27:13-77
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:33:9-37:51
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:35:13-36
+	android:visibleToInstantApps
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:37:13-48
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/850ef13ec2cd7a7ea527ff79a705c18a/jetified-play-services-auth-20.0.1/AndroidManifest.xml:34:13-89
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/driley/.gradle/caches/transforms-2/files-2.1/1c0769389455a4c14b7a50bc2530cb4a/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/526c0ad4c9a747a7e98d5e68d7553d47/jetified-play-services-measurement-impl-20.0.2/AndroidManifest.xml:26:5-110
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:9:5-110
+MERGED from [com.android.installreferrer:installreferrer:1.0] /home/driley/.gradle/caches/transforms-2/files-2.1/05c0d17fc8120b157733c6d8a6b5c5e5/jetified-installreferrer-1.0/AndroidManifest.xml:9:5-110
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:30:13-85
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:35:9-38:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:38:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:36:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:39:9-43:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:41:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:42:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:43:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:20.0.2] /home/driley/.gradle/caches/transforms-2/files-2.1/52d7e1fa6f02f80fdfba6962e78863c1/jetified-play-services-measurement-20.0.2/AndroidManifest.xml:40:13-87
+uses-permission#com.google.android.gms.permission.AD_ID
+ADDED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/a43530664da0f7ba7bc0bf4fca47495b/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:22-76
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/driley/.gradle/caches/transforms-2/files-2.1/4a1e8147c3db656939cfc830651ce63e/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58

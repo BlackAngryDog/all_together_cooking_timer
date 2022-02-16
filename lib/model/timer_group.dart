@@ -7,6 +7,8 @@ import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 // to Control our Stream
 StreamController timerGroupEventStream =
     StreamController<TimerGroup>.broadcast();
@@ -20,15 +22,15 @@ class TimerGroup {
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
   Stream stream = timerGroupEventStream.stream;
+
+  DateTime _dateTime = DateTime.now();
   //final StreamController<int> updateStream = StreamController<int>.broadcast();
 
-  TimerGroup() {
-    loadTimers();
-  }
+  TimerGroup();
 
   Duration get elapsed => getElapsedTime();
 
-  Function(TimerGroup _meal)? _callBack;
+  //Function(TimerGroup _meal)? _callBack;
 
   Function()? onTimerAdded;
 
@@ -46,6 +48,8 @@ class TimerGroup {
     for (var key in _timersIds) {
       addTimer(await TimerDao().getTimer(key));
     }
+    bool _running = await _getDate() != null;
+    if (_running) StartTimer();
   }
 
   void addTimer(TimerItem item) {
@@ -75,7 +79,7 @@ class TimerGroup {
 
   int getProgress() {
     int total = getTotalTime().inMilliseconds;
-
+    if (total == 0) return 0;
     return ((elapsed.inMilliseconds / total) * 100).round();
   }
 
@@ -118,9 +122,31 @@ class TimerGroup {
     return nextText;
   }
 
-  void StartTimer(Function(TimerGroup _meal)? callBack) {
-    _callBack = callBack;
+  Future<DateTime?> _getDate() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    final int startTime = (prefs.getInt('start_time') ?? 0);
+    print('start time = $startTime');
+    return startTime == 0
+        ? null
+        : DateTime.fromMicrosecondsSinceEpoch(startTime);
+  }
+
+  Future<void> _saveDate(DateTime? time) async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    prefs.setInt('start_time', time == null ? 0 : time.microsecondsSinceEpoch);
+  }
+
+  Future<void> StartTimer() async {
+    //_callBack = callBack;
     _isRunning = true;
+
+    _dateTime = await _getDate() ?? DateTime.now();
+
+    // TODO - will need to save state so can resume with correct time
+    NotificationManager.setNotification(getTotalTime(), "FINISHED", "FINISHED");
+    NotificationManager.displayUpdate("update ticker", "update", this);
 
     for (TimerItem i in _ingredients) {
       i.startTimer();
@@ -145,9 +171,12 @@ class TimerGroup {
   }
 
   void _updateTimers() {
+    Duration increment = DateTime.now().difference(_dateTime);
     for (TimerItem i in _ingredients) {
-      i.updateTimer();
+      i.updateTimer(increment);
     }
+    _dateTime = DateTime.now();
+    if (_isRunning) _saveDate(_dateTime);
     _onUpdate();
   }
 
@@ -155,7 +184,7 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.stopTimer();
     }
-    _callBack!(this);
+    // _callBack!(this);
     _isRunning = false;
     SoundManager.stop();
     _onUpdate();
@@ -165,9 +194,11 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.resetTimer();
     }
+
     updateTimers();
-    _callBack!(this);
+    // _callBack!(this);
     _isRunning = false;
+    _saveDate(null);
     SoundManager.stop();
     _onUpdate();
     print(toJson());

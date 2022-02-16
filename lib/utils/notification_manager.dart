@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -78,20 +81,27 @@ class NotificationManager {
         .show(0, title, body, platformChannelSpecifics, payload: 'item x');
   }
 
-  static Future<void> displayUpdate(String title, String body) async {
+  static Future<void> displayUpdate(
+      String title, String body, TimerGroup group) async {
     //return;
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     // await flutterLocalNotificationsPlugin.cancel(0);
-    if (isInForeground) {
-      await flutterLocalNotificationsPlugin.cancel(0);
-      return;
-    }
+    // if (isInForeground) {
+    //  await flutterLocalNotificationsPlugin.cancel(0);
+    //   return;
+    // }
     //if (!isInForeground) {
     //displayFullscreen(title, body);
 
     //  }
 
+    tz.initializeTimeZones();
+    final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+
+    var whenTime = tz.TZDateTime.now(tz.local).add(group.getTotalTime());
+    //var whenTime = DateTime.now().add(group.getTotalTime());
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('bad2', 'update',
             channelDescription: 'your channel description',
@@ -100,6 +110,10 @@ class NotificationManager {
             ticker: 'ticker',
             playSound: true,
             fullScreenIntent: true,
+            ongoing: true,
+            usesChronometer: true,
+            when: whenTime.millisecondsSinceEpoch,
+            showWhen: true,
             icon: null);
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
@@ -154,7 +168,7 @@ class NotificationManager {
     tz.setLocalLocation(tz.getLocation(timeZoneName!));
 
     var whenTime = tz.TZDateTime.now(tz.local).add(delay);
-    delay = delay - reminderTime;
+    // delay = delay - reminderTime;
     var fireTime = tz.TZDateTime.now(tz.local).add(delay);
 
     channel++;
@@ -190,5 +204,23 @@ class NotificationManager {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.cancelAll();
+  }
+
+  static setNotification(Duration delay, String title, String message) async {
+    int helloAlarmID = 0; //channel++;
+    print('set timer');
+
+    displayDelayedFullscreen(delay, title, message);
+    return;
+  }
+
+  static void printHello() {
+    final DateTime now = DateTime.now();
+    NotificationManager.displayFullscreen("test", "update");
+  }
+
+  static void dispatchUpdate() {
+    final DateTime now = DateTime.now();
+    NotificationManager.displayProgress("test", "update", 50);
   }
 }

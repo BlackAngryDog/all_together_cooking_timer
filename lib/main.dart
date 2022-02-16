@@ -1,3 +1,7 @@
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:all_together_cooking_timer/firebase_config.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
@@ -11,6 +15,12 @@ import 'model/timer_group.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// The name associated with the UI isolate's [SendPort].
+const String isolateName = 'isolate';
+
+/// A port used to communicate from a background isolate to the UI isolate.
+final ReceivePort port = ReceivePort();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
@@ -22,7 +32,23 @@ Future<void> main() async {
 
   FirebaseDatabase.instance.goOnline();
 
+  IsolateNameServer.registerPortWithName(
+    port.sendPort,
+    isolateName,
+  );
+
   runApp(const MyApp());
+  int helloAlarmID = 0;
+}
+
+void printHello() {
+  final DateTime now = DateTime.now();
+  final int isolateId = Isolate.current.hashCode;
+  print("[$now] Hello, world! isolate=${isolateId} function='$printHello'");
+  //NotificationManager.displayDelayedFullscreen(
+  //    Duration(seconds: 20), "test wakup", "test wakup message");
+
+  NotificationManager.displayFullscreen("test", "update");
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +60,31 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'QuickSand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'QuickSand',
+                fontSize: 6,
+                fontWeight: FontWeight.bold,
+              ),
+              bodyText1: TextStyle(
+                fontFamily: 'QuickSand',
+                fontSize: 6,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
+            .copyWith(
+                primary: Colors.blueGrey[300],
+                secondary: Colors.teal[200],
+                brightness: Brightness.light),
       ),
       home: const AuthGate(),
     );
@@ -83,11 +133,35 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+
+    // Register for events from the background isolate. These messages will
+    // always coincide with an alarm firing.
+    port.listen((_) async => await _incrementCounter());
+
     WidgetsBinding.instance!.addObserver(this);
 
     loadData();
 
     NotificationManager.initNotifications();
+  }
+
+  Future<void> _incrementCounter() async {
+    print('Increment counter!');
+    NotificationManager.displayFullscreen("test", "increment");
+  }
+
+  // The background
+  static SendPort? uiSendPort;
+
+  // The callback for our alarm
+  static Future<void> callback() async {
+    print('Alarm fired!');
+
+    // This will be null if we're running in the background.
+    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+    uiSendPort?.send(null);
+
+    NotificationManager.displayFullscreen("test", "callback");
   }
 
   Future<void> loadData() async {
@@ -118,10 +192,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     //  _currMeal.initialiseNotifications();
     //}
 
-    print('state = ${state.toString()}');
-    NotificationManager.stopAllNotifications();
-    NotificationManager.displayDelayedFullscreen(const Duration(seconds: 10),
-        "wake app", "tap to wake ${state.toString()}");
+    //print('state = ${state.toString()}');
+    //NotificationManager.stopAllNotifications();
+    //NotificationManager.displayDelayedFullscreen(const Duration(seconds: 20),
+    //   "wake app", "tap to wake ${state.toString()}");
 
     NotificationManager.isInForeground = nextState;
     super.didChangeAppLifecycleState(state);
@@ -190,8 +264,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       if (_currMeal.isFinished) {
                         _currMeal.restartTimer();
                       } else if (!_currMeal.isRunning) {
-                        _currMeal.StartTimer(
-                            timerHomeKey.currentState!.timerUpdate);
+                        _currMeal.StartTimer();
                       } else {
                         _currMeal.pauseTimer();
                       }
