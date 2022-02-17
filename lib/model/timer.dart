@@ -55,12 +55,14 @@ class TimerItem {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     _elapsed = Duration(microseconds: prefs.getInt('elapsed') ?? 0);
+    print("load timer $title ${_elapsed.inMicroseconds}");
     //final int startTime = (prefs.getInt('start_time') ?? 0);
   }
 
   Future<void> saveState() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
+    print("save timer $title ${_elapsed.inMicroseconds}");
     prefs.setInt('elapsed', _elapsed.inMicroseconds);
     //final int startTime = (prefs.getInt('start_time') ?? 0);
   }
@@ -80,23 +82,17 @@ class TimerItem {
 
   void startTimer() {
     Duration timeToStart = _delayStart - _elapsed;
-    Duration timeToEnd = _delayStart + runTime - _elapsed;
-/*
+    Duration timeToEndCook = _delayStart + runTime - _elapsed;
+
+    // SETUP NOTIFICATIONS FOR THIS TIMER
     if (timeToStart > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
           _delayStart - _elapsed, title, "Start $title");
     }
-*/
-/*
-    if (timeToStart > Duration.zero) {
+    if (timeToEndCook > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
-          _delayStart - _elapsed, title, "Start $title");
+          _delayStart + runTime - _elapsed, title, "Finish $title");
     }
-    if (timeToEnd > Duration.zero) {
-      NotificationManager.displayDelayedFullscreen(
-          _delayStart + runTime - _elapsed, title, "End $title");
-    }
-*/
   }
 
   void stopTimer() {
@@ -120,6 +116,7 @@ class TimerItem {
     // Trigger event to activate X seconds before actual event
     Duration timeToNextEvent = getNextTime() - elapsed;
     // TODO : Create prewarn global setting
+    // TODO - how to get if SFX alert needs to play and bug with when!
     int prewarnSeconds = -10;
     if (timeToNextEvent.inSeconds == prewarnSeconds) SoundManager.play();
 

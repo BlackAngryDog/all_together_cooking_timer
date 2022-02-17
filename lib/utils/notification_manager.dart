@@ -191,7 +191,7 @@ class NotificationManager {
           showWhen: true,
           when: whenTime.millisecondsSinceEpoch,
           usesChronometer: true,
-          ongoing: true,
+          ongoing: false,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:

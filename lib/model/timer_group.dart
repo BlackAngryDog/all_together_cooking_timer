@@ -51,6 +51,7 @@ class TimerGroup {
   }
 
   Future<void> loadState() async {
+    // TODO - work out how to delay display until data loaded and update when paused.
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     final int startTime = (prefs.getInt('start_time') ?? 0);
@@ -60,11 +61,18 @@ class TimerGroup {
         ? DateTime.now()
         : DateTime.fromMicrosecondsSinceEpoch(startTime);
 
+    // INCREMENT ELAP
+
+    print("load group $_isRunning ${_dateTime.toString()}");
+
     for (TimerItem i in _ingredients) {
       await i.loadState();
     }
-
-    if (_isRunning) StartTimer();
+    if (_isRunning) {
+      // UPDATE FOR MISSED TIME
+      _updateTimers();
+      StartTimer();
+    }
   }
 
   Future<void> saveState() async {
@@ -73,6 +81,8 @@ class TimerGroup {
     prefs.setBool('is_running', _isRunning);
     prefs.setInt(
         'start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
+
+    print("save group $_isRunning ${_dateTime.toString()}");
     for (TimerItem i in _ingredients) {
       await i.saveState();
     }
@@ -152,13 +162,16 @@ class TimerGroup {
     //_callBack = callBack;
     _isRunning = true;
     // TODO - will need to save state so can resume with correct time
-    NotificationManager.setNotification(getTotalTime(), "FINISHED", "FINISHED");
-    NotificationManager.displayUpdate("update ticker", "update", this);
-
+    NotificationManager.displayDelayedFullscreen(
+        getTotalTimeLeft(), "FINISHED", "FINISHED");
+    //NotificationManager.displayUpdate("update ticker", "update", this);
+    _dateTime = DateTime.now();
     for (TimerItem i in _ingredients) {
       i.startTimer();
     }
     _updateTimers();
+
+    // TODO : Build List of notification times and schedule - should all notifications be handled by the group
 
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (!_isRunning) {
@@ -193,6 +206,7 @@ class TimerGroup {
     }
     // _callBack!(this);
     _isRunning = false;
+    saveState();
     SoundManager.stop();
     _onUpdate();
   }

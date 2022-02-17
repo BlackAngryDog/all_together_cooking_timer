@@ -173,12 +173,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         : TimerGroup.fromJson(
             dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
 
-    _currMeal.loadTimers();
     _currMeal.onTimerAdded = () {
       setState(() {
         TimerDao().saveTimerGroup(_currMeal);
       });
     };
+
+    await _currMeal.loadTimers();
     _currMeal.loadState();
   }
 
