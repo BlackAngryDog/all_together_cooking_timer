@@ -6,6 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum CookStatus { waiting, cooking, resting, finished }
 
+class TimerEvent {
+  final String eventName;
+  final TimerItem item;
+  final Duration eventTime;
+  TimerEvent(this.eventName, this.item, this.eventTime);
+}
+
 class TimerItem {
   Duration get totalTime {
     return runTime + restTime;
@@ -83,7 +90,7 @@ class TimerItem {
   void startTimer() {
     Duration timeToStart = _delayStart - _elapsed;
     Duration timeToEndCook = _delayStart + runTime - _elapsed;
-
+    return;
     // SETUP NOTIFICATIONS FOR THIS TIMER
     if (timeToStart > Duration.zero) {
       NotificationManager.displayDelayedFullscreen(
@@ -95,13 +102,29 @@ class TimerItem {
     }
   }
 
+  List<TimerEvent> getEvents() {
+    List<TimerEvent> events = [];
+    Duration prewarn = const Duration(seconds: 10);
+    Duration timeToStart = _delayStart - _elapsed - prewarn;
+    Duration timeToEndCook = _delayStart + runTime - _elapsed - prewarn;
+
+    if (timeToStart > Duration.zero) {
+      events.add(TimerEvent("Start", this, timeToStart));
+    }
+
+    if (timeToEndCook > Duration.zero) {
+      events.add(TimerEvent("Finish", this, timeToEndCook));
+    }
+    return events;
+  }
+
   void stopTimer() {
     // TODO - STOP ONLY FOR THIS TIMER ID!
-    NotificationManager.stopAllNotifications();
+    //NotificationManager.stopAllNotifications();
   }
 
   void resetTimer() {
-    NotificationManager.stopAllNotifications();
+    //NotificationManager.stopAllNotifications();
     _elapsed = Duration.zero;
     _delayStart = Duration.zero;
   }
@@ -118,7 +141,20 @@ class TimerItem {
     // TODO : Create prewarn global setting
     // TODO - how to get if SFX alert needs to play and bug with when!
     int prewarnSeconds = -10;
-    if (timeToNextEvent.inSeconds == prewarnSeconds) SoundManager.play();
+    Duration prewarn = const Duration(seconds: 10);
+    Duration timeToStart = (_delayStart - _elapsed);
+    Duration timeToEndCook = (_delayStart + runTime - _elapsed);
+    Duration timeToEndRest = _delayStart + runTime + restTime - _elapsed;
+    print('TIME TO START : $title  ${FormatDuration.format(timeToStart)}');
+    if (timeToStart > Duration.zero &&
+        timeToStart < prewarn &&
+        !SoundManager.isPlaying) SoundManager.play();
+    if (timeToEndCook > Duration.zero &&
+        timeToEndCook < prewarn &&
+        !SoundManager.isPlaying) SoundManager.play();
+    if (timeToEndRest > Duration.zero &&
+        timeToEndRest < prewarn &&
+        !SoundManager.isPlaying) SoundManager.play();
 
     if (nextStatus != status) {
       // TODO - pause this timer if set to do so and show continue button.

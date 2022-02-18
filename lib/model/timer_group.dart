@@ -172,6 +172,7 @@ class TimerGroup {
     _updateTimers();
 
     // TODO : Build List of notification times and schedule - should all notifications be handled by the group
+    // _initialiseNotifications();
 
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (!_isRunning) {
@@ -200,6 +201,28 @@ class TimerGroup {
     _onUpdate();
   }
 
+  void _initialiseNotifications() {
+    NotificationManager.stopAllNotifications();
+
+    if (!isRunning) return;
+    // CREATE MAP OF EVENTs AND DURATIONS
+    List<TimerEvent> events = [];
+    for (TimerItem timer in _ingredients) {
+      // BUILD EVENT LIST
+      events.addAll(timer.getEvents());
+    }
+    // SORT & FILTER EVENT LIST AND COMBINE
+
+    // SCHEDULE EVENTS
+    for (TimerEvent event in events) {
+      // BUILD EVENT LIST
+      NotificationManager.displayDelayedFullscreen(event.eventTime,
+          event.item.title, "${event.eventName}  ${event.item.title}");
+    }
+    NotificationManager.displayDelayedFullscreen(
+        getTotalTimeLeft(), "FINISHED", "All FINISHED");
+  }
+
   void pauseTimer() {
     for (TimerItem i in _ingredients) {
       i.stopTimer();
@@ -207,6 +230,7 @@ class TimerGroup {
     // _callBack!(this);
     _isRunning = false;
     saveState();
+    NotificationManager.stopAllNotifications();
     SoundManager.stop();
     _onUpdate();
   }
@@ -220,6 +244,7 @@ class TimerGroup {
     // _callBack!(this);
     _isRunning = false;
     saveState();
+    NotificationManager.stopAllNotifications();
     SoundManager.stop();
     _onUpdate();
     print(toJson());
@@ -248,8 +273,6 @@ class TimerGroup {
   }
 
   void initialiseNotifications() {
-    for (TimerItem i in _ingredients) {
-      i.initialiseNotification();
-    }
+    _initialiseNotifications();
   }
 }

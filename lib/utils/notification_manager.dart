@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -13,6 +15,7 @@ class NotificationManager {
   static Future<void> initNotifications() async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
+
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
@@ -36,6 +39,24 @@ class NotificationManager {
           badge: true,
           sound: true,
         );
+  }
+
+  static Future<NotificationAppLaunchDetails?> getNotificationsDetails() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+        !kIsWeb && Platform.isLinux
+            ? null
+            : await flutterLocalNotificationsPlugin
+                .getNotificationAppLaunchDetails();
+
+    return notificationAppLaunchDetails;
+    //String initialRoute = HomePage.routeName;
+    //if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+    //  selectedNotificationPayload = notificationAppLaunchDetails!.payload;
+    //  initialRoute = SecondPage.routeName;
+    // }
   }
 
   static void onSelectedNotification(String? payload) {
@@ -184,14 +205,12 @@ class NotificationManager {
           channelDescription: 'full screen channel description',
           priority: Priority.high,
           importance: Importance.high,
-          fullScreenIntent: true,
+          fullScreenIntent: false,
           groupKey: "delayed",
           groupAlertBehavior: GroupAlertBehavior.all,
           setAsGroupSummary: true,
-          showWhen: true,
+          showWhen: false,
           when: whenTime.millisecondsSinceEpoch,
-          usesChronometer: true,
-          ongoing: false,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:

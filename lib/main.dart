@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
@@ -9,7 +10,9 @@ import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'model/timer_group.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -188,11 +191,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     bool nextState = state == AppLifecycleState.resumed;
 
     // TODO - CAN I ADD AND CANCEL NOTIFICATIONS HERE TO STOP POPUPS WHILE APP OPEN
-    //if (nextState) {
-    //  NotificationManager.stopAllNotifications();
-    //} else if (!nextState && NotificationManager.isInForeground) {
-    //  _currMeal.initialiseNotifications();
-    //}
+    if (nextState) {
+      NotificationManager.stopAllNotifications();
+    } else if (!nextState && NotificationManager.isInForeground) {
+      _currMeal.initialiseNotifications();
+    }
 
     //print('state = ${state.toString()}');
     //NotificationManager.stopAllNotifications();
@@ -200,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     //   "wake app", "tap to wake ${state.toString()}");
 
     NotificationManager.isInForeground = nextState;
+
     super.didChangeAppLifecycleState(state);
   }
 
