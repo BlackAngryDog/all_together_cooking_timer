@@ -176,11 +176,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         : TimerGroup.fromJson(
             dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
 
-    _currMeal.onTimerAdded = () {
+    timerGroupUpdateEvent.stream.listen((event) {
       setState(() {
         TimerDao().saveTimerGroup(_currMeal);
       });
-    };
+    });
 
     await _currMeal.loadTimers();
     _currMeal.loadState();
@@ -250,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 maintainAnimation: true,
                 maintainState: true,
                 child: FloatingActionButton(
-                  onPressed: () => timerHomeKey.currentState!.addItemPressed(
+                  onPressed: () => timerHomeKey.currentState!.editItemPressed(
                     context,
                     TimerItem('_title', Duration.zero, Duration.zero),
                   ),

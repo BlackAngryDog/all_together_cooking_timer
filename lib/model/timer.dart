@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:all_together_cooking_timer/main.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
@@ -14,9 +16,9 @@ class TimerEvent {
 }
 
 class TimerItem {
-  Duration get totalTime {
-    return runTime + restTime;
-  }
+  final List<String> mapKey = ["Prep", "Cook", "Rest"];
+
+  Map<String, Duration> times = {};
 
   CookStatus status = CookStatus.waiting;
 
@@ -34,28 +36,49 @@ class TimerItem {
   Duration _elapsed = Duration.zero;
   Duration get elapsed => _elapsed;
 
-  TimerItem(this.title, this.runTime, this.restTime);
+  //num get remainingTime => 0;
 
-  num get remainingTime => 0;
+  Duration get totalRunTime {
+    Duration value = Duration.zero;
+    for (Duration d in times.values) {
+      value += d;
+    }
+    return value;
+  }
 
   bool paused = false;
   bool isStandAlone = false;
+
+  TimerItem(this.title, this.runTime, this.restTime) {
+    times["Prep"] = const Duration(seconds: 15);
+    times["Cook"] = runTime;
+    times["Rest"] = restTime;
+  }
 
   // PERSISTANCE
   TimerItem.fromJson(String? key, Map<dynamic, dynamic> json)
       : id = key,
         title = json['title'] as String,
         runTime = Duration(seconds: json['runTime']),
-        restTime = Duration(seconds: json['restTime']);
+        restTime = Duration(seconds: json['restTime']),
+        times = json['times'] != null
+            ? Map<String, Duration>.from(
+                jsonDecode(json['times']).map((String name, dynamic seconds) {
+                return MapEntry(name, Duration(seconds: seconds));
+              }))
+            : <String, Duration>{};
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'title': title,
         'runTime': runTime.inSeconds,
         'restTime': restTime.inSeconds,
+        'times': jsonEncode(times.map((String name, Duration duration) {
+          return MapEntry(name, duration.inSeconds);
+        })),
       };
 
   void ShowTime() {
-    print(totalTime);
+    print(totalRunTime);
   }
 
   Future<void> loadState() async {
@@ -83,6 +106,12 @@ class TimerItem {
     paused = false;
     _totalTime = totalTime;
     _delayStart = totalTime - (runTime + restTime);
+
+    // TODO - IMPLEMENT SETTES AND GETTERS
+    times["Prep"] = Duration(seconds: 15);
+    times["Cook"] = runTime;
+    times["Rest"] = restTime;
+
     print(
         "$title starts in $delayStart as total is $totalTime - ${runTime + restTime}");
   }
@@ -177,7 +206,45 @@ class TimerItem {
     SoundManager.stop();
   }
 
+  MapEntry<String, Duration> getCurrentState() {
+    if (_elapsed == Duration.zero)
+      return MapEntry<String, Duration>("Total Time", totalRunTime);
+
+    if (_elapsed >= totalRunTime + _delayStart)
+      return MapEntry<String, Duration>("Finished", totalRunTime + _delayStart);
+
+    Duration value = _delayStart;
+    for (String key in mapKey) {
+      Duration nextValue = times[key] ?? Duration.zero;
+      if (_elapsed > value && _elapsed < value + nextValue)
+        return MapEntry<String, Duration>(key, value + nextValue);
+      value += nextValue;
+    }
+
+    return MapEntry<String, Duration>("Waiting", _delayStart);
+  }
+
+  Duration getCurrentStart() {
+    for (Duration d in times.values) {
+      d += _delayStart;
+      if (_elapsed > d) return d;
+    }
+    return _delayStart;
+  }
+
+  Duration getCurrentEnd() {
+    for (Duration d in times.values) {
+      d += _delayStart;
+      if (_elapsed < d) return d;
+    }
+    return Duration.zero;
+  }
+
   String getTimerText() {
+    MapEntry<String, Duration> currState = getCurrentState();
+    return 'State : ${currState.key} Time : ${FormatDuration.format(currState.value - _elapsed)}';
+    return 'start ${FormatDuration.format(getCurrentStart())} end ${FormatDuration.format(getCurrentEnd())}';
+
     if (_elapsed == Duration.zero) {
       String delay = _delayStart > Duration.zero
           ? 'Delay : ${FormatDuration.format(_delayStart)}, '

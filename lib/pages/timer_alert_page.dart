@@ -23,7 +23,7 @@ class _TimerAlertState extends State<TimerAlert> {
   void initState() {
     super.initState();
 
-    streamSubscription = timerGroupEventStream.stream.listen((event) {
+    streamSubscription = timerGroupUpdateEvent.stream.listen((event) {
       updateTime();
     });
     updateTime();

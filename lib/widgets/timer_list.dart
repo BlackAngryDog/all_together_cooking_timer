@@ -31,7 +31,7 @@ class TimerHomeState extends State<TimerHome> {
   void initState() {
     super.initState();
 
-    streamSubscription = timerGroupEventStream.stream.listen((event) {
+    streamSubscription = timerGroupUpdateEvent.stream.listen((event) {
       timerUpdate(event);
     });
   }
@@ -68,10 +68,14 @@ class TimerHomeState extends State<TimerHome> {
     timerUpdate(widget._currMeal);
   }
 
-  void addItemPressed(BuildContext ctx, TimerItem timer) {
+  void editItemPressed(BuildContext ctx, TimerItem timer) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddTimerPage(timer)),
+      MaterialPageRoute(
+          builder: (context) => AddTimerPage(
+                timer,
+                group: widget._currMeal,
+              )),
     );
     /*
     showModalBottomSheet(
@@ -204,7 +208,7 @@ class TimerHomeState extends State<TimerHome> {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            addItemPressed(
+                                            editItemPressed(
                                               ctx,
                                               widget
                                                   ._currMeal.ingredients[index],

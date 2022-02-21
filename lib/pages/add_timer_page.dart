@@ -2,14 +2,16 @@ import 'dart:ffi';
 
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
+import 'package:all_together_cooking_timer/model/timer_group.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddTimerPage extends StatefulWidget {
   //final Function(TimerItem timer) onAddTimer;
   final TimerItem item;
+  final TimerGroup? group;
 
-  const AddTimerPage(this.item, {Key? key}) : super(key: key);
+  const AddTimerPage(this.item, {Key? key, this.group}) : super(key: key);
 
   @override
   _AddTimerPageState createState() => _AddTimerPageState();
@@ -37,6 +39,7 @@ class _AddTimerPageState extends State<AddTimerPage> {
     widget.item.title = titleController.text;
     TimerDao().saveTimer(widget.item);
     //onAddTimer(item);
+    widget.group?.addTimer(widget.item);
     Navigator.of(context).pop();
   }
 

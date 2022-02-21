@@ -10,9 +10,12 @@ import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // to Control our Stream
-StreamController timerGroupEventStream =
+StreamController timerGroupUpdateEvent =
     StreamController<TimerGroup>.broadcast();
 // this is our stream
+
+StreamController timerGroupOnAddedEvent =
+    StreamController<TimerGroup>.broadcast();
 
 class TimerGroup {
   String title = "Timer Group";
@@ -21,7 +24,7 @@ class TimerGroup {
   List<String> _timersIds = [];
   List<TimerItem> _ingredients = [];
   List<TimerItem> get ingredients => _ingredients;
-  Stream stream = timerGroupEventStream.stream;
+  //Stream stream = timerGroupUpdateEvent.stream;
 
   DateTime _dateTime = DateTime.now();
   //final StreamController<int> updateStream = StreamController<int>.broadcast();
@@ -32,7 +35,7 @@ class TimerGroup {
 
   //Function(TimerGroup _meal)? _callBack;
 
-  Function()? onTimerAdded;
+  //Function()? onTimerAdded;
 
   bool _isRunning = false;
   bool get isRunning => _isRunning;
@@ -90,27 +93,28 @@ class TimerGroup {
 
   void addTimer(TimerItem item) {
     // TODO - consider adding async load funtion that accepts a key for persistance rather than init function.
-    if (!_ingredients.contains(item)) {
+    if (_ingredients.where((i) => i.id == item.id).isEmpty) {
       _ingredients.add(item);
     }
-    onTimerAdded!();
+
     updateTimers();
   }
 
   void removeTimer(TimerItem timer) {
     _ingredients.removeWhere((t) => t.id == timer.id);
-    onTimerAdded!();
     updateTimers();
   }
 
   void updateTimers() {
     // Sort items by duration, assign start delay
-    _ingredients.sort((a, b) => b.totalTime.compareTo(a.totalTime));
+    _ingredients.sort((a, b) => b.totalRunTime.compareTo(a.totalRunTime));
     Duration max = getTotalTime();
     for (TimerItem i in _ingredients) {
       i.setDelay(max);
     }
-    _onUpdate();
+    //
+    onUpdate();
+    timerGroupOnAddedEvent.add(this);
   }
 
   int getProgress() {
@@ -120,7 +124,7 @@ class TimerGroup {
   }
 
   Duration getTotalTime() {
-    return _ingredients.isEmpty ? Duration.zero : _ingredients[0].totalTime;
+    return _ingredients.isEmpty ? Duration.zero : _ingredients[0].totalRunTime;
   }
 
   Duration getElapsedTime() {
@@ -198,7 +202,7 @@ class TimerGroup {
     }
     _dateTime = DateTime.now();
     saveState();
-    _onUpdate();
+    onUpdate();
   }
 
   void _initialiseNotifications() {
@@ -232,7 +236,7 @@ class TimerGroup {
     saveState();
     NotificationManager.stopAllNotifications();
     SoundManager.stop();
-    _onUpdate();
+    onUpdate();
   }
 
   void restartTimer() {
@@ -246,12 +250,12 @@ class TimerGroup {
     saveState();
     NotificationManager.stopAllNotifications();
     SoundManager.stop();
-    _onUpdate();
+    onUpdate();
     print(toJson());
   }
 
-  void _onUpdate() {
-    timerGroupEventStream.add(this);
+  void onUpdate() {
+    timerGroupUpdateEvent.add(this);
   }
 
   // PERSISTANCE
