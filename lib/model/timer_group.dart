@@ -66,14 +66,12 @@ class TimerGroup {
 
     // INCREMENT ELAP
 
-    print("load group $_isRunning ${_dateTime.toString()}");
-
     for (TimerItem i in _ingredients) {
       await i.loadState();
     }
     if (_isRunning) {
       // UPDATE FOR MISSED TIME
-      _updateTimers();
+      _updateTick();
       StartTimer();
     }
   }
@@ -85,7 +83,6 @@ class TimerGroup {
     prefs.setInt(
         'start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
 
-    print("save group $_isRunning ${_dateTime.toString()}");
     for (TimerItem i in _ingredients) {
       await i.saveState();
     }
@@ -96,16 +93,17 @@ class TimerGroup {
     if (_ingredients.where((i) => i.id == item.id).isEmpty) {
       _ingredients.add(item);
     }
-
-    updateTimers();
+    sortTimers();
+    timerGroupOnAddedEvent.add(this);
   }
 
   void removeTimer(TimerItem timer) {
     _ingredients.removeWhere((t) => t.id == timer.id);
-    updateTimers();
+    sortTimers();
+    timerGroupOnAddedEvent.add(this);
   }
 
-  void updateTimers() {
+  void sortTimers() {
     // Sort items by duration, assign start delay
     _ingredients.sort((a, b) => b.totalRunTime.compareTo(a.totalRunTime));
     Duration max = getTotalTime();
@@ -114,7 +112,6 @@ class TimerGroup {
     }
     //
     onUpdate();
-    timerGroupOnAddedEvent.add(this);
   }
 
   int getProgress() {
@@ -173,7 +170,7 @@ class TimerGroup {
     for (TimerItem i in _ingredients) {
       i.startTimer();
     }
-    _updateTimers();
+    _updateTick();
 
     // TODO : Build List of notification times and schedule - should all notifications be handled by the group
     // _initialiseNotifications();
@@ -186,7 +183,7 @@ class TimerGroup {
       }
 
       // THROW UPDATE
-      _updateTimers();
+      _updateTick();
 
       if (elapsed > getTotalTime()) {
         timer.cancel();
@@ -195,7 +192,7 @@ class TimerGroup {
     });
   }
 
-  void _updateTimers() {
+  void _updateTick() {
     Duration increment = DateTime.now().difference(_dateTime);
     for (TimerItem i in _ingredients) {
       i.updateTimer(increment);
@@ -244,14 +241,13 @@ class TimerGroup {
       i.resetTimer();
     }
 
-    updateTimers();
+    sortTimers();
     // _callBack!(this);
     _isRunning = false;
     saveState();
     NotificationManager.stopAllNotifications();
     SoundManager.stop();
     onUpdate();
-    print(toJson());
   }
 
   void onUpdate() {

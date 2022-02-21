@@ -25,8 +25,15 @@ class TimerItem {
   String? id;
   String title;
 
-  Duration runTime = Duration.zero;
-  Duration restTime = Duration.zero;
+  Duration get runTime => times["Cook"] ?? Duration.zero;
+  set runTime(Duration value) {
+    times["Cook"] = value;
+  }
+
+  Duration get restTime => times["Rest"] ?? Duration.zero;
+  set restTime(Duration value) {
+    times["Rest"] = value;
+  }
 
   Duration _delayStart = Duration.zero;
   get delayStart => _delayStart;
@@ -49,7 +56,7 @@ class TimerItem {
   bool paused = false;
   bool isStandAlone = false;
 
-  TimerItem(this.title, this.runTime, this.restTime) {
+  TimerItem(this.title, runTime, restTime) {
     times["Prep"] = const Duration(seconds: 15);
     times["Cook"] = runTime;
     times["Rest"] = restTime;
@@ -59,8 +66,6 @@ class TimerItem {
   TimerItem.fromJson(String? key, Map<dynamic, dynamic> json)
       : id = key,
         title = json['title'] as String,
-        runTime = Duration(seconds: json['runTime']),
-        restTime = Duration(seconds: json['restTime']),
         times = json['times'] != null
             ? Map<String, Duration>.from(
                 jsonDecode(json['times']).map((String name, dynamic seconds) {
@@ -70,31 +75,23 @@ class TimerItem {
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'title': title,
-        'runTime': runTime.inSeconds,
-        'restTime': restTime.inSeconds,
         'times': jsonEncode(times.map((String name, Duration duration) {
           return MapEntry(name, duration.inSeconds);
         })),
       };
 
-  void ShowTime() {
-    print(totalRunTime);
-  }
+  void ShowTime() {}
 
   Future<void> loadState() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     _elapsed = Duration(microseconds: prefs.getInt('elapsed') ?? 0);
-    print("load timer $title ${_elapsed.inMicroseconds}");
-    //final int startTime = (prefs.getInt('start_time') ?? 0);
   }
 
   Future<void> saveState() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
-    print("save timer $title ${_elapsed.inMicroseconds}");
     prefs.setInt('elapsed', _elapsed.inMicroseconds);
-    //final int startTime = (prefs.getInt('start_time') ?? 0);
   }
 
   void setDelay(Duration totalTime) {
@@ -105,12 +102,12 @@ class TimerItem {
     }
     paused = false;
     _totalTime = totalTime;
-    _delayStart = totalTime - (runTime + restTime);
+    _delayStart = totalTime - totalRunTime;
 
     // TODO - IMPLEMENT SETTES AND GETTERS
-    times["Prep"] = Duration(seconds: 15);
-    times["Cook"] = runTime;
-    times["Rest"] = restTime;
+    //times["Prep"] = Duration(seconds: 15);
+    //times["Cook"] = runTime;
+    //times["Rest"] = restTime;
 
     print(
         "$title starts in $delayStart as total is $totalTime - ${runTime + restTime}");
@@ -174,7 +171,7 @@ class TimerItem {
     Duration timeToStart = (_delayStart - _elapsed);
     Duration timeToEndCook = (_delayStart + runTime - _elapsed);
     Duration timeToEndRest = _delayStart + runTime + restTime - _elapsed;
-    print('TIME TO START : $title  ${FormatDuration.format(timeToStart)}');
+
     if (timeToStart > Duration.zero &&
         timeToStart < prewarn &&
         !SoundManager.isPlaying) SoundManager.play();

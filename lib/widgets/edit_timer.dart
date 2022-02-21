@@ -23,10 +23,7 @@ class _EditTimerState extends State<EditTimer> {
   }
 
   void _onSubmit() {
-    print(widget.item.runTime);
-
     widget.item.title = titleController.text;
-
     widget.onAddTimer(widget.item);
     Navigator.of(context).pop();
   }

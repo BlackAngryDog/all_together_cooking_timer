@@ -10,7 +10,6 @@ import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -133,6 +132,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   TimerGroup _currMeal = TimerGroup();
   final timerHomeKey = GlobalKey<TimerHomeState>();
 
+  bool _finishedLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -149,7 +150,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   }
 
   Future<void> _incrementCounter() async {
-    print('Increment counter!');
     NotificationManager.displayFullscreen("test", "increment");
   }
 
@@ -158,8 +158,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   // The callback for our alarm
   static Future<void> callback() async {
-    print('Alarm fired!');
-
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
     uiSendPort?.send(null);
@@ -176,14 +174,18 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         : TimerGroup.fromJson(
             dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
 
-    timerGroupUpdateEvent.stream.listen((event) {
+    await _currMeal.loadTimers();
+    await _currMeal.loadState();
+
+    timerGroupOnAddedEvent.stream.listen((event) {
       setState(() {
         TimerDao().saveTimerGroup(_currMeal);
       });
     });
 
-    await _currMeal.loadTimers();
-    _currMeal.loadState();
+    setState(() {
+      _finishedLoading = true;
+    });
   }
 
   @override
@@ -209,7 +211,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    print("disposed");
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
@@ -233,7 +234,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       ),
       body: Column(
         children: [
-          TimerHome(_currMeal, key: timerHomeKey),
+          _finishedLoading
+              ? TimerHome(_currMeal, key: timerHomeKey)
+              : SizedBox(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height,
+                  child: Center(child: CircularProgressIndicator())),
         ],
       ),
       floatingActionButton: Card(

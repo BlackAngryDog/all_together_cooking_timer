@@ -34,6 +34,8 @@ class TimerHomeState extends State<TimerHome> {
     streamSubscription = timerGroupUpdateEvent.stream.listen((event) {
       timerUpdate(event);
     });
+
+    timerUpdate(widget._currMeal);
   }
 
   void timerUpdate(TimerGroup meal) {
@@ -103,42 +105,6 @@ class TimerHomeState extends State<TimerHome> {
       context,
       MaterialPageRoute(builder: (context) => TimerAlert(widget._currMeal)),
     );
-  }
-
-  void testSheet() {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
-        backgroundColor: Colors.black,
-        context: context,
-        isScrollControlled: true,
-        builder: (context) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      'Enter your address',
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: TextField(
-                      decoration: InputDecoration(hintText: 'adddrss'),
-                      autofocus: true,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ));
   }
 
   @override

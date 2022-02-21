@@ -38,7 +38,6 @@ class TimerSelector extends StatelessWidget {
         child: FirebaseDatabaseListView(
           query: TimerDao().getTimerQuery(),
           itemBuilder: (context, snapshot) {
-            print(snapshot.value);
             TimerItem timer = TimerItem.fromJson(
                 snapshot.key, snapshot.value as Map<dynamic, dynamic>);
             bool isChecked = _currMeal.hasTimer(timer);
