@@ -19,20 +19,23 @@ class TimerItem {
   final List<String> mapKey = ["Prep", "Cook", "Rest"];
 
   Map<String, Duration> times = {};
+  Map<String, Duration> run_times = {};
 
   CookStatus status = CookStatus.waiting;
 
   String? id;
   String title;
 
-  Duration get runTime => times["Cook"] ?? Duration.zero;
+  Duration get runTime => run_times["Cook"] ?? Duration.zero;
   set runTime(Duration value) {
     times["Cook"] = value;
+    initRunTimer();
   }
 
-  Duration get restTime => times["Rest"] ?? Duration.zero;
+  Duration get restTime => run_times["Rest"] ?? Duration.zero;
   set restTime(Duration value) {
     times["Rest"] = value;
+    initRunTimer();
   }
 
   Duration _delayStart = Duration.zero;
@@ -40,8 +43,16 @@ class TimerItem {
 
   Duration _totalTime = Duration.zero;
 
+  String _currStateName = "";
+  Duration _offset = Duration.zero;
   Duration _elapsed = Duration.zero;
-  Duration get elapsed => _elapsed;
+
+  Duration get elapsed {
+    //if (_currStateName == 'Rest')
+    //   return _elapsed - _offset;
+    //else
+    return _elapsed;
+  }
 
   //num get remainingTime => 0;
 
@@ -60,6 +71,7 @@ class TimerItem {
     times["Prep"] = const Duration(seconds: 15);
     times["Cook"] = runTime;
     times["Rest"] = restTime;
+    initRunTimer();
   }
 
   // PERSISTANCE
@@ -94,6 +106,12 @@ class TimerItem {
     prefs.setInt('elapsed', _elapsed.inMicroseconds);
   }
 
+  void initRunTimer() {
+    for (String key in times.keys) {
+      run_times[key] = times[key] ?? Duration.zero;
+    }
+  }
+
   void setDelay(Duration totalTime) {
     if (isStandAlone) {
       _delayStart = Duration.zero;
@@ -105,7 +123,8 @@ class TimerItem {
     _delayStart = totalTime - totalRunTime;
 
     // TODO - IMPLEMENT SETTES AND GETTERS
-    //times["Prep"] = Duration(seconds: 15);
+    times["Prep"] = Duration(seconds: 15);
+    initRunTimer();
     //times["Cook"] = runTime;
     //times["Rest"] = restTime;
 
@@ -114,25 +133,14 @@ class TimerItem {
   }
 
   void startTimer() {
-    Duration timeToStart = _delayStart - _elapsed;
-    Duration timeToEndCook = _delayStart + runTime - _elapsed;
-    return;
-    // SETUP NOTIFICATIONS FOR THIS TIMER
-    if (timeToStart > Duration.zero) {
-      NotificationManager.displayDelayedFullscreen(
-          _delayStart - _elapsed, title, "Start $title");
-    }
-    if (timeToEndCook > Duration.zero) {
-      NotificationManager.displayDelayedFullscreen(
-          _delayStart + runTime - _elapsed, title, "Finish $title");
-    }
+    print("start Timer");
   }
 
   List<TimerEvent> getEvents() {
     List<TimerEvent> events = [];
     Duration prewarn = const Duration(seconds: 10);
-    Duration timeToStart = _delayStart - _elapsed - prewarn;
-    Duration timeToEndCook = _delayStart + runTime - _elapsed - prewarn;
+    Duration timeToStart = _delayStart - elapsed - prewarn;
+    Duration timeToEndCook = _delayStart + runTime - elapsed - prewarn;
 
     if (timeToStart > Duration.zero) {
       events.add(TimerEvent("Start", this, timeToStart));
@@ -152,6 +160,7 @@ class TimerItem {
   void resetTimer() {
     //NotificationManager.stopAllNotifications();
     _elapsed = Duration.zero;
+    _offset = Duration.zero;
     _delayStart = Duration.zero;
   }
 
@@ -168,9 +177,9 @@ class TimerItem {
     // TODO - how to get if SFX alert needs to play and bug with when!
     int prewarnSeconds = -10;
     Duration prewarn = const Duration(seconds: 10);
-    Duration timeToStart = (_delayStart - _elapsed);
-    Duration timeToEndCook = (_delayStart + runTime - _elapsed);
-    Duration timeToEndRest = _delayStart + runTime + restTime - _elapsed;
+    Duration timeToStart = (_delayStart - elapsed);
+    Duration timeToEndCook = (_delayStart + runTime - elapsed);
+    Duration timeToEndRest = _delayStart + runTime + restTime - elapsed;
 
     if (timeToStart > Duration.zero &&
         timeToStart < prewarn &&
@@ -203,17 +212,33 @@ class TimerItem {
     SoundManager.stop();
   }
 
+  void skip() {
+    // get time to next state
+    MapEntry<String, Duration> nextState = getCurrentState();
+    Duration offset = nextState.value - elapsed;
+    // remove offset from curr state
+
+    if (nextState.key != "Rest") {
+      //_offset += offset;
+
+      run_times[nextState.key] =
+          (run_times[nextState.key] ?? Duration.zero) - offset;
+      run_times["Rest"] = (run_times["Rest"] ?? Duration.zero) + offset;
+    }
+    //_elapsed += offset;
+  }
+
   MapEntry<String, Duration> getCurrentState() {
-    if (_elapsed == Duration.zero)
+    if (elapsed == Duration.zero)
       return MapEntry<String, Duration>("Total Time", totalRunTime);
 
-    if (_elapsed >= totalRunTime + _delayStart)
+    if (elapsed >= totalRunTime + _delayStart)
       return MapEntry<String, Duration>("Finished", totalRunTime + _delayStart);
 
     Duration value = _delayStart;
     for (String key in mapKey) {
-      Duration nextValue = times[key] ?? Duration.zero;
-      if (_elapsed > value && _elapsed < value + nextValue)
+      Duration nextValue = run_times[key] ?? Duration.zero;
+      if (elapsed > value && elapsed < value + nextValue)
         return MapEntry<String, Duration>(key, value + nextValue);
       value += nextValue;
     }
@@ -222,24 +247,24 @@ class TimerItem {
   }
 
   Duration getCurrentStart() {
-    for (Duration d in times.values) {
+    for (Duration d in run_times.values) {
       d += _delayStart;
-      if (_elapsed > d) return d;
+      if (elapsed > d) return d;
     }
     return _delayStart;
   }
 
   Duration getCurrentEnd() {
-    for (Duration d in times.values) {
+    for (Duration d in run_times.values) {
       d += _delayStart;
-      if (_elapsed < d) return d;
+      if (elapsed < d) return d;
     }
     return Duration.zero;
   }
 
   String getTimerText() {
     MapEntry<String, Duration> currState = getCurrentState();
-    return 'State : ${currState.key} Time : ${FormatDuration.format(currState.value - _elapsed)}';
+    return 'State : ${currState.key} Time : ${FormatDuration.format(currState.value - elapsed)}';
     return 'start ${FormatDuration.format(getCurrentStart())} end ${FormatDuration.format(getCurrentEnd())}';
 
     if (_elapsed == Duration.zero) {
@@ -269,11 +294,11 @@ class TimerItem {
   String getNextTimerEvent() {
     switch (status) {
       case CookStatus.waiting:
-        return "Start Cooking $title in ${FormatDuration.format(_delayStart - _elapsed)}";
+        return "Start Cooking $title in ${FormatDuration.format(_delayStart - elapsed)}";
       case CookStatus.cooking:
-        return "Stop Cooking $title in  : ${FormatDuration.format((_delayStart + runTime) - _elapsed)}";
+        return "Stop Cooking $title in  : ${FormatDuration.format((_delayStart + runTime) - elapsed)}";
       case CookStatus.resting:
-        return "Rest $title for: ${FormatDuration.format((_delayStart + runTime + restTime) - _elapsed)}";
+        return "Rest $title for: ${FormatDuration.format((_delayStart + runTime + restTime) - elapsed)}";
       default:
         return "Finished $title";
     }
@@ -283,35 +308,35 @@ class TimerItem {
     CookStatus nextState = getNextStatus();
     switch (status) {
       case CookStatus.waiting:
-        return _delayStart - _elapsed;
+        return _delayStart - elapsed;
       case CookStatus.cooking:
-        return (_delayStart + runTime) - _elapsed;
+        return (_delayStart + runTime) - elapsed;
       case CookStatus.resting:
-        return (_delayStart + runTime + restTime) - _elapsed;
+        return (_delayStart + runTime + restTime) - elapsed;
       default:
-        return _elapsed; // NOT SURE ABOUT THIS RETURN!?
+        return elapsed; // NOT SURE ABOUT THIS RETURN!?
 
     }
   }
 
   CookStatus getNextStatus() {
-    if (_elapsed == Duration.zero)
+    if (elapsed == Duration.zero)
       return _delayStart == Duration.zero
           ? CookStatus.cooking
           : CookStatus.waiting;
 
-    if (_elapsed < _delayStart) return CookStatus.cooking;
-    if (_elapsed > _delayStart && _elapsed < _totalTime - restTime)
+    if (elapsed < _delayStart) return CookStatus.cooking;
+    if (elapsed > _delayStart && elapsed < _totalTime - restTime)
       return CookStatus.resting;
 
     return CookStatus.finished;
   }
 
   CookStatus _getState() {
-    if (_elapsed < _delayStart) return CookStatus.waiting;
-    if (_elapsed > _delayStart && _elapsed < _totalTime - restTime)
+    if (elapsed < _delayStart) return CookStatus.waiting;
+    if (elapsed > _delayStart && elapsed < _totalTime - restTime)
       return CookStatus.cooking;
-    if (_elapsed < _totalTime) return CookStatus.resting;
+    if (elapsed < _totalTime) return CookStatus.resting;
     return CookStatus.finished;
   }
 

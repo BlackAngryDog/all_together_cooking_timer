@@ -9,6 +9,7 @@ import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/edit_timer.dart';
+import 'package:all_together_cooking_timer/widgets/timer_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 
@@ -61,13 +62,13 @@ class TimerHomeState extends State<TimerHome> {
     setState(() {
       // TODO - add new time or update timer
       widget._currMeal.removeTimer(timer);
-      timerUpdate(widget._currMeal);
+      //timerUpdate(widget._currMeal);
     });
   }
 
   void onTimerAdded(TimerItem newTimer) {
     widget._currMeal.addTimer(newTimer);
-    timerUpdate(widget._currMeal);
+    //timerUpdate(widget._currMeal);
   }
 
   void editItemPressed(BuildContext ctx, TimerItem timer) {
@@ -146,57 +147,8 @@ class TimerHomeState extends State<TimerHome> {
                 ? Text("No Data")
                 : ListView.builder(
                     itemBuilder: (ctx, index) {
-                      return Card(
-                        child: ListTile(
-                          title: Text(
-                            widget._currMeal.ingredients[index].title,
-                          ),
-                          subtitle: Text(
-                            widget._currMeal.ingredients[index].getTimerText(),
-                          ),
-                          trailing: widget._currMeal.hasStarted
-                              ? Visibility(
-                                  visible: widget
-                                      ._currMeal.ingredients[index].paused,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      widget._currMeal.ingredients[index]
-                                          .resume();
-                                    },
-                                    icon: const Icon(Icons.play_arrow),
-                                  ),
-                                )
-                              : Visibility(
-                                  visible: !widget._currMeal.hasStarted,
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            editItemPressed(
-                                              ctx,
-                                              widget
-                                                  ._currMeal.ingredients[index],
-                                            );
-                                          },
-                                          icon: const Icon(Icons.timer),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            _onDeletePressed(
-                                              widget
-                                                  ._currMeal.ingredients[index],
-                                            );
-                                          },
-                                          icon: const Icon(Icons.delete),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                        ),
-                      );
+                      return TimerListView(widget._currMeal,
+                          widget._currMeal.ingredients[index]);
                     },
                     itemCount: widget._currMeal.ingredients.length,
                   ),

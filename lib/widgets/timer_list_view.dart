@@ -1,35 +1,59 @@
+import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_group.dart';
+import 'package:all_together_cooking_timer/pages/add_timer_page.dart';
 import 'package:flutter/material.dart';
 
 class TimerListView extends StatelessWidget {
   final TimerGroup _currMeal;
-  final int index;
+  final TimerItem _timer;
 
-  final Function(int index) onEdit;
-  final Function(int index) onDelete;
-
-  const TimerListView(this._currMeal, this.index, this.onEdit, this.onDelete,
-      {Key? key})
+  const TimerListView(this._currMeal, this._timer, {Key? key})
       : super(key: key);
+
+  void editItemPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => AddTimerPage(
+                _timer,
+                group: _currMeal,
+              )),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         title: Text(
-          _currMeal.ingredients[index].title,
+          _timer.title,
         ),
         subtitle: Text(
-          _currMeal.ingredients[index].getTimerText(),
+          _timer.getTimerText(),
         ),
         trailing: _currMeal.hasStarted
-            ? Visibility(
-                visible: _currMeal.ingredients[index].paused,
-                child: IconButton(
-                  onPressed: () {
-                    _currMeal.ingredients[index].resume();
-                  },
-                  icon: const Icon(Icons.play_arrow),
+            ? SizedBox(
+                width: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        _timer.skip();
+                      },
+                      icon: const Icon(Icons.fast_forward),
+                    ),
+                    Visibility(
+                      visible: _timer.paused,
+                      child: IconButton(
+                        onPressed: () {
+                          _timer.resume();
+                        },
+                        icon: const Icon(Icons.play_arrow),
+                      ),
+                    ),
+                  ],
                 ),
               )
             : Visibility(
@@ -40,13 +64,15 @@ class TimerListView extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          onEdit(index);
+                          editItemPressed(
+                            context,
+                          );
                         },
                         icon: const Icon(Icons.timer),
                       ),
                       IconButton(
                         onPressed: () {
-                          onDelete(index);
+                          _currMeal.removeTimer(_timer);
                         },
                         icon: const Icon(Icons.delete),
                       ),
