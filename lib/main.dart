@@ -238,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
               ? TimerHome(_currMeal, key: timerHomeKey)
               : SizedBox(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height / 2,
                   child: Center(child: CircularProgressIndicator())),
         ],
       ),

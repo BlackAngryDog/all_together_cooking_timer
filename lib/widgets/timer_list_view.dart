@@ -40,9 +40,15 @@ class TimerListView extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _timer.skip();
+                        _currMeal.skipTimer(_timer);
                       },
                       icon: const Icon(Icons.fast_forward),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        _currMeal.extendTimer(_timer, Duration(minutes: 1));
+                      },
+                      icon: const Icon(Icons.add),
                     ),
                     Visibility(
                       visible: _timer.paused,

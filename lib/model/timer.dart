@@ -39,7 +39,10 @@ class TimerItem {
   }
 
   Duration _delayStart = Duration.zero;
-  get delayStart => _delayStart;
+  Duration get delayStart => _delayStart;
+  set delayStart(Duration value) {
+    _delayStart = value;
+  }
 
   Duration _totalTime = Duration.zero;
 
@@ -58,10 +61,10 @@ class TimerItem {
 
   Duration get totalRunTime {
     Duration value = Duration.zero;
-    for (Duration d in times.values) {
+    for (Duration d in run_times.values) {
       value += d;
     }
-    return value;
+    return value + delayStart;
   }
 
   bool paused = false;
@@ -162,6 +165,7 @@ class TimerItem {
     _elapsed = Duration.zero;
     _offset = Duration.zero;
     _delayStart = Duration.zero;
+    initRunTimer();
   }
 
   void updateTimer(Duration increment) {
@@ -230,10 +234,11 @@ class TimerItem {
 
   MapEntry<String, Duration> getCurrentState() {
     if (elapsed == Duration.zero)
-      return MapEntry<String, Duration>("Total Time", totalRunTime);
+      return MapEntry<String, Duration>(
+          "Total Time", totalRunTime - _delayStart);
 
-    if (elapsed >= totalRunTime + _delayStart)
-      return MapEntry<String, Duration>("Finished", totalRunTime + _delayStart);
+    if (elapsed >= totalRunTime)
+      return MapEntry<String, Duration>("Finished", totalRunTime);
 
     Duration value = _delayStart;
     for (String key in mapKey) {
