@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:all_together_cooking_timer/TestForground.dart';
 import 'package:all_together_cooking_timer/firebase_config.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:all_together_cooking_timer/model/timer_dao.dart';
@@ -26,11 +27,12 @@ const String isolateName = 'isolate';
 /// A port used to communicate from a background isolate to the UI isolate.
 final ReceivePort port = ReceivePort();
 
+//void main() => runApp(const ExampleApp());
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-        name: 'att', options: DefaultFirebaseConfig.platformOptions);
+    await Firebase.initializeApp(name: 'att', options: DefaultFirebaseConfig.platformOptions);
   } else {
     Firebase.app();
   }
@@ -44,15 +46,11 @@ Future<void> main() async {
 
   final androidConfig = FlutterBackgroundAndroidConfig(
     notificationTitle: "flutter_background example app",
-    notificationText:
-        "Background notification for keeping the example app running in the background",
+    notificationText: "Background notification for keeping the example app running in the background",
     notificationImportance: AndroidNotificationImportance.Default,
-    notificationIcon: AndroidResource(
-        name: 'ic_launcher',
-        defType: 'drawable'), // Default is ic_launcher from folder mipmap
+    notificationIcon: AndroidResource(name: 'ic_launcher', defType: 'drawable'), // Default is ic_launcher from folder mipmap
   );
-  bool success =
-      await FlutterBackground.initialize(androidConfig: androidConfig);
+  bool success = await FlutterBackground.initialize(androidConfig: androidConfig);
   //FlutterBackground.enableBackgroundExecution();
   runApp(const MyApp());
   int helloAlarmID = 0;
@@ -97,11 +95,7 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
-            .copyWith(
-                primary: Colors.blueGrey[300],
-                secondary: Colors.teal[200],
-                brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey).copyWith(primary: Colors.blueGrey[300], secondary: Colors.teal[200], brightness: Brightness.light),
       ),
       home: const AuthGate(),
     );
@@ -180,10 +174,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     var data = await TimerDao().getTimerGroupQuery().get();
     var dataList = data.children.toList();
 
-    _currMeal = dataList.isEmpty
-        ? TimerGroup()
-        : TimerGroup.fromJson(
-            dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
+    _currMeal = dataList.isEmpty ? TimerGroup() : TimerGroup.fromJson(dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
 
     await _currMeal.loadTimers();
     await _currMeal.loadState();
@@ -238,15 +229,15 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return WillStartForegroundTask(
       onWillStart: () async {
         // Return whether to start the foreground service.
-        await FlutterForegroundTask.saveData(key: "test", value: "test");
+        await FlutterForegroundTask.saveData(key: "total_time", value: _currMeal.getTotalTime().inSeconds);
+        await FlutterForegroundTask.saveData(key: "curr_elapsed", value: _currMeal.elapsed.inSeconds);
 
-        return true; //_currMeal.isRunning;
+        return _currMeal.isRunning;
       },
       androidNotificationOptions: AndroidNotificationOptions(
         channelId: '0',
         channelName: 'Foreground Notification',
-        channelDescription:
-            'This notification appears when the foreground service is running.',
+        channelDescription: 'This notification appears when the foreground service is running.',
         channelImportance: NotificationChannelImportance.LOW,
         visibility: NotificationVisibility.VISIBILITY_SECRET,
         priority: NotificationPriority.LOW,
@@ -279,12 +270,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         ),
         body: Column(
           children: [
-            _finishedLoading
-                ? TimerHome(_currMeal, key: timerHomeKey)
-                : SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height / 2,
-                    child: Center(child: CircularProgressIndicator())),
+            _finishedLoading ? TimerHome(_currMeal, key: timerHomeKey) : SizedBox(width: double.infinity, height: MediaQuery.of(context).size.height / 2, child: Center(child: CircularProgressIndicator())),
           ],
         ),
         floatingActionButton: Card(
@@ -328,11 +314,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       }),
                     },
                     tooltip: 'Start',
-                    child: _currMeal.isRunning
-                        ? (_currMeal.isFinished
-                            ? const Icon(Icons.restart_alt_rounded)
-                            : const Icon(Icons.pause))
-                        : const Icon(Icons.play_arrow),
+                    child: _currMeal.isRunning ? (_currMeal.isFinished ? const Icon(Icons.restart_alt_rounded) : const Icon(Icons.pause)) : const Icon(Icons.play_arrow),
                     heroTag: "btn2",
                   ),
                 ),
@@ -349,17 +331,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                         } else {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => TimerSelector(_currMeal)),
+                            MaterialPageRoute(builder: (context) => TimerSelector(_currMeal)),
                           );
                         }
                       }),
                     },
                     tooltip: 'Increment',
                     heroTag: "btn3",
-                    child: _currMeal.hasStarted
-                        ? const Icon(Icons.restart_alt_rounded)
-                        : const Icon(Icons.add),
+                    child: _currMeal.hasStarted ? const Icon(Icons.restart_alt_rounded) : const Icon(Icons.add),
                   ),
                 ),
               ],
@@ -379,14 +358,17 @@ void startCallback() async {
   /* final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SharedPreferences prefs = await _prefs;
   int secondsElapsed = prefs.getInt('elapsed') ?? 0;*/
-  var testvar = await FlutterForegroundTask.getData<String>(key: "test");
-  FlutterForegroundTask.setTaskHandler(
-      FirstTaskHandler(MyApp.currElapsedSeconds));
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterForegroundTask.setTaskHandler(FirstTaskHandler(MyApp.currElapsedSeconds));
 }
 
 class FirstTaskHandler extends TaskHandler {
   int updateCount = 0;
   int secondsElapsed = 0;
+  int totalTime = 0;
+
+  Duration elapsed = Duration.zero;
+  Duration total = Duration.zero;
 
   FirstTaskHandler(this.secondsElapsed) {
     updateCount = 10;
@@ -394,26 +376,27 @@ class FirstTaskHandler extends TaskHandler {
 
   @override
   Future<void> onStart(DateTime timestamp, SendPort? sendPort) async {
-    //final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    //final SharedPreferences prefs = await _prefs;
-    //secondsElapsed = prefs.getInt('elapsed') ?? 0;
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    secondsElapsed = prefs.getInt('elapsed') ?? 0;
+    print('secondsElapsed $secondsElapsed');
+    secondsElapsed = await FlutterForegroundTask.getData<int>(key: "total_time") ?? 0;
+    totalTime = await FlutterForegroundTask.getData<int>(key: "curr_time") ?? 0;
+    elapsed = Duration(seconds: secondsElapsed);
+    total = Duration(seconds: totalTime);
+    // WidgetsFlutterBinding.ensureInitialized();
   }
 
   @override
   Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
     String notificationText = "";
 
-    try {
-      Duration elapsed = Duration(seconds: secondsElapsed + updateCount);
-      notificationText = elapsed.toString();
-    } catch (error) {
-      print("ERROR");
-    }
+    Duration elapsed = Duration(microseconds: secondsElapsed + updateCount);
+    notificationText = group.getTotalTime().toString();
 
-    FlutterForegroundTask.updateService(
-        notificationTitle: 'FirstTaskHandler',
-        notificationText: secondsElapsed.toString(),
-        callback: updateCount >= 1000 ? updateCallback : null);
+    //notificationText = group?.getTotalTimeLeft()?.toString()!
+
+    FlutterForegroundTask.updateService(notificationTitle: 'FirstTaskHandler', notificationText: notificationText, callback: updateCount >= 1000 ? updateCallback : null);
 
     // Send data to the main isolate.
     sendPort?.send(timestamp);
@@ -421,7 +404,7 @@ class FirstTaskHandler extends TaskHandler {
 
     //group?.onUpdate();
 
-    int p = 0;
+    int p = group.getProgress();
     NotificationManager.displayProgress(
       "Cooking",
       "_timer",
@@ -436,7 +419,9 @@ class FirstTaskHandler extends TaskHandler {
   }
 
   @override
-  Future<void> onDestroy(DateTime timestamp) async {}
+  Future<void> onDestroy(DateTime timestamp) async {
+    await FlutterForegroundTask.clearAllData();
+  }
 }
 
 void updateCallback() {
@@ -449,9 +434,7 @@ class SecondTaskHandler extends TaskHandler {
 
   @override
   Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
-    FlutterForegroundTask.updateService(
-        notificationTitle: 'SecondTaskHandler',
-        notificationText: timestamp.toString());
+    FlutterForegroundTask.updateService(notificationTitle: 'SecondTaskHandler', notificationText: timestamp.toString());
 
     // Send data to the main isolate.
     sendPort?.send(timestamp);
