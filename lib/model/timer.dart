@@ -100,12 +100,14 @@ class TimerItem {
   Future<void> loadState() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
+    prefs.setInt('elapsed', 0);
     _elapsed = Duration(microseconds: prefs.getInt('elapsed') ?? 0);
   }
 
   Future<void> saveState() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
+
     prefs.setInt('elapsed', _elapsed.inMicroseconds);
   }
 

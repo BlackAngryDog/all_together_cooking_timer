@@ -72,8 +72,8 @@ class NotificationManager {
         FlutterLocalNotificationsPlugin();
 
     if (isInForeground) {
-      await flutterLocalNotificationsPlugin.cancel(0);
-      return;
+      //await flutterLocalNotificationsPlugin.cancel(0);
+      // return;
     }
 
     //
@@ -81,19 +81,22 @@ class NotificationManager {
     // if (isInForeground) return;
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('bad1', 'progress',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker',
-            playSound: false,
-            sound: null,
-            ongoing: true,
-            maxProgress: 100,
-            progress: _percent,
-            showProgress: true,
-            onlyAlertOnce: true,
-            icon: null);
+        AndroidNotificationDetails(
+      'bad1',
+      'progress',
+      channelDescription: 'your channel description',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+      playSound: false,
+      sound: null,
+      ongoing: true,
+      maxProgress: 100,
+      progress: _percent,
+      showProgress: true,
+      onlyAlertOnce: true,
+      icon: null,
+    );
 
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);

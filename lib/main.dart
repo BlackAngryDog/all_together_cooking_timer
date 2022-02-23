@@ -11,11 +11,14 @@ import 'package:all_together_cooking_timer/utils/notification_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:flutterfire_ui/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'model/timer_group.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_background/flutter_background.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 /// The name associated with the UI isolate's [SendPort].
 const String isolateName = 'isolate';
@@ -31,7 +34,7 @@ Future<void> main() async {
   } else {
     Firebase.app();
   }
-
+  // FacebookSdk.sdkInitialize();
   FirebaseDatabase.instance.goOnline();
 
   IsolateNameServer.registerPortWithName(
@@ -39,6 +42,18 @@ Future<void> main() async {
     isolateName,
   );
 
+  final androidConfig = FlutterBackgroundAndroidConfig(
+    notificationTitle: "flutter_background example app",
+    notificationText:
+        "Background notification for keeping the example app running in the background",
+    notificationImportance: AndroidNotificationImportance.Default,
+    notificationIcon: AndroidResource(
+        name: 'ic_launcher',
+        defType: 'drawable'), // Default is ic_launcher from folder mipmap
+  );
+  bool success =
+      await FlutterBackground.initialize(androidConfig: androidConfig);
+  //FlutterBackground.enableBackgroundExecution();
   runApp(const MyApp());
   int helloAlarmID = 0;
 }
@@ -55,7 +70,7 @@ void printHello() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  static int currElapsedSeconds = 0;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -105,10 +120,6 @@ class AuthGate extends StatelessWidget {
         if (!snapshot.hasData) {
           return const SignInScreen(providerConfigs: [
             EmailProviderConfiguration(),
-            GoogleProviderConfiguration(
-              clientId:
-                  '755183037009-8an2dsurj1fb0lsl3er6eadv29a5e9v7.apps.googleusercontent.com',
-            ),
           ]);
         }
 
@@ -224,103 +235,228 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          _finishedLoading
-              ? TimerHome(_currMeal, key: timerHomeKey)
-              : SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: Center(child: CircularProgressIndicator())),
-        ],
-      ),
-      floatingActionButton: Card(
-        elevation: 55,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Visibility(
-                visible: false,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: FloatingActionButton(
-                  onPressed: () => timerHomeKey.currentState!.editItemPressed(
-                    context,
-                    TimerItem('_title', Duration.zero, Duration.zero),
-                  ),
-                  tooltip: 'Increment',
-                  child: const Icon(
-                    Icons.add,
-                  ),
-                  heroTag: "btn1",
-                ),
-              ),
-              SizedBox(
-                width: 65,
-                height: 65,
-                child: FloatingActionButton(
-                  onPressed: () => {
-                    setState(() {
-                      if (_currMeal.isFinished) {
-                        _currMeal.restartTimer();
-                      } else if (!_currMeal.isRunning) {
-                        _currMeal.StartTimer();
-                      } else {
-                        _currMeal.pauseTimer();
-                      }
-                    }),
-                  },
-                  tooltip: 'Start',
-                  child: _currMeal.isRunning
-                      ? (_currMeal.isFinished
-                          ? const Icon(Icons.restart_alt_rounded)
-                          : const Icon(Icons.pause))
-                      : const Icon(Icons.play_arrow),
-                  heroTag: "btn2",
-                ),
-              ),
-              Visibility(
-                visible: !_currMeal.isRunning,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                child: FloatingActionButton(
-                  onPressed: () => {
-                    setState(() {
-                      if (_currMeal.hasStarted) {
-                        _currMeal.restartTimer();
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TimerSelector(_currMeal)),
-                        );
-                      }
-                    }),
-                  },
-                  tooltip: 'Increment',
-                  heroTag: "btn3",
-                  child: _currMeal.hasStarted
-                      ? const Icon(Icons.restart_alt_rounded)
-                      : const Icon(Icons.add),
-                ),
-              ),
-            ],
-          ),
+    return WillStartForegroundTask(
+      onWillStart: () async {
+        // Return whether to start the foreground service.
+        await FlutterForegroundTask.saveData(key: "test", value: "test");
+
+        return true; //_currMeal.isRunning;
+      },
+      androidNotificationOptions: AndroidNotificationOptions(
+        channelId: '0',
+        channelName: 'Foreground Notification',
+        channelDescription:
+            'This notification appears when the foreground service is running.',
+        channelImportance: NotificationChannelImportance.LOW,
+        visibility: NotificationVisibility.VISIBILITY_SECRET,
+        priority: NotificationPriority.LOW,
+        iconData: NotificationIconData(
+          resType: ResourceType.mipmap,
+          resPrefix: ResourcePrefix.ic,
+          name: 'launcher',
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      iosNotificationOptions: const IOSNotificationOptions(
+        showNotification: true,
+        playSound: false,
+      ),
+      foregroundTaskOptions: const ForegroundTaskOptions(
+        interval: 1000,
+        autoRunOnBoot: false,
+        allowWifiLock: false,
+      ),
+      printDevLog: false,
+      notificationTitle: 'Foreground Service is running',
+      notificationText: 'Tap to return to the app',
+      callback: startCallback,
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        body: Column(
+          children: [
+            _finishedLoading
+                ? TimerHome(_currMeal, key: timerHomeKey)
+                : SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: Center(child: CircularProgressIndicator())),
+          ],
+        ),
+        floatingActionButton: Card(
+          elevation: 55,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Visibility(
+                  visible: false,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: FloatingActionButton(
+                    onPressed: () => timerHomeKey.currentState!.editItemPressed(
+                      context,
+                      TimerItem('_title', Duration.zero, Duration.zero),
+                    ),
+                    tooltip: 'Increment',
+                    child: const Icon(
+                      Icons.add,
+                    ),
+                    heroTag: "btn1",
+                  ),
+                ),
+                SizedBox(
+                  width: 65,
+                  height: 65,
+                  child: FloatingActionButton(
+                    onPressed: () => {
+                      setState(() {
+                        if (_currMeal.isFinished) {
+                          _currMeal.restartTimer();
+                        } else if (!_currMeal.isRunning) {
+                          _currMeal.StartTimer();
+                        } else {
+                          _currMeal.pauseTimer();
+                        }
+                      }),
+                    },
+                    tooltip: 'Start',
+                    child: _currMeal.isRunning
+                        ? (_currMeal.isFinished
+                            ? const Icon(Icons.restart_alt_rounded)
+                            : const Icon(Icons.pause))
+                        : const Icon(Icons.play_arrow),
+                    heroTag: "btn2",
+                  ),
+                ),
+                Visibility(
+                  visible: !_currMeal.isRunning,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: FloatingActionButton(
+                    onPressed: () => {
+                      setState(() {
+                        if (_currMeal.hasStarted) {
+                          _currMeal.restartTimer();
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TimerSelector(_currMeal)),
+                          );
+                        }
+                      }),
+                    },
+                    tooltip: 'Increment',
+                    heroTag: "btn3",
+                    child: _currMeal.hasStarted
+                        ? const Icon(Icons.restart_alt_rounded)
+                        : const Icon(Icons.add),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
+
+  // The callback function should always be a top-level function.
+
+}
+
+void startCallback() async {
+  // The setTaskHandler function must be called to handle the task in the background.
+  /* final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await _prefs;
+  int secondsElapsed = prefs.getInt('elapsed') ?? 0;*/
+  var testvar = await FlutterForegroundTask.getData<String>(key: "test");
+  FlutterForegroundTask.setTaskHandler(
+      FirstTaskHandler(MyApp.currElapsedSeconds));
+}
+
+class FirstTaskHandler extends TaskHandler {
+  int updateCount = 0;
+  int secondsElapsed = 0;
+
+  FirstTaskHandler(this.secondsElapsed) {
+    updateCount = 10;
+  }
+
+  @override
+  Future<void> onStart(DateTime timestamp, SendPort? sendPort) async {
+    //final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    //final SharedPreferences prefs = await _prefs;
+    //secondsElapsed = prefs.getInt('elapsed') ?? 0;
+  }
+
+  @override
+  Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
+    String notificationText = "";
+
+    try {
+      Duration elapsed = Duration(seconds: secondsElapsed + updateCount);
+      notificationText = elapsed.toString();
+    } catch (error) {
+      print("ERROR");
+    }
+
+    FlutterForegroundTask.updateService(
+        notificationTitle: 'FirstTaskHandler',
+        notificationText: secondsElapsed.toString(),
+        callback: updateCount >= 1000 ? updateCallback : null);
+
+    // Send data to the main isolate.
+    sendPort?.send(timestamp);
+    sendPort?.send(updateCount);
+
+    //group?.onUpdate();
+
+    int p = 0;
+    NotificationManager.displayProgress(
+      "Cooking",
+      "_timer",
+      p,
+    );
+
+    if (updateCount > 10) {
+      //FlutterForegroundTask.wakeUpScreen();
+    }
+
+    updateCount++;
+  }
+
+  @override
+  Future<void> onDestroy(DateTime timestamp) async {}
+}
+
+void updateCallback() {
+  FlutterForegroundTask.setTaskHandler(SecondTaskHandler());
+}
+
+class SecondTaskHandler extends TaskHandler {
+  @override
+  Future<void> onStart(DateTime timestamp, SendPort? sendPort) async {}
+
+  @override
+  Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
+    FlutterForegroundTask.updateService(
+        notificationTitle: 'SecondTaskHandler',
+        notificationText: timestamp.toString());
+
+    // Send data to the main isolate.
+    sendPort?.send(timestamp);
+  }
+
+  @override
+  Future<void> onDestroy(DateTime timestamp) async {}
 }

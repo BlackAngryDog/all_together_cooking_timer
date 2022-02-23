@@ -50,7 +50,7 @@ class TimerHomeState extends State<TimerHome> {
     }
 
     if (_sfxOpen == true && !SoundManager.isPlaying) _sfxOpen = false;
-
+    return;
     NotificationManager.displayProgress(
       "Cooking",
       _timer,
