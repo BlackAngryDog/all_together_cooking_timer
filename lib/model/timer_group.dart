@@ -293,8 +293,8 @@ class TimerGroup {
       i.updateTimer(increment);
     }
     _dateTime = DateTime.now();
-    MyApp.currElapsedSeconds = elapsed.inSeconds;
-    print(MyApp.currElapsedSeconds);
+    //MyApp.currElapsedSeconds = elapsed.inSeconds;
+    //print(MyApp.currElapsedSeconds);
     saveState();
 
     onUpdate();
