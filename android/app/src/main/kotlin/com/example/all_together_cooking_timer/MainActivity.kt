@@ -76,6 +76,7 @@ class MainActivity: FlutterActivity() {
                 }else{
                     println("APP IS NOT RUNNING " + processInfo.pid);
                     moveToFront();
+                    //activityManager.moveTaskToFront(processInfo.pid, ActivityManager.MOVE_TASK_WITH_HOME);
                 }
             }
         }
