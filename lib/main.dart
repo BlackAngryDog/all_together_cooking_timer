@@ -3,6 +3,8 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
+
 import 'package:all_together_cooking_timer/TestForground.dart';
 import 'package:all_together_cooking_timer/firebase_config.dart';
 import 'package:all_together_cooking_timer/model/timer.dart';
@@ -10,9 +12,11 @@ import 'package:all_together_cooking_timer/model/timer_dao.dart';
 import 'package:all_together_cooking_timer/pages/timer_list_page.dart';
 import 'package:all_together_cooking_timer/utils/format_duration.dart';
 import 'package:all_together_cooking_timer/utils/notification_manager.dart';
+import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 import 'package:all_together_cooking_timer/widgets/timer_list.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutterfire_ui/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,11 +26,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_background/flutter_background.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
+import 'package:device_apps/device_apps.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 /// The name associated with the UI isolate's [SendPort].
 const String isolateName = 'isolate';
 
 /// A port used to communicate from a background isolate to the UI isolate.
 final ReceivePort port = ReceivePort();
+const batteryChannel =
+    MethodChannel('com.blackAngryDog.allTogetherTimer/battery');
 
 //void main() => runApp(const ExampleApp());
 
@@ -230,6 +239,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  String _batteryLevel = 'Unknown battery level.';
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final result = await batteryChannel.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -262,6 +286,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           resPrefix: ResourcePrefix.ic,
           name: 'launcher',
         ),
+        buttons: [
+          const NotificationButton(id: 'sendButton', text: 'Send'),
+          const NotificationButton(id: 'testButton', text: 'Test'),
+        ],
       ),
       iosNotificationOptions: const IOSNotificationOptions(
         showNotification: true,
@@ -269,7 +297,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       ),
       foregroundTaskOptions: const ForegroundTaskOptions(
         interval: 1000,
-        autoRunOnBoot: false,
+        autoRunOnBoot: true,
         allowWifiLock: false,
       ),
       printDevLog: false,
@@ -282,7 +310,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+          title: Text(_batteryLevel),
         ),
         body: Column(
           children: [
@@ -325,6 +353,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: FloatingActionButton(
                     onPressed: () => {
                       setState(() {
+                        // DeviceApps.openAppSettings(
+                        //    'com.blackAngryDog.allTogetherTimer');
+                        // _getBatteryLevel();
                         if (_currMeal.isFinished) {
                           _currMeal.restartTimer();
                         } else if (!_currMeal.isRunning) {
@@ -399,6 +430,11 @@ class FirstTaskHandler extends TaskHandler {
   late Duration elapsed = Duration.zero;
   late Duration total = Duration.zero;
 
+  // static const batteryChannel =
+  //    MethodChannel('com.blackAngryDog.allTogetherTimer/battery');
+
+  bool hasPlayedSound = false;
+
   @override
   Future<void> onStart(DateTime timestamp, SendPort? sendPort) async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -437,11 +473,34 @@ class FirstTaskHandler extends TaskHandler {
     // Send data to the main isolate.
     sendPort?.send(timestamp);
     // TODO - PLAY SOUNDS - ON EVENTS?
+    print("progresssss : $progress ${SoundManager.isPlaying}");
+    if (!hasPlayedSound && !SoundManager.isPlaying && progress >= 100) {
+      SoundManager.play();
+      hasPlayedSound = true;
+      //DeviceApps.openApp('com.blackAngryDog.allTogetherTimer');
+      //FlutterForegroundTask.wakeUpScreen();
+    }
     // TODO SETUP BUTTONS - HIDE?
+  }
+
+  void onButtonPressed(String id) async {
+    print("stop : ");
+    SoundManager.stop();
+    hasPlayedSound = true;
+    FlutterForegroundTask.stopService();
+
+    // Intent intent = Intent;
+
+    //   ..action = 'android.intent.action.VIEW'
+    //  ..url = 'http://flutter.io/';
+    //activity.startActivity(intent);
+
+    final result = await batteryChannel.invokeMethod('getBatteryLevel');
   }
 
   @override
   Future<void> onDestroy(DateTime timestamp) async {
+    SoundManager.stop();
     await FlutterForegroundTask.clearAllData();
   }
 }

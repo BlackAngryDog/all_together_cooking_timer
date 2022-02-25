@@ -186,7 +186,7 @@ class TimerItem {
     Duration timeToStart = (_delayStart - elapsed);
     Duration timeToEndCook = (_delayStart + runTime - elapsed);
     Duration timeToEndRest = _delayStart + runTime + restTime - elapsed;
-
+/*
     if (timeToStart > Duration.zero &&
         timeToStart < prewarn &&
         !SoundManager.isPlaying) SoundManager.play();
@@ -196,7 +196,7 @@ class TimerItem {
     if (timeToEndRest > Duration.zero &&
         timeToEndRest < prewarn &&
         !SoundManager.isPlaying) SoundManager.play();
-
+*/
     if (nextStatus != status) {
       // TODO - pause this timer if set to do so and show continue button.
       //if (nextStatus == CookStatus.cooking) {

@@ -1,7 +1,6 @@
 import 'package:all_together_cooking_timer/model/timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 
 class EditTimer extends StatefulWidget {
   final Function(TimerItem timer) onAddTimer;
@@ -33,38 +32,6 @@ class _EditTimerState extends State<EditTimer> {
     setState(() {
       widget.item.runTime = time;
     });
-  }
-
-  showPickerNumber(BuildContext context) {
-    Picker(
-        adapter: NumberPickerAdapter(data: [
-          NumberPickerColumn(
-            begin: 0,
-            end: 12,
-            suffix: Text(' h'),
-          ),
-          NumberPickerColumn(
-            begin: 0,
-            end: 60,
-            suffix: Text(' m'),
-          ),
-          NumberPickerColumn(
-            begin: 0,
-            end: 60,
-            suffix: Text(' s'),
-          ),
-        ]),
-        hideHeader: false,
-        height: 300,
-        itemExtent: 20,
-        magnification: 3,
-        textAlign: TextAlign.start,
-        title: Text("Please Select"),
-        selectedTextStyle: TextStyle(color: Colors.blue),
-        onConfirm: (Picker picker, List value) {
-          print(value.toString());
-          print(picker.getSelectedValues());
-        }).showModal(context);
   }
 
   void _showTimerPicker(

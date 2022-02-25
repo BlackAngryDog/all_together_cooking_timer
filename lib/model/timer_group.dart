@@ -297,6 +297,10 @@ class TimerGroup {
     //print(MyApp.currElapsedSeconds);
     saveState();
 
+    if (!SoundManager.isPlaying && getProgress() >= 0) {
+      //SoundManager.play();
+    }
+
     onUpdate();
   }
 

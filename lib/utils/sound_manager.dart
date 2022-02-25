@@ -4,7 +4,7 @@ class SoundManager {
   static bool isPlaying = false;
 
   static void play() {
-    return;
+    print("play shound");
     isPlaying = true;
     FlutterRingtonePlayer.play(
       android: AndroidSounds.alarm,
