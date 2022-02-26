@@ -5,6 +5,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import android.os.AsyncTask
 import android.app.ActivityManager
+
 import android.content.Context
 
 
@@ -20,7 +21,8 @@ class MainActivity: FlutterActivity() {
             call, result ->
 
             if (true) {
-                GetWeatherTask(this).execute();
+                var delay = call.argument<int>("time_left") ;
+                GetWeatherTask(this, delay).execute();
 
                // FlutterActivity.createDefaultIntent(this)
 
@@ -75,7 +77,8 @@ class MainActivity: FlutterActivity() {
                     return true;
                 }else{
                     println("APP IS NOT RUNNING " + processInfo.pid);
-                    moveToFront();
+                    activityManager.moveTaskToFront(context.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+                    //moveToFront();
                     //activityManager.moveTaskToFront(processInfo.pid, ActivityManager.MOVE_TASK_WITH_HOME);
                 }
             }
@@ -86,7 +89,10 @@ class MainActivity: FlutterActivity() {
 
     protected fun moveToFront() {
 
-            val activityManager: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            //val activityManager: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+
+        //activityManager.moveTaskToFront(activity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+        /*
             val recentTasks: List<RunningTaskInfo> = activityManager.getRunningTasks(Integer.MAX_VALUE)
             for (i in 0 until recentTasks.size()) {
                 Log.d("Executed app", ("Application executed : "
@@ -98,15 +104,17 @@ class MainActivity: FlutterActivity() {
                 }
             }
 
+         */
+
     }
 
-    class GetWeatherTask(activity:MainActivity) : AsyncTask<Unit, Unit, String>() {
+    class GetWeatherTask(activity:MainActivity, int delay) : AsyncTask<Unit, Unit, String>() {
 
 
         var activity: MainActivity = activity;
         override fun doInBackground(vararg params: Unit?): String? {
-            println("hello ")
-            Thread.sleep(15000)
+            println("start background - delay  " + delay);
+            Thread.sleep(delay*1000);
             return null
         }
 

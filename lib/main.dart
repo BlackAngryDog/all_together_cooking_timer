@@ -206,6 +206,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // TODO - CAN I ADD AND CANCEL NOTIFICATIONS HERE TO STOP POPUPS WHILE APP OPEN
     if (nextState) {
       NotificationManager.stopAllNotifications();
+      FlutterForegroundTask.stopService();
     } else if (!nextState && NotificationManager.isInForeground) {
       _currMeal.initialiseNotifications();
     }
@@ -230,7 +231,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Future<void> _getBatteryLevel() async {
     String batteryLevel;
     try {
-      final result = await batteryChannel.invokeMethod('getBatteryLevel');
+      Duration timeLeft = _currMeal.getTotalTimeLeft();
+      final result = await batteryChannel.invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
       batteryLevel = 'Battery level at $result % .';
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";
@@ -438,8 +440,8 @@ class FirstTaskHandler extends TaskHandler {
     sendPort?.send(timestamp);
     // TODO - PLAY SOUNDS - ON EVENTS?
     print("progresssss : $progress ${SoundManager.isPlaying}");
-    if (!hasPlayedSound && !SoundManager.isPlaying && progress >= 100) {
-      //SoundManager.play();
+    if (!hasPlayedSound && !SoundManager.isPlaying && progress >= 0) {
+      SoundManager.play();
       hasPlayedSound = true;
       //DeviceApps.openApp('com.blackAngryDog.allTogetherTimer');
       //FlutterForegroundTask.wakeUpScreen();
@@ -464,6 +466,7 @@ class FirstTaskHandler extends TaskHandler {
 
   @override
   Future<void> onDestroy(DateTime timestamp) async {
+    print("stop service: ");
     SoundManager.stop();
     await FlutterForegroundTask.clearAllData();
   }
