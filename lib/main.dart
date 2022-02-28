@@ -29,55 +29,28 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// The name associated with the UI isolate's [SendPort].
-const String isolateName = 'isolate';
-
-/// A port used to communicate from a background isolate to the UI isolate.
-final ReceivePort port = ReceivePort();
-const batteryChannel = MethodChannel('com.blackAngryDog.allTogetherTimer/battery');
+const batteryChannel =
+    MethodChannel('com.blackAngryDog.allTogetherTimer/battery');
 
 //void main() => runApp(const ExampleApp());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(name: 'att', options: DefaultFirebaseConfig.platformOptions);
+    await Firebase.initializeApp(
+        name: 'att', options: DefaultFirebaseConfig.platformOptions);
   } else {
     Firebase.app();
   }
   // FacebookSdk.sdkInitialize();
   FirebaseDatabase.instance.goOnline();
 
-  IsolateNameServer.registerPortWithName(
-    port.sendPort,
-    isolateName,
-  );
-
-  final androidConfig = FlutterBackgroundAndroidConfig(
-    notificationTitle: "flutter_background example app",
-    notificationText: "Background notification for keeping the example app running in the background",
-    notificationImportance: AndroidNotificationImportance.Default,
-    notificationIcon: AndroidResource(name: 'ic_launcher', defType: 'drawable'), // Default is ic_launcher from folder mipmap
-  );
-  bool success = await FlutterBackground.initialize(androidConfig: androidConfig);
-  //FlutterBackground.enableBackgroundExecution();
   runApp(const MyApp());
-  int helloAlarmID = 0;
-}
-
-void printHello() {
-  final DateTime now = DateTime.now();
-  final int isolateId = Isolate.current.hashCode;
-  print("[$now] Hello, world! isolate=${isolateId} function='$printHello'");
-  //NotificationManager.displayDelayedFullscreen(
-  //    Duration(seconds: 20), "test wakup", "test wakup message");
-
-  NotificationManager.displayFullscreen("test", "update");
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  static int currElapsedSeconds = 0;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -104,7 +77,11 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey).copyWith(primary: Colors.blueGrey[300], secondary: Colors.teal[200], brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
+            .copyWith(
+                primary: Colors.blueGrey[300],
+                secondary: Colors.teal[200],
+                brightness: Brightness.light),
       ),
       home: const AuthGate(),
     );
@@ -152,10 +129,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
 
-    // Register for events from the background isolate. These messages will
-    // always coincide with an alarm firing.
-    port.listen((_) async => await _incrementCounter());
-
     WidgetsBinding.instance!.addObserver(this);
 
     loadData();
@@ -163,27 +136,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     NotificationManager.initNotifications();
   }
 
-  Future<void> _incrementCounter() async {
-    NotificationManager.displayFullscreen("test", "increment");
-  }
-
-  // The background
-  static SendPort? uiSendPort;
-
-  // The callback for our alarm
-  static Future<void> callback() async {
-    // This will be null if we're running in the background.
-    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
-    uiSendPort?.send(null);
-
-    NotificationManager.displayFullscreen("test", "callback");
-  }
-
   Future<void> loadData() async {
     var data = await TimerDao().getTimerGroupQuery().get();
     var dataList = data.children.toList();
 
-    _currMeal = dataList.isEmpty ? TimerGroup() : TimerGroup.fromJson(dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
+    _currMeal = dataList.isEmpty
+        ? TimerGroup()
+        : TimerGroup.fromJson(
+            dataList.first.key, dataList.first.value as Map<dynamic, dynamic>);
 
     await _currMeal.loadTimers();
     await _currMeal.loadState();
@@ -211,11 +171,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       _currMeal.initialiseNotifications();
     }
 
-    //print('state = ${state.toString()}');
-    //NotificationManager.stopAllNotifications();
-    //NotificationManager.displayDelayedFullscreen(const Duration(seconds: 20),
-    //   "wake app", "tap to wake ${state.toString()}");
-
     NotificationManager.isInForeground = nextState;
 
     super.didChangeAppLifecycleState(state);
@@ -232,7 +187,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     String batteryLevel;
     try {
       Duration timeLeft = _currMeal.getTotalTimeLeft();
-      final result = await batteryChannel.invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
+      final result = await batteryChannel
+          .invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
       batteryLevel = 'Battery level at $result % .';
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";
@@ -255,15 +211,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return WillStartForegroundTask(
       onWillStart: () async {
         // Return whether to start the foreground service.
-        await FlutterForegroundTask.saveData(key: "total_time", value: _currMeal.getTotalTime().inSeconds);
-        await FlutterForegroundTask.saveData(key: "curr_elapsed", value: _currMeal.elapsed.inSeconds);
 
+        await FlutterForegroundTask.saveData(
+            key: "total_time", value: _currMeal.getTotalTime().inSeconds);
+        await FlutterForegroundTask.saveData(
+            key: "curr_elapsed", value: _currMeal.elapsed.inSeconds);
+        // TRIGGER WAKE UP - WIP
+        //Duration timeLeft = _currMeal.getTotalTimeLeft();
+        //final result = await batteryChannel
+        //     .invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
+        _getBatteryLevel();
+        print("will start ${_currMeal.isRunning}");
         return _currMeal.isRunning;
       },
       androidNotificationOptions: AndroidNotificationOptions(
         channelId: '0',
         channelName: 'Foreground Notification',
-        channelDescription: 'This notification appears when the foreground service is running.',
+        channelDescription:
+            'This notification appears when the foreground service is running.',
         channelImportance: NotificationChannelImportance.LOW,
         visibility: NotificationVisibility.VISIBILITY_PUBLIC,
         priority: NotificationPriority.DEFAULT,
@@ -273,8 +238,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           name: 'launcher',
         ),
         buttons: [
-          const NotificationButton(id: 'sendButton', text: 'Send'),
-          const NotificationButton(id: 'testButton', text: 'Test'),
+          const NotificationButton(id: 'sendButton', text: 'Dismiss'),
         ],
       ),
       iosNotificationOptions: const IOSNotificationOptions(
@@ -296,11 +260,16 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text(_batteryLevel),
+          title: Text("All Togther Timer"),
         ),
         body: Column(
           children: [
-            _finishedLoading ? TimerHome(_currMeal, key: timerHomeKey) : SizedBox(width: double.infinity, height: MediaQuery.of(context).size.height / 2, child: Center(child: CircularProgressIndicator())),
+            _finishedLoading
+                ? TimerHome(_currMeal, key: timerHomeKey)
+                : SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: Center(child: CircularProgressIndicator())),
           ],
         ),
         floatingActionButton: Card(
@@ -336,7 +305,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       setState(() {
                         // DeviceApps.openAppSettings(
                         //    'com.blackAngryDog.allTogetherTimer');
-                        _getBatteryLevel();
+
                         if (_currMeal.isFinished) {
                           _currMeal.restartTimer();
                         } else if (!_currMeal.isRunning) {
@@ -347,7 +316,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       }),
                     },
                     tooltip: 'Start',
-                    child: _currMeal.isRunning ? (_currMeal.isFinished ? const Icon(Icons.restart_alt_rounded) : const Icon(Icons.pause)) : const Icon(Icons.play_arrow),
+                    child: _currMeal.isRunning
+                        ? (_currMeal.isFinished
+                            ? const Icon(Icons.restart_alt_rounded)
+                            : const Icon(Icons.pause))
+                        : const Icon(Icons.play_arrow),
                     heroTag: "btn2",
                   ),
                 ),
@@ -364,14 +337,17 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                         } else {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TimerSelector(_currMeal)),
+                            MaterialPageRoute(
+                                builder: (context) => TimerSelector(_currMeal)),
                           );
                         }
                       }),
                     },
                     tooltip: 'Increment',
                     heroTag: "btn3",
-                    child: _currMeal.hasStarted ? const Icon(Icons.restart_alt_rounded) : const Icon(Icons.add),
+                    child: _currMeal.hasStarted
+                        ? const Icon(Icons.restart_alt_rounded)
+                        : const Icon(Icons.add),
                   ),
                 ),
               ],
@@ -387,10 +363,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 }
 
 void startCallback() async {
-  // The setTaskHandler function must be called to handle the task in the background.
-  /* final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  final SharedPreferences prefs = await _prefs;
-  int secondsElapsed = prefs.getInt('elapsed') ?? 0;*/
   WidgetsFlutterBinding.ensureInitialized();
   FlutterForegroundTask.setTaskHandler(FirstTaskHandler());
 }
@@ -415,10 +387,12 @@ class FirstTaskHandler extends TaskHandler {
     final SharedPreferences prefs = await _prefs;
     final int time = (prefs.getInt('start_time') ?? 0);
 
-    startTime = time == 0 ? DateTime.now() : DateTime.fromMicrosecondsSinceEpoch(time);
+    startTime =
+        time == 0 ? DateTime.now() : DateTime.fromMicrosecondsSinceEpoch(time);
     secondsElapsed = prefs.getInt('elapsed') ?? 0;
 
-    totalTime = await FlutterForegroundTask.getData<int>(key: "total_time") ?? 0;
+    totalTime =
+        await FlutterForegroundTask.getData<int>(key: "total_time") ?? 0;
     elapsed = Duration(seconds: secondsElapsed);
     total = Duration(seconds: totalTime);
     // WidgetsFlutterBinding.ensureInitialized();
@@ -427,67 +401,39 @@ class FirstTaskHandler extends TaskHandler {
   @override
   Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
     Duration increment = timestamp.difference(startTime);
-    //elapsed += increment;
-    int progress = total.inMilliseconds == 0 ? 0 : (((elapsed + increment).inMilliseconds / total.inMilliseconds) * 100).round();
 
-    String notificationText = FormatDuration.format(total - (elapsed + increment));
+    int progress = total.inMilliseconds == 0
+        ? 0
+        : (((elapsed + increment).inMilliseconds / total.inMilliseconds) * 100)
+            .round();
 
-    //notificationText = group?.getTotalTimeLeft()?.toString()!
+    String notificationText =
+        FormatDuration.format(total - (elapsed + increment));
 
-    FlutterForegroundTask.updateService(notificationTitle: 'AllTogetherTimer', notificationText: notificationText);
+    FlutterForegroundTask.updateService(
+        notificationTitle: 'AllTogetherTimer',
+        notificationText: notificationText);
 
     // Send data to the main isolate.
     sendPort?.send(timestamp);
+
     // TODO - PLAY SOUNDS - ON EVENTS?
-    print("progresssss : $progress ${SoundManager.isPlaying}");
-    if (!hasPlayedSound && !SoundManager.isPlaying && progress >= 0) {
+    if (!hasPlayedSound && !SoundManager.isPlaying && progress >= 100) {
       SoundManager.play();
       hasPlayedSound = true;
-      //DeviceApps.openApp('com.blackAngryDog.allTogetherTimer');
-      //FlutterForegroundTask.wakeUpScreen();
     }
-    // TODO SETUP BUTTONS - HIDE?
+
+    // TODO - AFTER 10 SECONDS ? KILL ALARM
   }
 
   void onButtonPressed(String id) async {
-    print("stop : ");
-    //SoundManager.stop();
-    //hasPlayedSound = true;
+    SoundManager.stop();
     FlutterForegroundTask.stopService();
-
-    // Intent intent = Intent;
-
-    //   ..action = 'android.intent.action.VIEW'
-    //  ..url = 'http://flutter.io/';
-    //activity.startActivity(intent);
-
-    final result = await batteryChannel.invokeMethod('getBatteryLevel');
   }
 
   @override
   Future<void> onDestroy(DateTime timestamp) async {
-    print("stop service: ");
     SoundManager.stop();
     await FlutterForegroundTask.clearAllData();
   }
-}
-
-void updateCallback() {
-  FlutterForegroundTask.setTaskHandler(SecondTaskHandler());
-}
-
-class SecondTaskHandler extends TaskHandler {
-  @override
-  Future<void> onStart(DateTime timestamp, SendPort? sendPort) async {}
-
-  @override
-  Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
-    FlutterForegroundTask.updateService(notificationTitle: 'SecondTaskHandler', notificationText: timestamp.toString());
-
-    // Send data to the main isolate.
-    sendPort?.send(timestamp);
-  }
-
-  @override
-  Future<void> onDestroy(DateTime timestamp) async {}
 }

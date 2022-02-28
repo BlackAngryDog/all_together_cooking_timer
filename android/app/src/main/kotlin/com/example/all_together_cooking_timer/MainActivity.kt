@@ -21,7 +21,8 @@ class MainActivity: FlutterActivity() {
             call, result ->
 
             if (true) {
-                var delay = call.argument<int>("time_left") ;
+                var delay = call.argument<Int?>("time_left") ?: 0;
+                println("APP CALLED DELEY $delay");
                 GetWeatherTask(this, delay).execute();
 
                // FlutterActivity.createDefaultIntent(this)
@@ -108,13 +109,15 @@ class MainActivity: FlutterActivity() {
 
     }
 
-    class GetWeatherTask(activity:MainActivity, int delay) : AsyncTask<Unit, Unit, String>() {
+    class GetWeatherTask(activity:MainActivity, delay:Int?) : AsyncTask<Unit, Unit, String>() {
 
 
         var activity: MainActivity = activity;
+        var delay: Int =  delay ?: 0 ;
         override fun doInBackground(vararg params: Unit?): String? {
             println("start background - delay  " + delay);
-            Thread.sleep(delay*1000);
+
+                Thread.sleep(delay.toLong()*1000);
             return null
         }
 
