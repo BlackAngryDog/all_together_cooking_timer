@@ -59,12 +59,16 @@ class TimerItem {
 
   //num get remainingTime => 0;
 
-  Duration get totalRunTime {
+  Duration get totalCookTime {
     Duration value = Duration.zero;
     for (Duration d in run_times.values) {
       value += d;
     }
-    return value + delayStart;
+    return value;
+  }
+
+  Duration get totalRunTime {
+    return totalCookTime + delayStart;
   }
 
   bool paused = false;

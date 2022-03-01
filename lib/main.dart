@@ -182,21 +182,15 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  String _batteryLevel = 'Unknown battery level.';
-  Future<void> _getBatteryLevel() async {
-    String batteryLevel;
+  Future<void> _setWakeApp() async {
     try {
+      print("Called Set Wake");
       Duration timeLeft = _currMeal.getTotalTimeLeft();
       final result = await batteryChannel
           .invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
-      batteryLevel = 'Battery level at $result % .';
     } on PlatformException catch (e) {
-      batteryLevel = "Failed to get battery level: '${e.message}'.";
+      throw Error();
     }
-
-    setState(() {
-      _batteryLevel = batteryLevel;
-    });
   }
 
   @override
@@ -211,17 +205,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return WillStartForegroundTask(
       onWillStart: () async {
         // Return whether to start the foreground service.
-
-        await FlutterForegroundTask.saveData(
-            key: "total_time", value: _currMeal.getTotalTime().inSeconds);
-        await FlutterForegroundTask.saveData(
-            key: "curr_elapsed", value: _currMeal.elapsed.inSeconds);
-        // TRIGGER WAKE UP - WIP
-        //Duration timeLeft = _currMeal.getTotalTimeLeft();
-        //final result = await batteryChannel
-        //     .invokeMethod('getBatteryLevel', {'time_left': timeLeft.inSeconds});
-        _getBatteryLevel();
-        print("will start ${_currMeal.isRunning}");
+        if (_currMeal.isRunning) {
+          await FlutterForegroundTask.saveData(
+              key: "total_time", value: _currMeal.getTotalTime().inSeconds);
+          await FlutterForegroundTask.saveData(
+              key: "curr_elapsed", value: _currMeal.elapsed.inSeconds);
+          _setWakeApp();
+          print("will start ${_currMeal.isRunning}");
+        }
         return _currMeal.isRunning;
       },
       androidNotificationOptions: AndroidNotificationOptions(
@@ -231,7 +222,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             'This notification appears when the foreground service is running.',
         channelImportance: NotificationChannelImportance.LOW,
         visibility: NotificationVisibility.VISIBILITY_PUBLIC,
-        priority: NotificationPriority.DEFAULT,
+        priority: NotificationPriority.HIGH,
+        playSound: true,
         iconData: NotificationIconData(
           resType: ResourceType.mipmap,
           resPrefix: ResourcePrefix.ic,

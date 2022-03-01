@@ -107,7 +107,7 @@ class TimerGroup {
 
   void sortTimers() {
     // Sort items by duration, assign start delay
-    _ingredients.sort((a, b) => b.totalRunTime.compareTo(a.totalRunTime));
+    _ingredients.sort((a, b) => b.totalCookTime.compareTo(a.totalCookTime));
     Duration max = getTotalTime();
     for (TimerItem i in _ingredients) {
       i.setDelay(max);
@@ -210,11 +210,12 @@ class TimerGroup {
     if (_ingredients.isEmpty) return maxTime;
 
     for (TimerItem i in _ingredients) {
-      Duration runtime = i.totalRunTime;
+      Duration runtime = i.totalCookTime;
 
-      //print("runtime is ${i.title} $runtime");
+      // print("runtime is ${i.title} $runtime");
       if (maxTime < runtime) maxTime = runtime;
     }
+    //print("maxtime is $maxTime");
     return maxTime;
   }
 
@@ -315,12 +316,19 @@ class TimerGroup {
       events.addAll(timer.getEvents());
     }
     // SORT & FILTER EVENT LIST AND COMBINE
+    events.sort((a, b) => a.eventTime.compareTo(b.eventTime));
 
     // SCHEDULE EVENTS
-    for (TimerEvent event in events) {
+    for (var i = 0; i < events.length; i++) {
       // BUILD EVENT LIST
+      TimerEvent event = events[i];
+      Duration? timeToNext = i < events.length - 1
+          ? events[i + 1].eventTime - event.eventTime
+          : null;
+
       NotificationManager.displayDelayedFullscreen(event.eventTime,
-          event.item.title, "${event.eventName}  ${event.item.title}");
+          event.item.title, "${event.eventName}  ${event.item.title}",
+          timeout: timeToNext);
     }
     NotificationManager.displayDelayedFullscreen(
         getTotalTimeLeft(), "FINISHED", "All FINISHED");

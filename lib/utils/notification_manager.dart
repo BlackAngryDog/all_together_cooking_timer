@@ -180,12 +180,13 @@ class NotificationManager {
   }
 
   static Future<int> displayDelayedFullscreen(
-      Duration delay, String title, String message) async {
+      Duration delay, String title, String message,
+      {Duration? timeout}) async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
     print(
-        "setting notification for $title to $message in ${FormatDuration.format(delay)}");
+        "setting notification for $title to $message in ${FormatDuration.format(delay)} timeout in ${FormatDuration.format(timeout ?? Duration.zero)}");
 
     tz.initializeTimeZones();
     final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
@@ -213,7 +214,9 @@ class NotificationManager {
           groupAlertBehavior: GroupAlertBehavior.all,
           setAsGroupSummary: true,
           showWhen: false,
+          ongoing: true,
           when: whenTime.millisecondsSinceEpoch,
+          timeoutAfter: timeout?.inMilliseconds,
         )),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:

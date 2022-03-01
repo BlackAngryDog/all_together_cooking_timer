@@ -5,6 +5,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import android.os.AsyncTask
 import android.app.ActivityManager
+//import android.app.ActivityManager.RunningAppProcessInfo
 
 import android.content.Context
 
@@ -23,7 +24,7 @@ class MainActivity: FlutterActivity() {
             if (true) {
                 var delay = call.argument<Int?>("time_left") ?: 0;
                 println("APP CALLED DELEY $delay");
-                GetWeatherTask(this, delay).execute();
+                StartAppTask(this, delay).execute();
 
                // FlutterActivity.createDefaultIntent(this)
 
@@ -73,14 +74,17 @@ class MainActivity: FlutterActivity() {
         activityManager.runningAppProcesses?.apply {
             for (processInfo in this) {
 
-                if (processInfo.processName == packageName && processInfo.importance == 100) {
-                    println("APP IS RUNNING");
-                    return true;
-                }else{
-                    println("APP IS NOT RUNNING " + processInfo.pid);
-                    activityManager.moveTaskToFront(context.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-                    //moveToFront();
-                    //activityManager.moveTaskToFront(processInfo.pid, ActivityManager.MOVE_TASK_WITH_HOME);
+                if (processInfo.processName == packageName) {
+                    println("APP IMPORTANCE ${processInfo.importance}");
+                    if (processInfo.importance == 100) {
+                        println("APP IS RUNNING - DO NOTHING");
+                    } else {
+                        processInfo
+                        println("APP IS NOT RUNNING ");
+                        activityManager.moveTaskToFront(context.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+                        //moveToFront();
+                        //activityManager.moveTaskToFront(processInfo.pid, ActivityManager.MOVE_TASK_WITH_HOME);
+                    }
                 }
             }
         }
@@ -88,50 +92,20 @@ class MainActivity: FlutterActivity() {
     }
 
 
-    protected fun moveToFront() {
-
-            //val activityManager: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-
-        //activityManager.moveTaskToFront(activity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-        /*
-            val recentTasks: List<RunningTaskInfo> = activityManager.getRunningTasks(Integer.MAX_VALUE)
-            for (i in 0 until recentTasks.size()) {
-                Log.d("Executed app", ("Application executed : "
-                        + recentTasks[i].baseActivity.toShortString()
-                        ) + "\t\t ID: " + recentTasks[i].id.toString() + "")
-                // bring to front
-                if (recentTasks[i].baseActivity.toShortString().indexOf("yourproject") > -1) {
-                    activityManager.moveTaskToFront(recentTasks[i].id, ActivityManager.MOVE_TASK_WITH_HOME)
-                }
-            }
-
-         */
-
-    }
-
-    class GetWeatherTask(activity:MainActivity, delay:Int?) : AsyncTask<Unit, Unit, String>() {
-
+    class StartAppTask(activity:MainActivity, delay:Int?) : AsyncTask<Unit, Unit, String>() {
 
         var activity: MainActivity = activity;
         var delay: Int =  delay ?: 0 ;
         override fun doInBackground(vararg params: Unit?): String? {
-            println("start background - delay  " + delay);
-
-                Thread.sleep(delay.toLong()*1000);
+            println("start background thread - delay  " + delay);
+            Thread.sleep(delay.toLong()*1000);
             return null
         }
 
-
-
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            //val intent = Intent(context, ChangePasswordActivity::class.java)
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            //context.startActivity(intent)
-            if (activity.isAppRunning(activity, "com.blackAngryDog.allTogetherTimer")) {
-                println("APP IS RUNNING")
-                return
-            };
+            println("check app running state");
+            activity.isAppRunning(activity, "com.blackAngryDog.allTogetherTimer");
             return;
             activity.startActivity(
                     FlutterActivity
