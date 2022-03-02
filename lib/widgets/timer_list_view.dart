@@ -24,6 +24,8 @@ class TimerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      elevation: 4,
       child: ListTile(
         title: Text(
           _timer.title,
@@ -33,7 +35,7 @@ class TimerListView extends StatelessWidget {
         ),
         trailing: _currMeal.hasStarted
             ? SizedBox(
-                width: 100,
+                width: 150,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,9 +48,15 @@ class TimerListView extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
+                        _currMeal.extendTimer(_timer, Duration(minutes: -1));
+                      },
+                      icon: const Icon(Icons.arrow_left),
+                    ),
+                    IconButton(
+                      onPressed: () {
                         _currMeal.extendTimer(_timer, Duration(minutes: 1));
                       },
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.arrow_right),
                     ),
                     Visibility(
                       visible: _timer.paused,

@@ -116,10 +116,12 @@ class TimerHomeState extends State<TimerHome> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
             elevation: 8,
-            margin: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(10),
             child: Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -143,6 +145,7 @@ class TimerHomeState extends State<TimerHome> {
           ),
           Container(
             height: 400,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: widget._currMeal.ingredients.isEmpty
                 ? Text("No Data")
                 : ListView.builder(
