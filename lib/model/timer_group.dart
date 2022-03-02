@@ -11,12 +11,10 @@ import 'package:all_together_cooking_timer/utils/sound_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // to Control our Stream
-StreamController timerGroupUpdateEvent =
-    StreamController<TimerGroup>.broadcast();
+StreamController timerGroupUpdateEvent = StreamController<TimerGroup>.broadcast();
 // this is our stream
 
-StreamController timerGroupOnAddedEvent =
-    StreamController<TimerGroup>.broadcast();
+StreamController timerGroupOnAddedEvent = StreamController<TimerGroup>.broadcast();
 
 class TimerGroup {
   String title = "Timer Group";
@@ -61,9 +59,7 @@ class TimerGroup {
     final int startTime = (prefs.getInt('start_time') ?? 0);
 
     _isRunning = prefs.getBool('is_running') ?? false;
-    _dateTime = startTime == 0
-        ? DateTime.now()
-        : DateTime.fromMicrosecondsSinceEpoch(startTime);
+    _dateTime = startTime == 0 ? DateTime.now() : DateTime.fromMicrosecondsSinceEpoch(startTime);
 
     // INCREMENT ELAP
 
@@ -81,8 +77,7 @@ class TimerGroup {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     prefs.setBool('is_running', _isRunning);
-    prefs.setInt(
-        'start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
+    prefs.setInt('start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
 
     for (TimerItem i in _ingredients) {
       await i.saveState();
@@ -124,8 +119,7 @@ class TimerGroup {
 
     MapEntry<String, Duration> nextState = timer.getCurrentState();
     if (nextState.key == 'Cook') {
-      timer.run_times[nextState.key] =
-          (timer.run_times[nextState.key] ?? Duration.zero) + amount;
+      timer.run_times[nextState.key] = (timer.run_times[nextState.key] ?? Duration.zero) + amount;
     } else {
       return;
     }
@@ -159,8 +153,7 @@ class TimerGroup {
     //  timer.run_times["Rest"] = (timer.run_times["Rest"] ?? Duration.zero) + offset;
     //}
     if (nextState.key == "Waiting" || nextState.key == "Prep") {
-      offset = (timer.delayStart + (timer.run_times["Prep"] ?? Duration.zero)) -
-          elapsed;
+      offset = (timer.delayStart + (timer.run_times["Prep"] ?? Duration.zero)) - elapsed;
       print("Skipping $offset");
       timer.delayStart = elapsed;
       timer.run_times["Prep"] = Duration.zero;
@@ -169,20 +162,24 @@ class TimerGroup {
     // TODO : Can we shuffle other items forward and bring cooking time down - then pass offset down to timer rest
 
     Duration otherOffset = getTotalTimeLeft() - currTimer;
-    print(
-        "otherOffset is $otherOffset from $currTimer to ${getTotalTimeLeft()}");
+    print("otherOffset is $otherOffset from $currTimer to ${getTotalTimeLeft()}");
 
     for (TimerItem otherTimer in _ingredients) {
       if (timer == otherTimer) continue;
 
       nextState = otherTimer.getCurrentState();
-      if (nextState.key == "Waiting" || nextState.key == "Prep") {
+      if (nextState.key == "Waiting") {
         // TOdo - should I only be skipping items with longer waits (i.e. waiting on this)
-        otherTimer.delayStart -= otherOffset;
+        if (otherTimer.delayStart >= offset)
+          otherTimer.delayStart -= offset;
+        else
+          otherTimer.delayStart = Duration.zero; // TODO - MIN CHECK?;
         //} else {
         //  otherTimer.run_times["Rest"] = (otherTimer.run_times["Rest"] ?? Duration.zero) + offset;
       }
     }
+
+    // Todo - Send update notifications.
     /*
     for (TimerItem otherTimer in _ingredients) {
       if (timer == otherTimer) continue;
@@ -235,8 +232,7 @@ class TimerGroup {
     //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
     nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
 
-    String nextText =
-        nextTimers.isEmpty ? "" : nextTimers[0].getNextTimerEvent();
+    String nextText = nextTimers.isEmpty ? "" : nextTimers[0].getNextTimerEvent();
 
     return nextText;
   }
@@ -248,9 +244,7 @@ class TimerGroup {
     //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
     nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
 
-    String nextText = nextTimers.isEmpty
-        ? ""
-        : FormatDuration.format(nextTimers[0].getNextTime());
+    String nextText = nextTimers.isEmpty ? "" : FormatDuration.format(nextTimers[0].getNextTime());
 
     return nextText;
   }
@@ -259,8 +253,7 @@ class TimerGroup {
     //_callBack = callBack;
     _isRunning = true;
     // TODO - will need to save state so can resume with correct time
-    NotificationManager.displayDelayedFullscreen(
-        getTotalTimeLeft(), "FINISHED", "FINISHED");
+    NotificationManager.displayDelayedFullscreen(getTotalTimeLeft(), "FINISHED", "FINISHED");
     //NotificationManager.displayUpdate("update ticker", "update", this);
     _dateTime = DateTime.now();
     for (TimerItem i in _ingredients) {
@@ -322,16 +315,11 @@ class TimerGroup {
     for (var i = 0; i < events.length; i++) {
       // BUILD EVENT LIST
       TimerEvent event = events[i];
-      Duration? timeToNext = i < events.length - 1
-          ? events[i + 1].eventTime - event.eventTime
-          : null;
+      Duration? timeToNext = i < events.length - 1 ? events[i + 1].eventTime - event.eventTime : null;
 
-      NotificationManager.displayDelayedFullscreen(event.eventTime,
-          event.item.title, "${event.eventName}  ${event.item.title}",
-          timeout: timeToNext);
+      NotificationManager.displayDelayedFullscreen(event.eventTime, event.item.title, "${event.eventName}  ${event.item.title}", timeout: timeToNext);
     }
-    NotificationManager.displayDelayedFullscreen(
-        getTotalTimeLeft(), "FINISHED", "All FINISHED");
+    NotificationManager.displayDelayedFullscreen(getTotalTimeLeft(), "FINISHED", "All FINISHED");
   }
 
   void pauseTimer() {
@@ -369,13 +357,11 @@ class TimerGroup {
   TimerGroup.fromJson(String? key, Map<dynamic, dynamic> json)
       : id = key,
         title = json['title'] as String,
-        _timersIds =
-            (jsonDecode(json['timers']) as List<dynamic>).cast<String>();
+        _timersIds = (jsonDecode(json['timers']) as List<dynamic>).cast<String>();
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'title': title,
-        'timers':
-            jsonEncode(_ingredients.map((entry) => "${entry.id}").toList()),
+        'timers': jsonEncode(_ingredients.map((entry) => "${entry.id}").toList()),
       };
 
   bool hasTimer(TimerItem timer) {
