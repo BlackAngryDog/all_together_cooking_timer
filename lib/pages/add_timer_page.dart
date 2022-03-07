@@ -54,11 +54,24 @@ class _AddTimerPageState extends State<AddTimerPage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TextFormField(
-              decoration: InputDecoration(hintText: 'Name'),
-              controller: titleController,
+            Card(
+              child: ListTile(
+                title: TextFormField(
+                  decoration: InputDecoration(hintText: 'Name'),
+                  controller: titleController,
+                ),
+                trailing: Checkbox(
+                  checkColor: Colors.white,
+                  value: widget.item.isStandAlone,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      widget.item.isStandAlone = value == true;
+                    });
+                  },
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

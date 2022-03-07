@@ -40,23 +40,32 @@ class TimerListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        _currMeal.skipTimer(_timer);
-                      },
-                      icon: const Icon(Icons.fast_forward),
+                    Visibility(
+                      visible: _timer.canSkip,
+                      child: IconButton(
+                        onPressed: () {
+                          _currMeal.skipTimer(_timer);
+                        },
+                        icon: const Icon(Icons.fast_forward),
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        _currMeal.extendTimer(_timer, Duration(minutes: -1));
-                      },
-                      icon: const Icon(Icons.arrow_left),
+                    Visibility(
+                      visible: _timer.canExtend,
+                      child: IconButton(
+                        onPressed: () {
+                          _currMeal.extendTimer(_timer, Duration(minutes: -1));
+                        },
+                        icon: const Icon(Icons.arrow_left),
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        _currMeal.extendTimer(_timer, Duration(minutes: 1));
-                      },
-                      icon: const Icon(Icons.arrow_right),
+                    Visibility(
+                      visible: _timer.canExtend,
+                      child: IconButton(
+                        onPressed: () {
+                          _currMeal.extendTimer(_timer, Duration(minutes: 1));
+                        },
+                        icon: const Icon(Icons.arrow_right),
+                      ),
                     ),
                     Visibility(
                       visible: _timer.paused,

@@ -157,17 +157,18 @@ class TimerGroup {
 
   void skipTimer(TimerItem timer) {
     // get time to next state
-    MapEntry<String, Duration> nextState = timer.getCurrentState();
-    Duration offset = nextState.value - elapsed;
-    // remove offset from curr state
-
-    Duration currTimer = getTotalTimeLeft();
 
     //if (nextState.key == "Prep") {
     //  timer.run_times[nextState.key] = (timer.run_times[nextState.key] ?? Duration.zero) - offset;
     //  timer.run_times["Rest"] = (timer.run_times["Rest"] ?? Duration.zero) + offset;
     //}
-    if (nextState.key == "Waiting" || nextState.key == "Prep") {
+    if (timer.canSkip) {
+      MapEntry<String, Duration> nextState = timer.getCurrentState();
+      Duration offset = nextState.value - elapsed;
+
+      // remove offset from curr state
+      Duration currTimer = getTotalTimeLeft();
+
       offset = (timer.delayStart + (timer.run_times["Prep"] ?? Duration.zero)) -
           elapsed;
       print("Skipping $offset");

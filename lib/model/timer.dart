@@ -27,6 +27,17 @@ class TimerItem {
   String title;
 
   Duration get runTime => run_times["Cook"] ?? Duration.zero;
+
+  get canSkip {
+    MapEntry<String, Duration> nextState = getCurrentState();
+    return nextState.key == "Waiting" || nextState.key == "Prep";
+  }
+
+  get canExtend {
+    MapEntry<String, Duration> nextState = getCurrentState();
+    return nextState.key == "Cooking";
+  }
+
   set runTime(Duration value) {
     times["Cook"] = value;
     initRunTimer();
@@ -85,6 +96,7 @@ class TimerItem {
   TimerItem.fromJson(String? key, Map<dynamic, dynamic> json)
       : id = key,
         title = json['title'] as String,
+        isStandAlone = json['isStandAlone'] ?? false,
         times = json['times'] != null
             ? Map<String, Duration>.from(
                 jsonDecode(json['times']).map((String name, dynamic seconds) {
@@ -94,6 +106,7 @@ class TimerItem {
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'title': title,
+        'isStandAlone': isStandAlone,
         'times': jsonEncode(times.map((String name, Duration duration) {
           return MapEntry(name, duration.inSeconds);
         })),
@@ -220,22 +233,6 @@ class TimerItem {
     paused = false;
     status = _getState();
     SoundManager.stop();
-  }
-
-  void skip() {
-    // get time to next state
-    MapEntry<String, Duration> nextState = getCurrentState();
-    Duration offset = nextState.value - elapsed;
-    // remove offset from curr state
-
-    if (nextState.key != "Rest") {
-      //_offset += offset;
-
-      run_times[nextState.key] =
-          (run_times[nextState.key] ?? Duration.zero) - offset;
-      run_times["Rest"] = (run_times["Rest"] ?? Duration.zero) + offset;
-    }
-    //_elapsed += offset;
   }
 
   MapEntry<String, Duration> getCurrentState() {
