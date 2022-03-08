@@ -35,7 +35,7 @@ class TimerItem {
 
   get canExtend {
     MapEntry<String, Duration> nextState = getCurrentState();
-    return nextState.key == "Cooking";
+    return nextState.key == "Cook";
   }
 
   set runTime(Duration value) {
@@ -62,9 +62,6 @@ class TimerItem {
   Duration _elapsed = Duration.zero;
 
   Duration get elapsed {
-    //if (_currStateName == 'Rest')
-    //   return _elapsed - _offset;
-    //else
     return _elapsed;
   }
 

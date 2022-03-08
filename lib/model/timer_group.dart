@@ -31,8 +31,8 @@ class TimerGroup {
   //final StreamController<int> updateStream = StreamController<int>.broadcast();
 
   TimerGroup();
-
-  Duration get elapsed => getElapsedTime();
+  Duration _elapsed = Duration.zero;
+  Duration get elapsed => _elapsed;
 
   //Function(TimerGroup _meal)? _callBack;
 
@@ -61,6 +61,7 @@ class TimerGroup {
     final int startTime = (prefs.getInt('start_time') ?? 0);
 
     _isRunning = prefs.getBool('is_running') ?? false;
+    _elapsed = Duration(milliseconds: prefs.getInt('_elapsed') ?? 0);
     _dateTime = startTime == 0
         ? DateTime.now()
         : DateTime.fromMicrosecondsSinceEpoch(startTime);
@@ -81,6 +82,7 @@ class TimerGroup {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     prefs.setBool('is_running', _isRunning);
+    prefs.setInt('_elapsed', _elapsed.inMilliseconds);
     prefs.setInt(
         'start_time', !_isRunning ? 0 : _dateTime.microsecondsSinceEpoch);
 
@@ -107,7 +109,8 @@ class TimerGroup {
 
   void sortTimers() {
     // Sort items by duration, assign start delay
-    _ingredients.sort((a, b) => b.totalCookTime.compareTo(a.totalCookTime));
+    _ingredients.sort((a, b) =>
+        b.isStandAlone ? 1 : b.totalCookTime.compareTo(a.totalCookTime));
     Duration max = getTotalTime();
     for (TimerItem i in _ingredients) {
       i.setDelay(max);
@@ -130,11 +133,13 @@ class TimerGroup {
       return;
     }
 
+    if (timer.isStandAlone) return;
+
     Duration offset = getTotalTimeLeft() - currTimer;
     print("offset is $offset from $currTimer to ${getTotalTimeLeft()}");
 
     for (TimerItem otherTimer in _ingredients) {
-      if (timer == otherTimer) continue;
+      if (timer == otherTimer || otherTimer.isStandAlone) continue;
 
       nextState = otherTimer.getCurrentState();
       if (nextState.key == "Waiting" || nextState.key == "Prep") {
@@ -156,12 +161,7 @@ class TimerGroup {
   }
 
   void skipTimer(TimerItem timer) {
-    // get time to next state
-
-    //if (nextState.key == "Prep") {
-    //  timer.run_times[nextState.key] = (timer.run_times[nextState.key] ?? Duration.zero) - offset;
-    //  timer.run_times["Rest"] = (timer.run_times["Rest"] ?? Duration.zero) + offset;
-    //}
+    // TODO - Can standalone skip ?
     if (timer.canSkip) {
       MapEntry<String, Duration> nextState = timer.getCurrentState();
       Duration offset = nextState.value - elapsed;
@@ -175,11 +175,13 @@ class TimerGroup {
       timer.delayStart = elapsed;
       timer.run_times["Prep"] = Duration.zero;
 
+      if (timer.isStandAlone) return;
+
       // TODO : Can we shuffle other items forward and bring cooking time down - then pass offset down to timer rest
 
       // TODO - ONLY SKIP THIS IF THE SKIIPED ITEM REDUCES OVERALL TIME (GET OFFSET AD A REDUCTION IN TOTAL TIME!)
       for (TimerItem otherTimer in _ingredients) {
-        if (timer == otherTimer) continue;
+        if (timer == otherTimer || otherTimer.isStandAlone) continue;
 
         nextState = otherTimer.getCurrentState();
         if (nextState.key == "Waiting") {
@@ -209,17 +211,17 @@ class TimerGroup {
     if (_ingredients.isEmpty) return maxTime;
 
     for (TimerItem i in _ingredients) {
-      Duration runtime = i.totalCookTime;
+      if (i.isStandAlone) continue;
 
-      // print("runtime is ${i.title} $runtime");
+      Duration runtime = i.totalCookTime;
       if (maxTime < runtime) maxTime = runtime;
     }
-    //print("maxtime is $maxTime");
+
     return maxTime;
   }
 
   Duration getElapsedTime() {
-    return _ingredients.isEmpty ? Duration.zero : _ingredients[0].elapsed;
+    return _elapsed;
   }
 
   Duration getTotalTimeLeft() {
@@ -230,7 +232,7 @@ class TimerGroup {
   String getNextAction() {
     // Work out what action is coming next and return action and duration
     List<TimerItem> nextTimers = List<TimerItem>.from(_ingredients);
-
+    nextTimers.removeWhere((element) => element.isStandAlone);
     //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
     nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
 
@@ -243,7 +245,7 @@ class TimerGroup {
   String getNextActionTime() {
     // Work out what action is coming next and return action and duration
     List<TimerItem> nextTimers = List<TimerItem>.from(_ingredients);
-
+    nextTimers.removeWhere((element) => element.isStandAlone);
     //GET NEXT ACTION BY SHORTEST DURATION TO NEXT EVENT
     nextTimers.sort((a, b) => a.getNextTime().compareTo(b.getNextTime()));
 
@@ -289,6 +291,8 @@ class TimerGroup {
 
   void _updateTick() {
     Duration increment = DateTime.now().difference(_dateTime);
+    _elapsed += increment;
+
     for (TimerItem i in _ingredients) {
       i.updateTimer(increment);
     }
@@ -346,6 +350,7 @@ class TimerGroup {
   }
 
   void restartTimer() {
+    _elapsed = Duration.zero;
     for (TimerItem i in _ingredients) {
       i.resetTimer();
     }
